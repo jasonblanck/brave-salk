@@ -1906,29 +1906,13 @@
       }
 
       static renderDashboardLevels() {
-        const currentUnlock = appState.unlockedLevel;
-
-        const updateCard = (cardId, levelNum) => {
+        ['card-l1', 'card-l2', 'card-l3', 'card-l4', 'card-l5', 'card-l6', 'card-l7'].forEach(cardId => {
           const card = document.getElementById(cardId);
           if (!card) return;
+          card.classList.remove('locked');
           const btn = card.querySelector('.level-play-btn');
-
-          if (currentUnlock >= levelNum) {
-            card.classList.remove('locked');
-            if (btn) btn.textContent = 'PLAY';
-          } else {
-            card.classList.add('locked');
-            if (btn) btn.textContent = '🔒 LOCKED';
-          }
-        };
-
-        updateCard('card-l1', 1);
-        updateCard('card-l2', 2);
-        updateCard('card-l3', 3);
-        updateCard('card-l4', 4);
-        updateCard('card-l5', 5);
-        updateCard('card-l6', 6);
-        updateCard('card-l7', 7);
+          if (btn && cardId !== 'card-l1') btn.textContent = 'PLAY';
+        });
       }
 
       static burstTriviaConfetti() {
@@ -3340,65 +3324,33 @@
       appState.mode = 'party';
     });
 
-    // Level Dashboard Card Listeners with Unlock Checks for 7 Levels
+    // Level Dashboard Card Listeners - ALL 7 LEVELS UNLOCKED BY DEFAULT
     document.getElementById('card-l1').addEventListener('click', () => {
-      if (appState.unlockedLevel >= 1) {
-        ScreenManager.showScreen('trivia'); triviaEngine.start();
-      }
+      ScreenManager.showScreen('trivia'); triviaEngine.start();
     });
 
     document.getElementById('card-l2').addEventListener('click', () => {
-      if (appState.unlockedLevel >= 2) {
-        ScreenManager.showScreen('level-coffee'); coffeeEngine.start();
-      } else {
-        soundEngine.playBuzzer();
-        soundEngine.speakText("Level 2 is locked! Complete Level 1 Love Trivia first.");
-      }
+      ScreenManager.showScreen('level-coffee'); coffeeEngine.start();
     });
 
     document.getElementById('card-l3').addEventListener('click', () => {
-      if (appState.unlockedLevel >= 3) {
-        ScreenManager.showScreen('level-chanel'); chanelEngine.start();
-      } else {
-        soundEngine.playBuzzer();
-        soundEngine.speakText("Level 3 is locked! Complete Level 2 Coffee Run first.");
-      }
+      ScreenManager.showScreen('level-chanel'); chanelEngine.start();
     });
 
     document.getElementById('card-l4').addEventListener('click', () => {
-      if (appState.unlockedLevel >= 4) {
-        ScreenManager.showScreen('level-mahjong'); mahjongEngine.start();
-      } else {
-        soundEngine.playBuzzer();
-        soundEngine.speakText("Level 4 is locked! Complete Level 3 Boutique Sweep first.");
-      }
+      ScreenManager.showScreen('level-mahjong'); mahjongEngine.start();
     });
 
     document.getElementById('card-l5').addEventListener('click', () => {
-      if (appState.unlockedLevel >= 5) {
-        ScreenManager.showScreen('level-jetski'); jetskiEngine.start();
-      } else {
-        soundEngine.playBuzzer();
-        soundEngine.speakText("Level 5 is locked! Complete Level 4 Mahjong Dash first.");
-      }
+      ScreenManager.showScreen('level-jetski'); jetskiEngine.start();
     });
 
     document.getElementById('card-l6').addEventListener('click', () => {
-      if (appState.unlockedLevel >= 6) {
-        ScreenManager.showScreen('level-tennis'); tennisEngine.start();
-      } else {
-        soundEngine.playBuzzer();
-        soundEngine.speakText("Level 6 is locked! Complete Level 5 Jet Ski Rider first.");
-      }
+      ScreenManager.showScreen('level-tennis'); tennisEngine.start();
     });
 
     document.getElementById('card-l7').addEventListener('click', () => {
-      if (appState.unlockedLevel >= 7) {
-        ScreenManager.showScreen('level-stiletto'); stilettoEngine.start();
-      } else {
-        soundEngine.playBuzzer();
-        soundEngine.speakText("Level 7 is locked! Complete Level 6 Bedford Tennis first.");
-      }
+      ScreenManager.showScreen('level-stiletto'); stilettoEngine.start();
     });
 
     document.getElementById('btn-share-victory').addEventListener('click', () => {
