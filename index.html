@@ -1936,38 +1936,62 @@
       static startPasswordConfetti() {
         const cvs = document.getElementById('confetti-pwd-canvas');
         if (!cvs) return;
-        const res = SpriteDrawer.setupCanvasResolution(cvs);
-        const ctx = res.ctx, width = res.width, height = res.height;
-        const particles = [];
-        const retroSymbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '💖', '✨'];
-        const neonColors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF'];
+        const ctx = cvs.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
 
-        for (let i = 0; i < 50; i++) {
+        let width = cvs.clientWidth || window.innerWidth || 380;
+        let height = cvs.clientHeight || window.innerHeight || 650;
+        cvs.width = width * dpr;
+        cvs.height = height * dpr;
+        ctx.scale(dpr, dpr);
+
+        const particles = [];
+        const retroSymbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '🍾', '👑'];
+        const neonColors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF', '#FFFDD0'];
+
+        for (let i = 0; i < 60; i++) {
           particles.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 1.6,
-            vy: Math.random() * 2.0 + 0.9,
-            isEmoji: Math.random() < 0.6,
+            vx: (Math.random() - 0.5) * 1.8,
+            vy: Math.random() * 2.2 + 0.9,
+            swaySpeed: Math.random() * 0.05 + 0.02,
+            swayOffset: Math.random() * Math.PI * 2,
+            isEmoji: Math.random() < 0.65,
             color: neonColors[Math.floor(Math.random() * neonColors.length)],
             symbol: retroSymbols[Math.floor(Math.random() * retroSymbols.length)],
-            fontSize: Math.floor(Math.random() * 12 + 16),
-            size: Math.random() * 8 + 4,
+            fontSize: Math.floor(Math.random() * 14 + 16),
+            size: Math.random() * 9 + 4,
             rotation: Math.random() * 360,
-            vRot: (Math.random() - 0.5) * 3
+            vRot: (Math.random() - 0.5) * 3.5
           });
         }
 
+        let time = 0;
         const loop = () => {
-          if (!document.getElementById('screen-password').classList.contains('active')) return;
+          const pwdScreen = document.getElementById('screen-password');
+          if (!pwdScreen || !pwdScreen.classList.contains('active')) return;
+
+          let w = cvs.clientWidth || window.innerWidth || 380;
+          let h = cvs.clientHeight || window.innerHeight || 650;
+          if (cvs.width !== w * dpr || cvs.height !== h * dpr) {
+            cvs.width = w * dpr;
+            cvs.height = h * dpr;
+            ctx.scale(dpr, dpr);
+            width = w;
+            height = h;
+          }
+
           ctx.clearRect(0, 0, width, height);
+          time += 0.03;
+
           particles.forEach(p => {
             p.y += p.vy;
-            p.x += p.vx;
+            p.x += p.vx + Math.sin(time * p.swaySpeed + p.swayOffset) * 0.8;
             p.rotation += p.vRot;
 
-            if (p.y > height + 30) {
-              p.y = -30;
+            if (p.y > height + 35) {
+              p.y = -35;
               p.x = Math.random() * width;
             }
 
@@ -1976,12 +2000,14 @@
             ctx.rotate((p.rotation * Math.PI) / 180);
 
             if (p.isEmoji) {
-              ctx.font = `${p.fontSize}px sans-serif`;
+              ctx.font = `bold ${p.fontSize}px sans-serif`;
               ctx.textAlign = 'center';
               ctx.textBaseline = 'middle';
               ctx.fillText(p.symbol, 0, 0);
             } else {
               ctx.fillStyle = p.color;
+              ctx.shadowColor = p.color;
+              ctx.shadowBlur = 8;
               ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
             }
 
@@ -1995,15 +2021,13 @@
       static startLandingConfetti() {
         const cvs = document.getElementById('confetti-landing-canvas');
         if (!cvs) return;
-
-        let rect = cvs.getBoundingClientRect();
-        let width = rect.width || (cvs.parentElement ? cvs.parentElement.clientWidth : 0) || window.innerWidth || 380;
-        let height = rect.height || (cvs.parentElement ? cvs.parentElement.clientHeight : 0) || window.innerHeight || 650;
+        const ctx = cvs.getContext('2d');
         const dpr = window.devicePixelRatio || 1;
 
+        let width = cvs.clientWidth || window.innerWidth || 380;
+        let height = cvs.clientHeight || window.innerHeight || 650;
         cvs.width = width * dpr;
         cvs.height = height * dpr;
-        const ctx = cvs.getContext('2d');
         ctx.scale(dpr, dpr);
 
         const particles = [];
@@ -2032,6 +2056,16 @@
         const loop = () => {
           const screenLanding = document.getElementById('screen-landing');
           if (!screenLanding || !screenLanding.classList.contains('active')) return;
+
+          let w = cvs.clientWidth || window.innerWidth || 380;
+          let h = cvs.clientHeight || window.innerHeight || 650;
+          if (cvs.width !== w * dpr || cvs.height !== h * dpr) {
+            cvs.width = w * dpr;
+            cvs.height = h * dpr;
+            ctx.scale(dpr, dpr);
+            width = w;
+            height = h;
+          }
 
           ctx.clearRect(0, 0, width, height);
           time += 0.03;
