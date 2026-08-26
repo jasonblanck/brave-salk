@@ -1,0 +1,3398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#FF1493">
+  <title>Queen Elise's Luxury Life - 37th Birthday Tour</title>
+  
+  <!-- Google Fonts: Barbie Fonts & Luxury Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Pacifico&family=Fredoka:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Montserrat:wght@600;800;900&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       1. RESET & HIGH-CONTRAST MOBILE STYLES
+       ========================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    :root {
+      --bg-cream: #FFFDD0;
+      --bg-cream-soft: #FAF6EE;
+      --pink-soft: #FFB6C1;
+      --pink-accent: #FF69B4;
+      --pink-neon: #FF1493;
+      --pink-barbie: #FF007F;
+      --pink-deep: #C2185B;
+      --gold-primary: #D4AF37;
+      --gold-light: #FFD700;
+      --gold-dark: #6D4C41;
+      --black-chic: #111111;
+      --white-pure: #FFFFFF;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-barbie: 'Shrikhand', cursive, sans-serif;
+      --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-script: 'Pacifico', 'Great Vibes', cursive;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--black-chic);
+      font-family: var(--font-sans);
+      color: var(--black-chic);
+    }
+
+    #app {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--black-chic);
+      box-shadow: 0 0 40px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ==========================================
+       2. TOP NAVIGATION BAR
+       ========================================== */
+    #top-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(12px);
+      border-bottom: 3px solid var(--black-chic);
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      border: 2px solid var(--black-chic);
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 0.84rem;
+      color: var(--black-chic);
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-btn:active { transform: scale(0.95); }
+
+    .level-badge {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--pink-deep);
+      background: #FFF;
+      padding: 5px 14px;
+      border-radius: 14px;
+      border: 2px solid var(--gold-primary);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    /* ==========================================
+       3. SCREENS & ABSOLUTE STACKING
+       ========================================== */
+    .screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding-top: 64px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: scale(0.97);
+      overflow-y: auto;
+      background: linear-gradient(180deg, #2B0017 0%, #80003A 40%, #C2185B 75%, #2B0017 100%);
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    /* Game Screens Strict Full-Height Layout */
+    #screen-level-coffee,
+    #screen-level-chanel,
+    #screen-level-mahjong,
+    #screen-level-jetski,
+    #screen-level-tennis,
+    #screen-level-stiletto {
+      overflow: hidden !important;
+    }
+
+    #l-coffee-canvas,
+    #l-chanel-canvas,
+    #l-mahjong-canvas,
+    #l-jetski-canvas,
+    #l-tennis-canvas,
+    #l-stiletto-canvas {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+      min-height: 0;
+    }
+
+    /* ==========================================
+       SCREEN 0: VIP PASSWORD GATEKEEPER (90s NEON PINK)
+       ========================================== */
+    #screen-password {
+      padding-top: 0;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at 50% 45%, #FF007F 0%, #FF1493 35%, #C2185B 70%, #3D001D 100%);
+      padding: 20px;
+      z-index: 200;
+      position: absolute;
+      overflow: hidden;
+    }
+
+    #confetti-pwd-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .pwd-card {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 360px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(20px);
+      border: 4px solid #FFD700;
+      border-radius: 28px;
+      padding: 28px 20px;
+      box-shadow: 0 0 35px #FF007F, 0 0 65px #FF1493, 0 15px 45px rgba(0,0,0,0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ==========================================
+       SCREEN 1: LANDING PAGE (BARBIE NEON PINK & GLAMOUR)
+       ========================================== */
+    #screen-landing {
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+      background: radial-gradient(circle at 50% 35%, #FF66B2 0%, #FF007F 40%, #C2185B 75%, #4D0026 100%);
+      padding: 68px 12px 12px;
+      height: 100%;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    #confetti-landing-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .vogue-title {
+      font-family: var(--font-barbie);
+      font-size: 2.25rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 0 10px #FF007F, 0 0 22px #FF1493, 0 0 35px #FF66B2, 0 0 50px #FFD700, 0 4px 15px rgba(0,0,0,0.8);
+      margin-bottom: 2px;
+      line-height: 1.05;
+      position: relative;
+      z-index: 5;
+    }
+
+    .script-subtitle {
+      font-family: var(--font-script);
+      font-size: 2.15rem;
+      font-weight: 400;
+      color: #FFF0F5;
+      text-shadow: 0 0 12px #FF1493, 0 0 25px #FF007F, 0 0 40px #FFD700;
+      line-height: 1.15;
+      position: relative;
+      z-index: 5;
+    }
+
+    .bday-date-tag {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: #FFD700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-top: 4px;
+      text-shadow: 0 0 12px #FF007F, 0 0 20px #FF1493;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Outer Stage Wrapper (320px x 280px) to guarantee zero badge overlap on portrait */
+    .avatar-stage {
+      position: relative;
+      width: 320px;
+      height: 280px;
+      margin: 4px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .avatar-viewport {
+      position: relative;
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      border: 5px solid #FFD700;
+      background: radial-gradient(circle, #FFFFFF 30%, #FFB6C1 100%);
+      box-shadow: 0 0 30px #FF007F, 0 0 55px #FF1493, 0 0 80px #FFD700, inset 0 0 15px rgba(255,255,255,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      animation: barbie-glow 2.5s infinite alternate ease-in-out;
+    }
+
+    @keyframes barbie-glow {
+      0% { box-shadow: 0 0 25px #FF007F, 0 0 45px #FF1493, 0 0 70px #FFD700; }
+      100% { box-shadow: 0 0 40px #FF66B2, 0 0 65px #FF007F, 0 0 95px #FFD700; }
+    }
+
+    .portrait-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 7 Barbie Luxury Badges floating completely OUTSIDE the 190px portrait circle */
+    .luxury-badge {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.96);
+      border: 2.5px solid #FF007F;
+      border-radius: 18px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 0 14px rgba(255,0,127,0.7), 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 20;
+      white-space: nowrap;
+    }
+
+    .badge-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .badge-label {
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 900;
+      color: #FF007F;
+      letter-spacing: 0.3px;
+    }
+
+    /* Absolute Stage Offsets: NO BADGE EVER TOUCHES THE 190px PORTRAIT CIRCLE */
+    .badge-top-left { top: 0px; left: -5px; }
+    .badge-top-right { top: 0px; right: -5px; }
+    .badge-mid-left { top: 95px; left: -28px; }
+    .badge-mid-right { top: 95px; right: -28px; }
+    .badge-lower-left { bottom: 18px; left: -5px; }
+    .badge-lower-right { bottom: 18px; right: -5px; }
+    .badge-bottom-center { bottom: -14px; left: 50%; transform: translateX(-50%); }
+
+    .sound-hint-banner {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      background: rgba(255,0,127,0.85);
+      padding: 6px 16px;
+      border-radius: 16px;
+      border: 2px solid #FFD700;
+      box-shadow: 0 0 20px rgba(255,0,127,0.9);
+      animation: pulse-btn 2s infinite ease-in-out;
+      position: relative;
+      z-index: 5;
+    }
+
+    .start-btn {
+      width: 92%;
+      max-width: 360px;
+      padding: 16px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #FF66B2 0%, #FF007F 50%, #FF1493 100%);
+      border: 3.5px solid #FFFFFF;
+      color: #FFFFFF;
+      font-family: var(--font-sans);
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      box-shadow: 0 0 30px #FF007F, 0 0 50px #FF1493, 0 10px 30px rgba(0,0,0,0.5);
+      cursor: pointer;
+      animation: pulse-btn 2s infinite ease-in-out;
+      position: relative;
+      z-index: 5;
+    }
+
+    @keyframes pulse-btn {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+
+    .dialogue-popup {
+      position: absolute;
+      bottom: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 94%;
+      background: white;
+      border: 3.5px solid var(--black-chic);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 50;
+    }
+
+    .dialogue-popup.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(-10px);
+    }
+
+    .dialogue-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 3px solid var(--pink-deep);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .dialogue-text {
+      font-size: 0.98rem;
+      font-weight: 800;
+      color: var(--black-chic);
+      line-height: 1.35;
+    }
+
+    /* ==========================================
+       SCREEN 2: SIMPLIFIED LEVEL DASHBOARD
+       ========================================== */
+    #screen-dashboard {
+      background: linear-gradient(180deg, #FAF6EE 0%, #FFF0F5 100%);
+      padding: 74px 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dashboard-header { text-align: center; }
+
+    .dashboard-title {
+      font-family: var(--font-sans);
+      font-size: 1.45rem;
+      font-weight: 900;
+      color: var(--black-chic);
+    }
+
+    .dashboard-subtitle {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--pink-deep);
+      margin-top: 3px;
+    }
+
+    .mode-selector-card {
+      background: white;
+      border: 3px solid var(--black-chic);
+      border-radius: 16px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mode-options {
+      display: flex;
+      gap: 8px;
+      background: var(--bg-cream-soft);
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .mode-opt-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.85rem;
+      font-weight: 800;
+      cursor: pointer;
+      color: #555;
+      background: transparent;
+    }
+
+    .mode-opt-btn.active {
+      background: white;
+      color: var(--black-chic);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      border: 2px solid var(--black-chic);
+    }
+
+    .mode-opt-btn.active.party {
+      background: var(--pink-deep);
+      color: white;
+    }
+
+    .levels-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .level-card {
+      background: white;
+      border: 3.5px solid var(--black-chic);
+      border-radius: 22px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.3s ease, filter 0.3s ease;
+    }
+
+    .level-card:active { transform: scale(0.98); }
+
+    .level-card.locked {
+      opacity: 0.55;
+      cursor: not-allowed;
+      filter: grayscale(0.65);
+      background: #F0F0F0;
+    }
+
+    .level-card.locked:active { transform: none; }
+
+    .level-card.locked .level-play-btn {
+      background: #CCCCCC !important;
+      color: #666666 !important;
+      box-shadow: none !important;
+      border-color: #888888 !important;
+      cursor: not-allowed;
+    }
+
+    .level-card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .level-card-icon {
+      font-size: 2.5rem;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--pink-soft);
+      border: 3px solid var(--black-chic);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .level-card-info { display: flex; flex-direction: column; }
+
+    .level-card-num {
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .level-card-title {
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--black-chic);
+      line-height: 1.25;
+    }
+
+    .level-card-reward {
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--gold-dark);
+      margin-top: 2px;
+    }
+
+    .level-play-btn {
+      padding: 10px 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      border: 2.5px solid var(--black-chic);
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: var(--black-chic);
+      text-transform: uppercase;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .leaderboard-card {
+      background: white;
+      border: 3.5px solid var(--black-chic);
+      border-radius: 20px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+    }
+
+    .lb-header {
+      font-family: var(--font-sans);
+      font-size: 1.02rem;
+      font-weight: 900;
+      color: var(--black-chic);
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lb-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .lb-item {
+      display: flex; justifyContent: space-between; align-items: center;
+      padding: 8px 12px; background: var(--bg-cream-soft); border-radius: 8px;
+      font-size: 0.88rem; font-weight: 800;
+    }
+    .lb-rank { font-weight: 900; color: var(--pink-deep); width: 24px; }
+    .lb-name { flex: 1; color: var(--black-chic); }
+    .lb-score { font-size: 0.82rem; font-weight: 900; color: var(--black-chic); }
+
+    /* ==========================================
+       4. GAME HUD & COMMENTARY TICKER
+       ========================================== */
+    .game-hud {
+      position: absolute;
+      top: 72px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .hud-box {
+      background: rgba(255, 255, 255, 0.98);
+      border: 2.5px solid var(--black-chic);
+      border-radius: 14px;
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: var(--black-chic);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+
+    .commentary-bar {
+      height: 75px;
+      background: linear-gradient(135deg, var(--black-chic), #222);
+      border-top: 3px solid var(--gold-primary);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .commentary-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-light);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .commentary-text {
+      color: var(--bg-cream);
+      font-size: 0.88rem;
+      font-weight: 800;
+      font-style: italic;
+      line-height: 1.35;
+    }
+
+    .touch-controls {
+      height: 75px;
+      background: rgba(0,0,0,0.95);
+      border-top: 2px solid var(--gold-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 40;
+    }
+
+    .touch-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: 3px solid rgba(255,255,255,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .touch-btn:active { background: rgba(231,84,128,0.6); }
+
+    /* ==========================================
+       LEVEL 1: RELATIONSHIP TRIVIA (37 QUESTIONS)
+       ========================================== */
+    #screen-trivia {
+      padding: 76px 16px 20px;
+      background: linear-gradient(180deg, #FFF5F7 0%, var(--bg-cream) 100%);
+      justify-content: space-between;
+    }
+
+    .trivia-card {
+      background: white;
+      border: 3.5px solid var(--black-chic);
+      border-radius: 24px;
+      padding: 20px 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      text-align: center;
+    }
+
+    .trivia-q-num {
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: var(--pink-deep);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .trivia-progress-bar {
+      width: 100%;
+      height: 10px;
+      background: var(--bg-cream-soft);
+      border: 2px solid var(--black-chic);
+      border-radius: 10px;
+      margin: 6px 0 14px;
+      overflow: hidden;
+    }
+
+    .trivia-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold-light), var(--pink-deep));
+      transition: width 0.3s ease;
+    }
+
+    .trivia-question {
+      font-family: var(--font-sans);
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--black-chic);
+      margin-bottom: 12px;
+      line-height: 1.35;
+    }
+
+    .trivia-image-badge {
+      margin: 4px auto 14px;
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF0F5 0%, #FFD1DC 70%, #FF69B4 100%);
+      border: 3px solid var(--black-chic);
+      box-shadow: 0 6px 18px rgba(255,20,147,0.35), inset 0 0 10px rgba(255,255,255,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: pop-icon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .trivia-image-icon {
+      font-size: 3.1rem;
+      line-height: 1;
+    }
+
+    @keyframes pop-icon {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .trivia-answers { display: flex; flex-direction: column; gap: 10px; }
+
+    .trivia-btn {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: var(--bg-cream-soft);
+      border: 2.5px solid var(--black-chic);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--black-chic);
+      cursor: pointer;
+    }
+
+    .trivia-btn:active { transform: scale(0.98); }
+    .trivia-btn.correct { background: #4CAF50 !important; color: white !important; }
+    .trivia-btn.wrong { background: #E53935 !important; color: white !important; }
+
+    /* ==========================================
+       LEVEL 2: MORNING COFFEE RUN
+       ========================================== */
+    #screen-level-coffee {
+      padding-top: 64px;
+      background: #FFF8F0;
+      justify-content: space-between;
+    }
+
+    #l-coffee-canvas {
+      width: 100%;
+      height: calc(100% - 145px);
+      display: block;
+    }
+
+    /* ==========================================
+       LEVEL 3: THE BOUTIQUE SWEEP
+       ========================================== */
+    #screen-level-chanel {
+      padding-top: 64px;
+      background: #111;
+      justify-content: space-between;
+    }
+
+    #l-chanel-canvas {
+      width: 100%;
+      height: calc(100% - 145px);
+      display: block;
+    }
+
+    /* ==========================================
+       LEVEL 4: RUNWAY FLAPPER (FLAPPY COUTURE)
+       ========================================== */
+    #screen-level-flapper {
+      padding-top: 64px;
+      background: #0D0814;
+      justify-content: space-between;
+    }
+
+    #l-flapper-canvas {
+      width: 100%;
+      height: calc(100% - 145px);
+      display: block;
+    }
+
+    .flapper-tap-zone {
+      height: 75px;
+      background: rgba(13,8,20,0.95);
+      border-top: 2px solid var(--gold-primary);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 40;
+    }
+
+    .flap-btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      border: 3px solid var(--black-chic);
+      color: var(--black-chic);
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 1.08rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 18px rgba(212,175,55,0.6);
+      cursor: pointer;
+    }
+
+    .flap-btn:active { transform: scale(0.96); }
+
+    /* ==========================================
+       REWARD UNLOCKED MODAL CARD
+       ========================================== */
+    .reward-modal {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(8px);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 150; opacity: 0; pointer-events: none;
+      transition: opacity 0.35s ease; padding: 20px;
+    }
+
+    .reward-modal.active { opacity: 1; pointer-events: auto; }
+
+    .reward-card {
+      background: white;
+      border: 4px solid var(--black-chic);
+      border-radius: 26px; padding: 26px 22px;
+      max-width: 360px; width: 100%; text-align: center;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+
+    .reward-icon { font-size: 3.5rem; }
+
+    .reward-title {
+      font-family: var(--font-sans);
+      font-size: 1.45rem; font-weight: 900; color: var(--pink-deep);
+    }
+
+    .reward-name {
+      font-family: var(--font-sans);
+      font-size: 1.08rem; font-weight: 800; color: var(--black-chic);
+      background: var(--bg-cream-soft); padding: 12px 16px;
+      border-radius: 16px; border: 2px dashed var(--gold-primary); width: 100%;
+    }
+
+    .reward-next-btn {
+      width: 100%; padding: 16px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      border: 2.5px solid var(--black-chic); color: var(--black-chic);
+      font-family: var(--font-sans); font-weight: 900; font-size: 0.98rem;
+      text-transform: uppercase; cursor: pointer;
+    }
+
+    /* ==========================================
+       SCREEN 5: VICTORY VAULT (GRAND FINALE)
+       ========================================== */
+    #screen-vault {
+      background: linear-gradient(180deg, #1A000C 0%, #3D001D 100%);
+      padding: 74px 18px 24px; align-items: center; justify-content: center;
+    }
+
+    #confetti-canvas {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 5;
+    }
+
+    .victory-card {
+      position: relative; z-index: 10; width: 100%; max-width: 400px;
+      background: rgba(255, 255, 255, 0.98);
+      border: 4px solid var(--black-chic);
+      border-radius: 26px; padding: 24px 20px; text-align: center;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+
+    .victory-badge { font-size: 2.5rem; }
+
+    .victory-header {
+      font-family: var(--font-sans);
+      font-size: 1.45rem; font-weight: 900; color: var(--pink-deep);
+    }
+
+    .unlocked-rewards-list {
+      background: var(--bg-cream-soft); border: 2px solid var(--gold-primary);
+      border-radius: 16px; padding: 12px 14px; text-align: left;
+      font-size: 0.88rem; font-weight: 800; display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .unlocked-item { display: flex; align-items: center; gap: 8px; color: var(--black-chic); }
+
+    .submit-score-section { display: flex; gap: 8px; }
+
+    .name-input {
+      flex: 1; padding: 12px 14px; border-radius: 14px;
+      border: 2.5px solid var(--black-chic); font-family: var(--font-sans);
+      font-size: 0.88rem; font-weight: 800; outline: none;
+    }
+
+    .submit-btn {
+      padding: 12px 16px; border-radius: 14px; background: var(--pink-deep);
+      color: white; border: none; font-weight: 900; font-size: 0.82rem; cursor: pointer;
+    }
+
+    .share-btn {
+      width: 100%; padding: 14px; border-radius: 20px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      border: 2.5px solid var(--black-chic); color: var(--black-chic);
+      font-family: var(--font-sans); font-weight: 900; font-size: 0.95rem;
+      text-transform: uppercase; cursor: pointer;
+    }
+
+    #toast {
+      position: absolute; bottom: 25px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--black-chic); color: var(--gold-light);
+      border: 2px solid var(--gold-primary); padding: 12px 24px;
+      border-radius: 24px; font-size: 0.88rem; font-weight: 800; z-index: 200;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    #toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- Full Studio Quality Audio Track for Backstreet Boys - As Long As You Love Me -->
+  <audio id="bgm-audio" src="backstreet_boys.mp3" loop preload="auto"></audio>
+
+  <div id="app">
+    <!-- Top Navigation Bar -->
+    <header id="top-nav">
+      <button class="nav-btn" id="btn-home-nav">
+        <span>👑</span> Home
+      </button>
+      <div id="level-indicator" class="level-badge">Queen Elise Tour</div>
+      <div style="display: flex; gap: 6px;">
+        <button class="nav-btn" id="btn-lock-nav" style="padding: 7px 10px;" title="Lock VIP Gatekeeper">
+          🔐
+        </button>
+        <button class="nav-btn" id="btn-sound-toggle">
+          <span id="sound-icon">🔊</span> Sound
+        </button>
+      </div>
+    </header>
+
+    <!-- SCREEN 0: VIP PASSWORD GATEKEEPER (90s NEON PINK) -->
+    <section id="screen-password" class="screen active">
+      <canvas id="confetti-pwd-canvas"></canvas>
+      <div class="pwd-card">
+        <div style="font-size: 3.5rem; margin-bottom: 8px;">🔐</div>
+        <h1 class="vogue-title" style="font-size: 2.0rem;">VIP Access Only</h1>
+        <p class="script-subtitle" style="font-size: 2.0rem; margin: 4px 0 14px;">Queen Elise's Birthday Tour</p>
+        
+        <p style="font-size: 0.90rem; font-weight: 800; color: #FFF; margin-bottom: 16px;">
+          Enter the secret passcode to enter the party:
+        </p>
+
+        <form id="pwd-form" onsubmit="return false;" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+          <input type="password" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary);">
+          
+          <button type="submit" id="btn-submit-pwd" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
+            🔓 Unlock Birthday Tour
+          </button>
+        </form>
+
+        <p id="pwd-error-msg" style="color: #FF6B6B; font-weight: 900; font-size: 0.88rem; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease;">
+          Incorrect Passcode! (Hint: What makes the world go round?)
+        </p>
+      </div>
+    </section>
+
+    <!-- SCREEN 1: LANDING PAGE (PINK NEON & CONFETTI) -->
+    <section id="screen-landing" class="screen">
+      <canvas id="confetti-landing-canvas"></canvas>
+
+      <div>
+        <h1 class="vogue-title">Queen Elise's Luxury Life</h1>
+        <p class="script-subtitle">Happy 37th Birthday, Elise! I Love You!</p>
+        <p class="bday-date-tag">✨ September 3 • Birthday Edition ✨</p>
+      </div>
+
+      <!-- Outer Stage Wrapper (320px x 280px) to guarantee zero badge overlap on portrait -->
+      <div class="avatar-stage">
+        <div class="avatar-viewport">
+          <img src="queen_elise.jpg" alt="Queen Elise" class="portrait-img">
+        </div>
+
+        <!-- 7 Static Labeled Badges floating completely OUTSIDE the 190px portrait circle -->
+        <div class="luxury-badge badge-top-left">
+          <span class="badge-icon">🤍👜</span>
+          <span class="badge-label">Chanel Bag</span>
+        </div>
+
+        <div class="luxury-badge badge-top-right">
+          <span class="badge-icon">🕶️</span>
+          <span class="badge-label">Gucci Glasses</span>
+        </div>
+
+        <div class="luxury-badge badge-mid-left">
+          <span class="badge-icon">🀄</span>
+          <span class="badge-label">Mahjong</span>
+        </div>
+
+        <div class="luxury-badge badge-mid-right">
+          <span class="badge-icon">👧👦</span>
+          <span class="badge-label">Bella + AJ</span>
+        </div>
+
+        <div class="luxury-badge badge-lower-left">
+          <span class="badge-icon">👑</span>
+          <span class="badge-label">Jason</span>
+        </div>
+
+        <div class="luxury-badge badge-lower-right">
+          <span class="badge-icon">🏡</span>
+          <span class="badge-label">Bedford</span>
+        </div>
+
+        <div class="luxury-badge badge-bottom-center">
+          <span class="badge-icon">👨‍👩‍👧‍👦</span>
+          <span class="badge-label">Family</span>
+        </div>
+      </div>
+
+      <div class="sound-hint-banner">🎵 Tap Anywhere for Music & Voice 🔊</div>
+
+      <button id="btn-start-game" class="start-btn">✨ Start Birthday Tour ✨</button>
+
+      <!-- Dialogue Popup -->
+      <div id="landing-dialogue" class="dialogue-popup">
+        <img src="queen_elise.jpg" alt="Queen Elise Avatar" class="dialogue-avatar">
+        <p class="dialogue-text">"Hi Elise. Welcome to your 37th Birthday Trivia Tour! Let's play!"</p>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: SIMPLIFIED LEVEL DASHBOARD -->
+    <section id="screen-dashboard" class="screen">
+      <div class="dashboard-header">
+        <h2 class="dashboard-title">👑 Queen Elise's Birthday Tour</h2>
+        <p class="dashboard-subtitle">37 Personal Questions for 37 Years + Luxury Arcade Levels!</p>
+      </div>
+
+      <!-- Mode Selector -->
+      <div class="mode-selector-card">
+        <span style="font-size: 0.82rem; font-weight: 900; color: #111;">Game Mode:</span>
+        <div class="mode-options">
+          <button id="opt-casual" class="mode-opt-btn active">Casual Play</button>
+          <button id="opt-party" class="mode-opt-btn">Party Mode (60s)</button>
+        </div>
+      </div>
+
+      <!-- 7 Levels List Cards -->
+      <div class="levels-list">
+        <!-- Level 1 -->
+        <div class="level-card" id="card-l1">
+          <div class="level-card-left">
+            <div class="level-card-icon">🍾</div>
+            <div class="level-card-info">
+              <span class="level-card-num">Level 1 (Focus Game)</span>
+              <span class="level-card-title">Love Trivia (37 Questions)</span>
+              <span class="level-card-reward">🎁 Unlocks: Epic Anniversary Dinner</span>
+            </div>
+          </div>
+          <button class="level-play-btn">PLAY</button>
+        </div>
+
+        <!-- Level 2 -->
+        <div class="level-card" id="card-l2">
+          <div class="level-card-left">
+            <div class="level-card-icon">☕</div>
+            <div class="level-card-info">
+              <span class="level-card-num">Level 2</span>
+              <span class="level-card-title">Morning Coffee Run</span>
+              <span class="level-card-reward">🎁 Unlocks: Luxury Spa Day Voucher</span>
+            </div>
+          </div>
+          <button class="level-play-btn">PLAY</button>
+        </div>
+
+        <!-- Level 3 -->
+        <div class="level-card" id="card-l3">
+          <div class="level-card-left">
+            <div class="level-card-icon">👜</div>
+            <div class="level-card-info">
+              <span class="level-card-num">Level 3</span>
+              <span class="level-card-title">The Boutique Sweep (Tetris)</span>
+              <span class="level-card-reward">🎁 Unlocks: Custom Diamond Piece</span>
+            </div>
+          </div>
+          <button class="level-play-btn">PLAY</button>
+        </div>
+
+        <!-- Level 4 -->
+        <div class="level-card" id="card-l4">
+          <div class="level-card-left">
+            <div class="level-card-icon">🀄</div>
+            <div class="level-card-info">
+              <span class="level-card-num">Level 4</span>
+              <span class="level-card-title">Mahjong Tile Dash</span>
+              <span class="level-card-reward">🎁 Unlocks: VIP Mahjong Trophy</span>
+            </div>
+          </div>
+          <button class="level-play-btn">PLAY</button>
+        </div>
+
+        <!-- Level 5 -->
+        <div class="level-card" id="card-l5">
+          <div class="level-card-left">
+            <div class="level-card-icon">🌊</div>
+            <div class="level-card-info">
+              <span class="level-card-num">Level 5</span>
+              <span class="level-card-title">Hamptons Jet Ski Wave Rider</span>
+              <span class="level-card-reward">🎁 Unlocks: Luxury Yacht Charter</span>
+            </div>
+          </div>
+          <button class="level-play-btn">PLAY</button>
+        </div>
+
+        <!-- Level 6 -->
+        <div class="level-card" id="card-l6">
+          <div class="level-card-left">
+            <div class="level-card-icon">🎾</div>
+            <div class="level-card-info">
+              <span class="level-card-num">Level 6</span>
+              <span class="level-card-title">Bedford Tennis & Golf Rally</span>
+              <span class="level-card-reward">🎁 Unlocks: Bedford Club Championship</span>
+            </div>
+          </div>
+          <button class="level-play-btn">PLAY</button>
+        </div>
+
+        <!-- Level 7 -->
+        <div class="level-card" id="card-l7">
+          <div class="level-card-left">
+            <div class="level-card-icon">👑</div>
+            <div class="level-card-info">
+              <span class="level-card-num">Level 7 (Grand Finale)</span>
+              <span class="level-card-title">Stiletto Runway Dash</span>
+              <span class="level-card-reward">🎁 Unlocks: Victory Vault & Chanel Bag</span>
+            </div>
+          </div>
+          <button class="level-play-btn">PLAY</button>
+        </div>
+      </div>
+
+      <!-- Leaderboard -->
+      <div class="leaderboard-card">
+        <div class="lb-header">
+          <span>🏆 Party High Scores</span>
+          <span style="font-size: 0.78rem; color: var(--pink-deep);">Top Guests</span>
+        </div>
+        <ul id="lb-list-container" class="lb-list">
+          <!-- Populated by JS -->
+        </ul>
+      </div>
+    </section>
+
+    <!-- LEVEL 1: RELATIONSHIP TRIVIA (37 QUESTIONS) -->
+    <section id="screen-trivia" class="screen">
+      <canvas id="confetti-trivia-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100;"></canvas>
+
+      <div class="trivia-card">
+        <div id="trivia-q-num" class="trivia-q-num">Question 1 of 37</div>
+        <div class="trivia-progress-bar">
+          <div id="trivia-progress-fill" class="trivia-progress-fill"></div>
+        </div>
+        <h2 id="trivia-question" class="trivia-question">Where did our academic journey begin?</h2>
+        
+        <!-- Relatable Icon / Illustration Badge -->
+        <div id="trivia-image-container" class="trivia-image-badge">
+          <span id="trivia-image-icon" class="trivia-image-icon">🎓🏛️</span>
+        </div>
+
+        <div id="trivia-answers" class="trivia-answers">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <div class="commentary-bar">
+        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
+        <p id="c-text-l3" class="commentary-text">"Testing your love story knowledge through 37 amazing years!"</p>
+      </div>
+    </section>
+
+    <!-- LEVEL 2: MORNING COFFEE RUN -->
+    <section id="screen-level-coffee" class="screen">
+      <div class="game-hud">
+        <div class="hud-box">SCORE: <span id="hud-score-l1">0</span></div>
+      </div>
+
+      <canvas id="l-coffee-canvas"></canvas>
+
+      <div class="touch-controls">
+        <button class="touch-btn" id="btn-l1-left">◀</button>
+        <button class="touch-btn" id="btn-l1-right">▶</button>
+      </div>
+
+      <div class="commentary-bar">
+        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
+        <p id="c-text-l1" class="commentary-text">"Caffeine levels optimal. Ready to conquer Madison Avenue."</p>
+      </div>
+    </section>
+
+    <!-- LEVEL 3: THE BOUTIQUE SWEEP (LUXURY TETRIS) -->
+    <section id="screen-level-chanel" class="screen">
+      <div class="game-hud">
+        <div class="hud-box">SCORE: <span id="hud-score-l2">0</span></div>
+        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+      </div>
+
+      <canvas id="l-chanel-canvas"></canvas>
+
+      <div class="touch-controls" style="gap: 8px; justify-content: space-around;">
+        <button class="touch-btn" id="btn-l2-left">◀</button>
+        <button class="touch-btn" id="btn-l2-rotate" style="background: rgba(212,175,55,0.4); border-color: var(--gold-light);">🔄</button>
+        <button class="touch-btn" id="btn-l2-down" style="background: rgba(255,20,147,0.4); border-color: var(--pink-soft);">⬇️</button>
+        <button class="touch-btn" id="btn-l2-right">▶</button>
+      </div>
+
+      <div class="commentary-bar">
+        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
+        <p id="c-text-l2" class="commentary-text">"Stack those luxury boxes cleanly to clear lines and unlock your diamond piece!"</p>
+      </div>
+    </section>
+
+    <!-- LEVEL 4: MAHJONG TILE DASH -->
+    <section id="screen-level-mahjong" class="screen">
+      <div class="game-hud">
+        <div class="hud-box">SCORE: <span id="hud-score-l4">0</span></div>
+        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+      </div>
+
+      <canvas id="l-mahjong-canvas"></canvas>
+
+      <div class="touch-controls">
+        <button class="touch-btn" id="btn-l4-left">◀</button>
+        <button class="touch-btn" id="btn-l4-right">▶</button>
+      </div>
+
+      <div class="commentary-bar">
+        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
+        <p id="c-text-l4" class="commentary-text">"Catch Mahjong Dragon & Flower tiles to score points and yell MAHJONG!"</p>
+      </div>
+    </section>
+
+    <!-- LEVEL 5: HAMPTONS JET SKI WAVE RIDER -->
+    <section id="screen-level-jetski" class="screen">
+      <div class="game-hud">
+        <div class="hud-box">SCORE: <span id="hud-score-l5">0</span></div>
+        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+      </div>
+
+      <canvas id="l-jetski-canvas"></canvas>
+
+      <div class="touch-controls">
+        <button class="touch-btn" id="btn-l5-left">◀</button>
+        <button class="touch-btn" id="btn-l5-right">▶</button>
+      </div>
+
+      <div class="commentary-bar">
+        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
+        <p id="c-text-l5" class="commentary-text">"Ride the Hamptons ocean waves catching champagne, diamonds, & Chanel bags!"</p>
+      </div>
+    </section>
+
+    <!-- LEVEL 6: BEDFORD TENNIS & GOLF RALLY -->
+    <section id="screen-level-tennis" class="screen">
+      <div class="game-hud">
+        <div class="hud-box">SCORE: <span id="hud-score-l6">0</span></div>
+        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+      </div>
+
+      <canvas id="l-tennis-canvas"></canvas>
+
+      <div class="flapper-tap-zone" style="gap: 10px;">
+        <button id="btn-l6-left" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">◀</button>
+        <button id="btn-l6-serve" class="flap-btn" style="flex: 1; padding: 14px; font-size: 0.95rem;">🎾 SERVE / RALLY ⛳</button>
+        <button id="btn-l6-right" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">▶</button>
+      </div>
+
+      <div class="commentary-bar">
+        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
+        <p id="c-text-l6" class="commentary-text">"Serve tennis balls & hit golf drives to knock out moving targets on court!"</p>
+      </div>
+    </section>
+
+    <!-- LEVEL 7: STILETTO RUNWAY DASH (GRAND FINALE) -->
+    <section id="screen-level-stiletto" class="screen">
+      <div class="game-hud">
+        <div class="hud-box">SCORE: <span id="hud-score-l7">0</span></div>
+        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+      </div>
+
+      <canvas id="l-stiletto-canvas"></canvas>
+
+      <div class="flapper-tap-zone">
+        <button id="btn-l7-jump" class="flap-btn">✨ JUMP STILETTOS OVER CABS ✨</button>
+      </div>
+
+      <div class="commentary-bar">
+        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
+        <p id="c-text-l7" class="commentary-text">"Sprint down Madison Avenue in high heels into the Victory Vault!"</p>
+      </div>
+    </section>
+
+    <!-- REWARD UNLOCKED MODAL CARD -->
+    <div id="reward-modal" class="reward-modal">
+      <div class="reward-card">
+        <div id="rw-icon" class="reward-icon">🍾</div>
+        <h3 class="reward-title">LEVEL COMPLETE!</h3>
+        <p style="font-size: 0.88rem; font-weight: 700; color: #444;">You unlocked a new luxury reward:</p>
+        <div id="rw-name" class="reward-name">An Epic Anniversary Dinner Out</div>
+        <button id="btn-next-level" class="reward-next-btn">Continue to Next Level ✨</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 5: VICTORY VAULT (GRAND FINALE) -->
+    <section id="screen-vault" class="screen">
+      <canvas id="confetti-canvas"></canvas>
+
+      <div class="victory-card">
+        <div class="victory-badge">👑 👜 💎</div>
+        <h2 class="victory-header">CONGRATULATIONS, QUEEN ELISE!</h2>
+        
+        <p style="font-size: 0.9rem; line-height: 1.4; color: var(--black-chic); font-weight: 700;">
+          You’ve conquered the <strong>37th Birthday Tour</strong>! You unlocked your dream <strong>Chanel bag</strong>! <em>(Redeem with your loving husband)</em>.
+        </p>
+
+        <div class="unlocked-rewards-list">
+          <div style="font-weight: 900; color: var(--pink-deep); margin-bottom: 2px;">🎁 ALL UNLOCKED REWARDS:</div>
+          <div class="unlocked-item"><span>🍾</span> Level 1: Epic Anniversary Dinner Out</div>
+          <div class="unlocked-item"><span>🧖‍♀️</span> Level 2: Luxury Spa Day Voucher</div>
+          <div class="unlocked-item"><span>💎</span> Level 3: Custom Diamond Jewelry Piece</div>
+          <div class="unlocked-item"><span>👜</span> Level 4: Ultimate Dream Chanel Bag</div>
+        </div>
+
+        <div class="submit-score-section">
+          <input type="text" id="guest-name-input" class="name-input" placeholder="Enter Guest Name..." maxlength="12" value="Queen Elise">
+          <button id="btn-save-score" class="submit-btn">Save Score</button>
+        </div>
+
+        <button id="btn-share-victory" class="share-btn">📲 Share Victory Score</button>
+      </div>
+    </section>
+
+    <!-- Toast Notification -->
+    <div id="toast">Copied to Clipboard!</div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================
+       1. SOUND ENGINE WITH FULL STUDIO MP3 MUSIC: BACKSTREET BOYS - AS LONG AS YOU LOVE ME
+       ========================================== */
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.audioEl = document.getElementById('bgm-audio');
+        this.muted = false;
+        this.isPlaying = false;
+      }
+
+      init() {
+        if (!this.audioEl) this.audioEl = document.getElementById('bgm-audio');
+        
+        // Initialize Web Audio context for sound effects
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+
+        // Play full studio MP3 song of Backstreet Boys - As Long As You Love Me
+        if (this.audioEl && !this.isPlaying && !this.muted) {
+          this.audioEl.volume = 0.65;
+          this.audioEl.play().then(() => {
+            this.isPlaying = true;
+          }).catch(err => console.log("Audio play allowed on first gesture:", err));
+        }
+      }
+
+      toggleSound() {
+        if (!this.audioEl) this.audioEl = document.getElementById('bgm-audio');
+        this.muted = !this.muted;
+        if (this.audioEl) {
+          this.audioEl.muted = this.muted;
+          if (!this.muted && this.audioEl.paused) {
+            this.audioEl.play().then(() => this.isPlaying = true);
+          }
+        }
+        return this.muted;
+      }
+
+      speakText(text, onEnd) {
+        if ('speechSynthesis' in window && !this.muted) {
+          window.speechSynthesis.cancel();
+
+          // Duck music volume slightly while speaking so voice is crystal clear
+          if (this.audioEl) this.audioEl.volume = 0.25;
+
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 1.0;
+          utterance.pitch = 1.1;
+          utterance.volume = 1.0;
+
+          const voices = window.speechSynthesis.getVoices();
+          const preferredVoice = voices.find(v => (v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Victoria') || v.name.includes('Google') || v.name.includes('Natural')) && v.lang.startsWith('en'));
+          if (preferredVoice) utterance.voice = preferredVoice;
+
+          utterance.onend = () => {
+            if (this.audioEl) this.audioEl.volume = 0.65;
+            if (onEnd) onEnd();
+          };
+
+          utterance.onerror = () => {
+            if (this.audioEl) this.audioEl.volume = 0.65;
+            if (onEnd) onEnd();
+          };
+
+          window.speechSynthesis.speak(utterance);
+        } else {
+          if (onEnd) onEnd();
+        }
+      }
+
+      speakGreeting() {
+        this.speakText("Happy Birthday Elise! Let's have some fun!");
+      }
+
+      playChaChing() {
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.exponentialRampToValueAtTime(2400, now + 0.1);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now); osc.stop(now + 0.35);
+      }
+
+      playJump() {
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(650, now + 0.12);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now); osc.stop(now + 0.12);
+      }
+
+      playBuzzer() {
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.linearRampToValueAtTime(110, now + 0.25);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+        osc.connect(gain); gain.connect(this.ctx.destination);
+        osc.start(now); osc.stop(now + 0.25);
+      }
+
+      playChime() {
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.04);
+          gain.gain.setValueAtTime(0.15, now + idx * 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + idx * 0.04 + 0.18);
+          osc.connect(gain); gain.connect(this.ctx.destination);
+          osc.start(now + idx * 0.04); osc.stop(now + idx * 0.04 + 0.18);
+        });
+      }
+
+      playFanfare() {
+        if (this.muted || !this.ctx) return;
+        const now = this.ctx.currentTime;
+        const melody = [{f:523.25,d:0.15},{f:659.25,d:0.15},{f:783.99,d:0.15},{f:1046.50,d:0.4}];
+        let off = 0;
+        melody.forEach(n => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(n.f, now + off);
+          gain.gain.setValueAtTime(0.2, now + off);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + off + n.d);
+          osc.connect(gain); gain.connect(this.ctx.destination);
+          osc.start(now + off); osc.stop(now + off + n.d);
+          off += n.d * 0.85;
+        });
+      }
+    }
+
+    const soundEngine = new SoundEngine();
+
+    /* Load Queen Elise Realistic Portrait Image */
+    const queenEliseImg = new Image();
+    queenEliseImg.src = 'queen_elise.jpg';
+
+    /* ==========================================
+       2. PROCEDURAL SPRITE & ITEM DRAWER
+       ========================================== */
+    class SpriteDrawer {
+      static setupCanvasResolution(canvas) {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+        return { ctx, width: rect.width, height: rect.height };
+      }
+
+      static drawEliseAvatar(ctx, x, y, scale = 1.8) {
+        ctx.save();
+        ctx.translate(x, y);
+        const radius = 28 * scale;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+        ctx.clip();
+
+        if (queenEliseImg.complete && queenEliseImg.naturalWidth !== 0) {
+          ctx.drawImage(queenEliseImg, -radius, -radius, radius * 2, radius * 2);
+        } else {
+          ctx.fillStyle = '#3D2314'; ctx.fillRect(-radius, -radius, radius * 2, radius * 2);
+        }
+        ctx.restore();
+
+        ctx.strokeStyle = '#FFD700';
+        ctx.lineWidth = 3.5 * scale;
+        ctx.beginPath();
+        ctx.arc(0, 0, radius + 1, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        ctx.restore();
+      }
+
+      static drawCoffeeCup(ctx, x, y, scale = 1.6) {
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(-8 * scale, -8 * scale, 16 * scale, 16 * scale);
+        ctx.fillStyle = '#D4AF37'; ctx.fillRect(-8 * scale, -2 * scale, 16 * scale, 6 * scale);
+        ctx.fillStyle = '#C2185B'; ctx.fillRect(-9 * scale, -11 * scale, 18 * scale, 3 * scale);
+        ctx.restore();
+      }
+
+      static drawNYCBagel(ctx, x, y, scale = 1.6) {
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = '#E6B87D';
+        ctx.beginPath(); ctx.arc(0, 0, 11 * scale, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = '#996515'; ctx.lineWidth = 1.2 * scale; ctx.stroke();
+        ctx.fillStyle = '#FFF8F0';
+        ctx.beginPath(); ctx.arc(0, 0, 4 * scale, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#111111';
+        ctx.fillRect(-6 * scale, -5 * scale, 1.5 * scale, 1.5 * scale);
+        ctx.fillRect(4 * scale, -4 * scale, 1.5 * scale, 1.5 * scale);
+        ctx.fillRect(-5 * scale, 4 * scale, 1.5 * scale, 1.5 * scale);
+        ctx.fillRect(3 * scale, 5 * scale, 1.5 * scale, 1.5 * scale);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0 * scale, -7 * scale, 1.5 * scale, 1.5 * scale);
+        ctx.fillRect(-7 * scale, 0 * scale, 1.5 * scale, 1.5 * scale);
+        ctx.fillRect(6 * scale, 1 * scale, 1.5 * scale, 1.5 * scale);
+        ctx.restore();
+      }
+
+      static drawCroissant(ctx, x, y, scale = 1.6) {
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = '#D4A373';
+        ctx.beginPath(); ctx.arc(0, 0, 10 * scale, 0, Math.PI); ctx.fill();
+        ctx.fillStyle = '#FAEDCD'; ctx.fillRect(-4 * scale, -2 * scale, 8 * scale, 4 * scale);
+        ctx.restore();
+      }
+
+      static drawDecafWarning(ctx, x, y, scale = 1.6) {
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = '#D32F2F';
+        ctx.beginPath(); ctx.arc(0, 0, 10 * scale, 0, 2 * Math.PI); ctx.fill();
+        ctx.fillStyle = '#FFF'; ctx.fillRect(-6 * scale, -2 * scale, 12 * scale, 4 * scale);
+        ctx.restore();
+      }
+
+      static drawChanelBag(ctx, x, y, scale = 1.5) {
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = '#111111'; ctx.fillRect(-12 * scale, -8 * scale, 24 * scale, 16 * scale);
+        ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 2 * scale;
+        ctx.beginPath(); ctx.arc(0, -8 * scale, 7 * scale, Math.PI, 0); ctx.stroke();
+        ctx.fillStyle = '#FFD700'; ctx.fillRect(-3 * scale, -1 * scale, 6 * scale, 4 * scale);
+        ctx.restore();
+      }
+
+      static drawDiamondJewelry(ctx, x, y, scale = 1.5) {
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = '#E0F7FA';
+        ctx.beginPath(); ctx.moveTo(0, 8 * scale); ctx.lineTo(-7 * scale, 0); ctx.lineTo(0, -8 * scale); ctx.lineTo(7 * scale, 0); ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = '#00E5FF'; ctx.stroke();
+        ctx.restore();
+      }
+
+      static drawSoldOutSign(ctx, x, y, scale = 1.5) {
+        ctx.save(); ctx.translate(x, y);
+        ctx.fillStyle = '#D32F2F'; ctx.fillRect(-12 * scale, -7 * scale, 24 * scale, 14 * scale);
+        ctx.fillStyle = '#FFF'; ctx.fillRect(-10 * scale, -5 * scale, 20 * scale, 10 * scale);
+        ctx.fillStyle = '#D32F2F'; ctx.fillRect(-8 * scale, -2 * scale, 16 * scale, 4 * scale);
+        ctx.restore();
+      }
+
+      static drawFashionColumn(ctx, x, topH, bottomY, w) {
+        ctx.fillStyle = '#C2185B'; ctx.fillRect(x, 0, w, topH);
+        ctx.fillStyle = '#FFD700'; ctx.fillRect(x + w - 6, 0, 6, topH);
+        ctx.fillStyle = '#D4AF37'; ctx.fillRect(x, bottomY, w, 1000);
+        ctx.fillStyle = '#111111'; ctx.fillRect(x, bottomY, 6, 1000);
+      }
+
+      static drawMahjongTile(ctx, x, y, symbol, scale = 1.6) {
+        ctx.save(); ctx.translate(x, y);
+        const w = 36 * scale;
+        const h = 48 * scale;
+
+        // 1. 3D Bevel Shadow & Green Backing
+        ctx.fillStyle = '#005522';
+        ctx.fillRect(-w / 2 + 3 * scale, -h / 2 + 3 * scale, w, h);
+
+        // 2. Thick Ivory Tile Body
+        ctx.fillStyle = '#FFFFF2';
+        ctx.fillRect(-w / 2, -h / 2, w, h);
+
+        // Gold Trim Border
+        ctx.strokeStyle = '#D4AF37';
+        ctx.lineWidth = 2.5 * scale;
+        ctx.strokeRect(-w / 2, -h / 2, w, h);
+
+        // 3. Inner Decorative Red Frame
+        ctx.strokeStyle = 'rgba(194, 24, 91, 0.5)';
+        ctx.lineWidth = 1.2 * scale;
+        ctx.strokeRect(-w / 2 + 3 * scale, -h / 2 + 3 * scale, w - 6 * scale, h - 6 * scale);
+
+        // 4. Large Crisp Symbol Emojis
+        ctx.font = `bold ${24 * scale}px sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(symbol, 0, 0);
+
+        ctx.restore();
+      }
+    }
+
+    /* ==========================================
+       3. STATE ENGINE & LEADERBOARD
+       ========================================== */
+    class AppState {
+      constructor() {
+        this.totalScore = 0;
+        this.mode = 'casual';
+        this.leaderboardKey = 'elise_luxury_lb_v7';
+        this.unlockKey = 'elise_unlocked_level_v2';
+        this.unlockedLevel = this.getUnlockedLevel();
+      }
+
+      getUnlockedLevel() {
+        const stored = localStorage.getItem(this.unlockKey);
+        const val = stored ? parseInt(stored, 10) : 1;
+        return isNaN(val) ? 1 : val;
+      }
+
+      unlockNextLevel(completedLevel) {
+        if (completedLevel >= this.unlockedLevel) {
+          this.unlockedLevel = completedLevel + 1;
+          localStorage.setItem(this.unlockKey, this.unlockedLevel.toString());
+        }
+      }
+
+      resetProgress() {
+        this.unlockedLevel = 1;
+        localStorage.setItem(this.unlockKey, '1');
+      }
+
+      getLeaderboard() {
+        const stored = localStorage.getItem(this.leaderboardKey);
+        if (stored) { try { return JSON.parse(stored); } catch (e) {} }
+        return [
+          { name: 'Jason (Hubby)', score: 12500 },
+          { name: 'Queen Elise', score: 10200 },
+          { name: 'AJ', score: 8400 },
+          { name: 'Isabella', score: 7100 },
+          { name: 'Pi Kappa Armonk', score: 5900 }
+        ];
+      }
+
+      addScore(name, score) {
+        const list = this.getLeaderboard();
+        list.push({ name: name || 'Guest', score: score });
+        list.sort((a, b) => b.score - a.score);
+        const top5 = list.slice(0, 5);
+        localStorage.setItem(this.leaderboardKey, JSON.stringify(top5));
+        return top5;
+      }
+    }
+
+    const appState = new AppState();
+
+    /* ==========================================
+       4. SCREEN MANAGER & LANDING CONFETTI
+       ========================================== */
+    class ScreenManager {
+      static showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        const target = document.getElementById(`screen-${screenId}`);
+        if (target) {
+          target.classList.add('active');
+          target.scrollTop = 0;
+        }
+
+        const topNav = document.getElementById('top-nav');
+
+        if (screenId === 'password') {
+          if (topNav) topNav.style.display = 'none';
+          ScreenManager.startPasswordConfetti();
+        } else {
+          if (topNav) topNav.style.display = 'flex';
+          if (screenId === 'landing') {
+            document.getElementById('level-indicator').textContent = 'Queen Elise Tour';
+            ScreenManager.startLandingConfetti();
+          } else if (screenId === 'dashboard') {
+            document.getElementById('level-indicator').textContent = 'Level Tour Dashboard';
+            ScreenManager.renderDashboardLevels();
+            ScreenManager.renderLeaderboard();
+          } else if (screenId === 'trivia') {
+            document.getElementById('level-indicator').textContent = 'Level 1: 37 Love Questions 🍾';
+          } else if (screenId === 'level-coffee') {
+            document.getElementById('level-indicator').textContent = 'Level 2: Coffee Run ☕';
+          } else if (screenId === 'level-chanel') {
+            document.getElementById('level-indicator').textContent = 'Level 3: Boutique Sweep 👜';
+          } else if (screenId === 'level-mahjong') {
+            document.getElementById('level-indicator').textContent = 'Level 4: Mahjong Tile Dash 🀄';
+          } else if (screenId === 'level-jetski') {
+            document.getElementById('level-indicator').textContent = 'Level 5: Hamptons Jet Ski 🌊';
+          } else if (screenId === 'level-tennis') {
+            document.getElementById('level-indicator').textContent = 'Level 6: Bedford Tennis 🎾';
+          } else if (screenId === 'level-stiletto') {
+            document.getElementById('level-indicator').textContent = 'Level 7: Stiletto Dash 👠';
+          } else if (screenId === 'vault') {
+            document.getElementById('level-indicator').textContent = 'Victory Vault 👑';
+            confettiEngine.start();
+            soundEngine.playFanfare();
+          }
+        }
+      }
+
+      static startPasswordConfetti() {
+        const cvs = document.getElementById('confetti-pwd-canvas');
+        if (!cvs) return;
+        const res = SpriteDrawer.setupCanvasResolution(cvs);
+        const ctx = res.ctx, width = res.width, height = res.height;
+        const particles = [];
+        const retroSymbols = ['💖', '✨', '⭐', '📼', '🛼', '🔑', '🎀', '🎶', '📻'];
+
+        for (let i = 0; i < 40; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: Math.random() * 1.8 + 0.8,
+            symbol: retroSymbols[Math.floor(Math.random() * retroSymbols.length)],
+            fontSize: Math.floor(Math.random() * 14 + 14),
+            rotation: Math.random() * 360,
+            vRot: (Math.random() - 0.5) * 2
+          });
+        }
+
+        const loop = () => {
+          if (!document.getElementById('screen-password').classList.contains('active')) return;
+          ctx.clearRect(0, 0, width, height);
+          particles.forEach(p => {
+            p.y += p.vy;
+            p.x += p.vx;
+            p.rotation += p.vRot;
+
+            if (p.y > height + 30) {
+              p.y = -30;
+              p.x = Math.random() * width;
+            }
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.font = `${p.fontSize}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(p.symbol, 0, 0);
+            ctx.restore();
+          });
+          requestAnimationFrame(loop);
+        };
+        loop();
+      }
+
+      static renderDashboardLevels() {
+        const currentUnlock = appState.unlockedLevel;
+
+        const updateCard = (cardId, levelNum) => {
+          const card = document.getElementById(cardId);
+          if (!card) return;
+          const btn = card.querySelector('.level-play-btn');
+
+          if (currentUnlock >= levelNum) {
+            card.classList.remove('locked');
+            if (btn) btn.textContent = 'PLAY';
+          } else {
+            card.classList.add('locked');
+            if (btn) btn.textContent = '🔒 LOCKED';
+          }
+        };
+
+        updateCard('card-l1', 1);
+        updateCard('card-l2', 2);
+        updateCard('card-l3', 3);
+        updateCard('card-l4', 4);
+        updateCard('card-l5', 5);
+        updateCard('card-l6', 6);
+        updateCard('card-l7', 7);
+      }
+
+      static burstTriviaConfetti() {
+        const cvs = document.getElementById('confetti-trivia-canvas');
+        if (!cvs) return;
+        const res = SpriteDrawer.setupCanvasResolution(cvs);
+        const ctx = res.ctx, width = res.width, height = res.height;
+
+        const particles = [];
+        const colors = ['#FFD700', '#FF1493', '#FF69B4', '#FFFFFF', '#C2185B'];
+
+        const startX = width / 2;
+        const startY = height * 0.35;
+
+        for (let i = 0; i < 65; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = Math.random() * 14 + 4;
+          particles.push({
+            x: startX,
+            y: startY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 4,
+            size: Math.random() * 9 + 5,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            vRot: (Math.random() - 0.5) * 10,
+            alpha: 1.0
+          });
+        }
+
+        let frameCount = 0;
+        const loop = () => {
+          if (frameCount > 80) {
+            ctx.clearRect(0, 0, width, height);
+            return;
+          }
+          ctx.clearRect(0, 0, width, height);
+
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.38;
+            p.vx *= 0.95;
+            p.rotation += p.vRot;
+            p.alpha = Math.max(0, 1 - (frameCount / 80));
+
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          });
+
+          frameCount++;
+          requestAnimationFrame(loop);
+        };
+        loop();
+      }
+
+      static startLandingConfetti() {
+        const cvs = document.getElementById('confetti-landing-canvas');
+        if (!cvs) return;
+        const res = SpriteDrawer.setupCanvasResolution(cvs);
+        const ctx = res.ctx, width = res.width, height = res.height;
+        const particles = [];
+        const barbieSymbols = ['💖', '✨', '⭐', '💎', '🎀', '💅', '👑'];
+
+        for (let i = 0; i < 45; i++) {
+          particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: Math.random() * 1.8 + 0.8,
+            symbol: barbieSymbols[Math.floor(Math.random() * barbieSymbols.length)],
+            fontSize: Math.floor(Math.random() * 14 + 14),
+            rotation: Math.random() * 360,
+            vRot: (Math.random() - 0.5) * 2
+          });
+        }
+
+        const loop = () => {
+          if (!document.getElementById('screen-landing').classList.contains('active')) return;
+          ctx.clearRect(0, 0, width, height);
+          particles.forEach(p => {
+            p.y += p.vy;
+            p.x += p.vx;
+            p.rotation += p.vRot;
+
+            if (p.y > height + 30) {
+              p.y = -30;
+              p.x = Math.random() * width;
+            }
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.font = `${p.fontSize}px sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(p.symbol, 0, 0);
+            ctx.restore();
+          });
+          requestAnimationFrame(loop);
+        };
+        loop();
+      }
+
+      static renderLeaderboard() {
+        const container = document.getElementById('lb-list-container');
+        container.innerHTML = '';
+        const list = appState.getLeaderboard();
+        list.forEach((item, idx) => {
+          const li = document.createElement('li');
+          li.className = 'lb-item';
+          li.innerHTML = `
+            <span class="lb-rank">#${idx + 1}</span>
+            <span class="lb-name">${item.name}</span>
+            <span class="lb-score">${item.score.toLocaleString()} PTS</span>
+          `;
+          container.appendChild(li);
+        });
+      }
+
+      static showRewardModal(icon, name, onNext) {
+        document.getElementById('rw-icon').textContent = icon;
+        document.getElementById('rw-name').textContent = name;
+        const modal = document.getElementById('reward-modal');
+        modal.classList.add('active');
+        soundEngine.playChime();
+
+        const btn = document.getElementById('btn-next-level');
+        const clickHandler = () => {
+          modal.classList.remove('active');
+          btn.removeEventListener('click', clickHandler);
+          if (onNext) onNext();
+        };
+        btn.addEventListener('click', clickHandler);
+      }
+    }
+
+    /* ==========================================
+       5. LEVEL 1 ENGINE: 37 LOVE TRIVIA QUESTIONS (WITH TTS VOICE READING & PRAISE)
+       ========================================== */
+    class TriviaEngine {
+      constructor() {
+        this.praiseResponses = [
+          "You're so smart and hot.",
+          "Yes, I love it!",
+          "You are a genius!",
+          "Holy shit, yes!",
+          "Are you cheating? Yes!",
+          "Yes, this is getting crazy.",
+          "Now I'm getting turned on.",
+          "Good god, yes!"
+        ];
+        this.praiseIndex = 0;
+        this.wrongResponses = [
+          "Not quite",
+          "No, that's just wrong",
+          "No, are you even trying?"
+        ];
+        this.wrongIndex = 0;
+        this.questions = [
+          { id: 1, q: "1. Where did our academic journey begin?", options: ["Cornell University", "Harvard", "Columbia", "NYU"], correct: 0, icon: "🎓🏛️" },
+          { id: 2, q: "2. Where was our very first date?", options: ["Isabella’s restaurant", "Balthazar", "Carbone", "Pastis"], correct: 0, icon: "🍷🍽️" },
+          { id: 3, q: "3. Where was our official first kiss?", options: ["In the back of a NYC taxi cab", "Central Park", "Times Square", "The Met Museum"], correct: 0, icon: "🚕💋" },
+          { id: 4, q: "4. Where did Jason propose to Elise?", options: ["Southampton Shores Beach", "Central Park Boathouse", "DUMBO Waterfront", "Montauk Lighthouse"], correct: 0, icon: "💍🏖️" },
+          { id: 5, q: "5. When and where did we get married?", options: ["June 18, 2016 at The Pierre Hotel", "Sept 3, 2016 at The Plaza", "Oct 12, 2016 at St. Regis", "May 5, 2016 at The Ritz"], correct: 0, icon: "👰‍♀️🤵‍♂️" },
+          { id: 6, q: "6. Where did we go on our dream honeymoon?", options: ["Tahiti Bora Bora", "Amalfi Coast", "St. Barths", "Maldives"], correct: 0, icon: "🏝️🌺" },
+          { id: 7, q: "7. What does Elise love the most about Jason?", options: ["Everything!", "His cooking", "His golf game", "His dance moves"], correct: 0, icon: "❤️✨" },
+          { id: 8, q: "8. Who usually wakes up first on weekends?", options: ["Jason ;)", "Elise", "Isabella", "AJ"], correct: 0, icon: "⏰☕" },
+          { id: 9, q: "9. What was our first dance song at the wedding?", options: ["Can't Help Falling in Love (Elvis)", "At Last (Etta James)", "Your Song (Elton John)", "Thinking Out Loud (Ed Sheeran)"], correct: 0, icon: "🎵💃" },
+          { id: 10, q: "10. What song did we walk out to as a newly married couple?", options: ["Happy by Pharrell Williams", "Signed, Sealed, Delivered", "You Are the Best Thing", "Marry You by Bruno Mars"], correct: 0, icon: "🎉🎶" },
+          { id: 11, q: "11. What was the name of the first building we lived in together?", options: ["The Ruxton Towers (50 W 72nd St)", "The San Remo", "The Ansonia", "15 Central Park West"], correct: 0, icon: "🏙️🏢" },
+          { id: 12, q: "12. What was the name of Elise's first startup company?", options: ["Collegiate Soul", "Soulful Campus", "College Glam", "Campus Couture"], correct: 0, icon: "✨👗" },
+          { id: 13, q: "13. What is Elise's absolute favorite handbag brand?", options: ["Chanel", "Gucci", "Hermès", "Prada"], correct: 0, icon: "🤍👜" },
+          { id: 14, q: "14. What watch brand did Elise buy Jason for their wedding (that got stolen)?", options: ["Omega", "Rolex", "Patek Philippe", "Cartier"], correct: 0, icon: "⌚👑" },
+          { id: 15, q: "15. What was our very first vacation as a couple back in 2012?", options: ["Jamaica Montego Bay (2012)", "Cancun, Mexico", "Bahamas", "Miami Beach"], correct: 0, icon: "🍹🌴" },
+          { id: 16, q: "16. What luxury bag did Jason buy Elise for their wedding (that got stolen)?", options: ["YSL (Saint Laurent)", "Bottega Veneta", "Dior", "Celine"], correct: 0, icon: "🛍️✨" },
+          { id: 17, q: "17. What was the hit signature drink at our wedding?", options: ["Moscow Mule", "Aperol Spritz", "Espresso Martini", "Margarita"], correct: 0, icon: "🍸🍹" },
+          { id: 18, q: "18. What is Elise's signature summer cocktail?", options: ["Aperol Spritz", "Spicy Margarita", "Rosé All Day", "Gin & Tonic"], correct: 0, icon: "🍊🍹" },
+          { id: 19, q: "19. Who is Elise's favorite Mahjong tile partner and rival?", options: ["Jason", "Isabella", "AJ", "Chloe"], correct: 0, icon: "🀄🏆" },
+          { id: 20, q: "20. What sport does Elise love playing but can't beat Jason at?", options: ["Tennis", "Golf", "Pickleball", "Squash"], correct: 0, icon: "⛳🏌️‍♀️" },
+          { id: 21, q: "21. What genre of music does Elise love dancing to?", options: ["Reggaeton", "90s Hip Hop", "Country", "Classic Rock"], correct: 0, icon: "🎧💃" },
+          { id: 22, q: "22. What is Elise's favorite drink for girls' night out?", options: ["Chilled Rosé or Skinny Margs", "Cosmopolitan", "Pinot Grigio", "Vodka Soda"], correct: 0, icon: "🥂🍾" },
+          { id: 23, q: "23. What is Elise's favorite late-night snack?", options: ["BTR Chocolates", "Gummy Bears", "Potato Chips", "Ice Cream"], correct: 0, icon: "🍫😋" },
+          { id: 24, q: "24. Where was Elise's iconic bachelorette party?", options: ["Bermuda", "Miami", "Cabo", "Scottsdale"], correct: 0, icon: "🏖️👯‍♀️" },
+          { id: 25, q: "25. Where is Elise's mother originally from?", options: ["Argentina, Las Pampas", "Buenos Aires, Argentina", "Santiago, Chile", "Madrid, Spain"], correct: 0, icon: "🇦🇷💃" },
+          { id: 26, q: "26. What NYC synagogue did Elise attend, where Isabella is a 6th gen member?", options: ["Shaaray Tefila", "Central Synagogue", "Temple Emanu-El", "Rodeph Sholom"], correct: 0, icon: "✡️🏛️" },
+          { id: 27, q: "27. What is Elise's favorite summer escape destination?", options: ["Hamptons, duh!", "Nantucket", "Martha's Vineyard", "Jersey Shore"], correct: 0, icon: "🌊🏡" },
+          { id: 28, q: "28. Where did Jason take Elise and their parents right after getting engaged?", options: ["Tuscany & Rome, Italy", "Paris, France", "Barcelona, Spain", "Kyoto, Japan"], correct: 0, icon: "🇮🇹🍕" },
+          { id: 29, q: "29. What was Elise's favorite TV show growing up?", options: ["Friends", "Full House", "Beverly Hills 90210", "Saved by the Bell"], correct: 0, icon: "📺🌴" },
+          { id: 30, q: "30. What makes Elise laugh out loud the hardest?", options: ["Jason's Beavis & Butt-Head impressions", "Funny TikTok videos", "Stand-up comedy", "Unexpected dad jokes"], correct: 0, icon: "😂🎭" },
+          { id: 31, q: "31. What is Elise's ultimate superpower?", options: ["Best mom & hardest worker", "Mind reading", "Super speed styling", "Master chef"], correct: 0, icon: "🦸‍♀️❤️" },
+          { id: 32, q: "32. How many generations of Elise's family are tied to Shaaray Tefila?", options: ["6 Generations! (Isabella is 6th gen!)", "3 Generations", "4 Generations", "2 Generations"], correct: 0, icon: "👨‍👩‍👧‍👦📜" },
+          { id: 33, q: "33. What hit TV show was inspired by Elise's high school life in NYC?", options: ["Gossip Girl", "Sex and the City", "The OC", "Emily in Paris"], correct: 0, icon: "👑👠" },
+          { id: 34, q: "34. What are Elise's favorite family holiday traditions?", options: ["Thanksgiving & Hanukkah", "4th of July BBQ", "Labor Day Weekend", "New Year's Eve Gala"], correct: 0, icon: "🦃🕎" },
+          { id: 35, q: "35. Who is Elise's all-time favorite partner in life?", options: ["Jason!", "Always Jason!", "Forever Jason!", "All of the above!"], correct: 3, icon: "👩‍❤️‍👨♾️" },
+          { id: 36, q: "36. What makes September 3 the best day of the year?", options: ["Queen Elise's 37th Birthday!", "The start of Fall fashion", "Official Family Holiday", "All of the above!"], correct: 3, icon: "🎂👑" },
+          { id: 37, q: "37. How much do Jason, Bella, and AJ love Queen Elise?", options: ["Infinitely + Always! ❤️", "More than all the stars in the sky!", "To the moon and back!", "All of the above! ❤️"], correct: 3, icon: "💖✨" }
+        ];
+        this.currentIndex = 0;
+      }
+
+      start() {
+        this.currentIndex = 0;
+        this.praiseIndex = 0;
+        this.wrongIndex = 0;
+        this.renderQuestion();
+      }
+
+      renderQuestion() {
+        const q = this.questions[this.currentIndex];
+        const total = this.questions.length;
+        document.getElementById('trivia-q-num').textContent = `Question ${this.currentIndex + 1} of ${total}`;
+        
+        const fillPct = Math.round(((this.currentIndex + 1) / total) * 100);
+        document.getElementById('trivia-progress-fill').style.width = `${fillPct}%`;
+
+        document.getElementById('trivia-question').textContent = q.q;
+
+        const iconEl = document.getElementById('trivia-image-icon');
+        if (iconEl && q.icon) {
+          iconEl.textContent = q.icon;
+          const container = document.getElementById('trivia-image-container');
+          if (container) {
+            container.style.animation = 'none';
+            container.offsetHeight; // reflow
+            container.style.animation = 'pop-icon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          }
+        }
+
+        // Speak question text aloud cleanly (stripping prefix number)
+        const speechText = q.q.replace(/^\d+\.\s*/, '');
+        soundEngine.speakText(speechText);
+
+        const container = document.getElementById('trivia-answers');
+        container.innerHTML = '';
+
+        // Create array of indexed options with correctness tag
+        let optionsList = q.options.map((opt, idx) => ({
+          text: opt,
+          isCorrect: idx === q.correct
+        }));
+
+        // If the question has "All of the above!" as the last option, keep it at the bottom
+        const hasAllOfAbove = optionsList[optionsList.length - 1].text.includes("All of the above");
+
+        if (hasAllOfAbove) {
+          const lastOpt = optionsList.pop();
+          for (let i = optionsList.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [optionsList[i], optionsList[j]] = [optionsList[j], optionsList[i]];
+          }
+          optionsList.push(lastOpt);
+        } else {
+          for (let i = optionsList.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [optionsList[i], optionsList[j]] = [optionsList[j], optionsList[i]];
+          }
+        }
+
+        optionsList.forEach((optObj) => {
+          const btn = document.createElement('button');
+          btn.className = 'trivia-btn';
+          btn.textContent = optObj.text;
+          btn.onclick = () => this.handleAnswer(optObj.isCorrect, btn);
+          container.appendChild(btn);
+        });
+      }
+
+      handleAnswer(isCorrect, btnEl) {
+        if (isCorrect) {
+          btnEl.classList.add('correct');
+          soundEngine.playChaChing();
+          ScreenManager.burstTriviaConfetti();
+          
+          // Cycle through the 8 verbal praise responses
+          const praiseText = this.praiseResponses[this.praiseIndex];
+          soundEngine.speakText(praiseText);
+          this.praiseIndex = (this.praiseIndex + 1) % this.praiseResponses.length;
+
+          appState.totalScore += 200;
+
+          setTimeout(() => {
+            this.currentIndex++;
+            if (this.currentIndex >= this.questions.length) {
+              appState.unlockNextLevel(1);
+              ScreenManager.showRewardModal('🍾', 'An Epic Anniversary Dinner Out & 37th Birthday Crown!', () => {
+                ScreenManager.showScreen('dashboard');
+              });
+            } else {
+              this.renderQuestion();
+            }
+          }, 2800);
+        } else {
+          btnEl.classList.add('wrong');
+          soundEngine.playBuzzer();
+          const wrongText = this.wrongResponses[this.wrongIndex];
+          soundEngine.speakText(wrongText);
+          this.wrongIndex = (this.wrongIndex + 1) % this.wrongResponses.length;
+        }
+      }
+    }
+
+    /* ==========================================
+       6. LEVEL 2 ENGINE: MORNING COFFEE RUN
+       ========================================== */
+    class CoffeeEngine {
+      constructor() {
+        this.canvas = document.getElementById('l-coffee-canvas');
+        this.running = false;
+        this.score = 0;
+        this.playerX = 0;
+        this.items = [];
+        this.lastSpawn = 0;
+      }
+
+      start() {
+        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
+        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
+        this.running = true;
+        this.score = 0;
+        this.items = [];
+        this.playerX = this.width / 2;
+        document.getElementById('hud-score-l1').textContent = '0';
+
+        this.canvas.ontouchmove = (e) => {
+          const rect = this.canvas.getBoundingClientRect();
+          this.playerX = e.touches[0].clientX - rect.left;
+        };
+        this.canvas.onclick = (e) => this.handleTap(e);
+        this.loop();
+      }
+
+      stop() {
+        this.running = false;
+        this.canvas.onclick = null;
+        this.canvas.ontouchmove = null;
+      }
+
+      spawnItem() {
+        const rand = Math.random();
+        let type = 'coffee';
+        if (rand < 0.35) type = 'coffee';
+        else if (rand < 0.60) type = 'bagel';
+        else if (rand < 0.85) type = 'chanel';
+        else type = 'diamond';
+
+        this.items.push({
+          x: Math.random() * (this.width - 60) + 30,
+          y: -20,
+          speed: Math.random() * 2 + 2.5,
+          type: type,
+          radius: 26
+        });
+      }
+
+      getItemPts(type) {
+        if (type === 'coffee') return 200;
+        if (type === 'bagel') return 250;
+        if (type === 'chanel') return 350;
+        if (type === 'diamond') return 500;
+        return 200;
+      }
+
+      getItemCommentary(type) {
+        if (type === 'coffee') return '"Caffeine levels optimal. Ready to conquer Madison Avenue!"';
+        if (type === 'bagel') return '"Fresh NYC everything bagel with cream cheese!"';
+        if (type === 'chanel') return '"A wild Chanel Flap Bag collected on the coffee run!"';
+        if (type === 'diamond') return '"Shining diamond collected! Pure luxury!"';
+        return '"Great catch!"';
+      }
+
+      handleTap(e) {
+        const rect = this.canvas.getBoundingClientRect();
+        const tapX = e.clientX - rect.left;
+        const tapY = e.clientY - rect.top;
+
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const it = this.items[i];
+          if (Math.hypot(it.x - tapX, it.y - tapY) < it.radius + 24) {
+            soundEngine.playChaChing();
+            const pts = this.getItemPts(it.type);
+            this.score += pts;
+            document.getElementById('c-text-l1').textContent = this.getItemCommentary(it.type);
+            appState.totalScore += pts;
+            document.getElementById('hud-score-l1').textContent = this.score;
+            this.items.splice(i, 1);
+
+            if (this.score >= 1000) {
+              this.stop();
+              appState.unlockNextLevel(2);
+              ScreenManager.showRewardModal('🧖‍♀️', 'A Luxury Spa Day Voucher', () => {
+                ScreenManager.showScreen('dashboard');
+              });
+            }
+            break;
+          }
+        }
+      }
+
+      update() {
+        if (btnL1Left || keys['ArrowLeft'] || keys['KeyA']) this.playerX = Math.max(30, this.playerX - 8);
+        if (btnL1Right || keys['ArrowRight'] || keys['KeyD']) this.playerX = Math.min(this.width - 30, this.playerX + 8);
+
+        if (Date.now() - this.lastSpawn > 700) {
+          this.spawnItem();
+          this.lastSpawn = Date.now();
+        }
+
+        const pY = this.height - 50;
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const it = this.items[i];
+          it.y += it.speed;
+
+          if (Math.abs(it.x - this.playerX) < 42 && Math.abs(it.y - pY) < 36) {
+            soundEngine.playChaChing();
+            const pts = this.getItemPts(it.type);
+            this.score += pts;
+            document.getElementById('c-text-l1').textContent = this.getItemCommentary(it.type);
+            appState.totalScore += pts;
+            document.getElementById('hud-score-l1').textContent = this.score;
+            this.items.splice(i, 1);
+
+            if (this.score >= 1000) {
+              this.stop();
+              appState.unlockNextLevel(2);
+              ScreenManager.showRewardModal('🧖‍♀️', 'A Luxury Spa Day Voucher', () => {
+                ScreenManager.showScreen('dashboard');
+              });
+            }
+            continue;
+          }
+
+          if (it.y > this.height + 30) this.items.splice(i, 1);
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.items.forEach(it => {
+          if (it.type === 'coffee') SpriteDrawer.drawCoffeeCup(this.ctx, it.x, it.y);
+          else if (it.type === 'bagel') SpriteDrawer.drawNYCBagel(this.ctx, it.x, it.y);
+          else if (it.type === 'chanel') SpriteDrawer.drawChanelBag(this.ctx, it.x, it.y);
+          else if (it.type === 'diamond') SpriteDrawer.drawDiamondJewelry(this.ctx, it.x, it.y);
+        });
+
+        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.height - 50, 1.8);
+      }
+
+      loop() {
+        if (!this.running) return;
+        this.update();
+        this.draw();
+        requestAnimationFrame(() => this.loop());
+      }
+    }
+
+    /* ==========================================
+       7. LEVEL 3 ENGINE: LUXURY TETRIS (BOUTIQUE SWEEP)
+       ========================================== */
+    class ChanelEngine {
+      constructor() {
+        this.canvas = document.getElementById('l-chanel-canvas');
+        this.running = false;
+        this.score = 0;
+        this.cols = 10;
+        this.rows = 18;
+        this.grid = [];
+        this.currentPiece = null;
+        this.dropCounter = 0;
+        this.dropInterval = 800;
+        this.lastTime = 0;
+
+        // 7 Classic Tetromino shapes with high-fashion colors
+        this.shapes = [
+          { shape: [[1, 1, 1, 1]], color: '#FFD700' }, // Gold Pearl Necklace
+          { shape: [[1, 0, 0], [1, 1, 1]], color: '#FF1493' }, // Chanel Pink Bag
+          { shape: [[0, 0, 1], [1, 1, 1]], color: '#FF69B4' }, // Stiletto Gold
+          { shape: [[1, 1], [1, 1]], color: '#FFFFFF' }, // Platinum Diamond Box
+          { shape: [[0, 1, 1], [1, 1, 0]], color: '#00E5FF' }, // Diamond Cyan
+          { shape: [[1, 1, 0], [0, 1, 1]], color: '#4CAF50' }, // Emerald Green
+          { shape: [[0, 1, 0], [1, 1, 1]], color: '#9C27B0' }  // Royal Purple Crown
+        ];
+      }
+
+      start() {
+        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
+        this.ctx = res.ctx;
+        this.width = res.width;
+        this.height = res.height;
+        this.cellSize = Math.floor(Math.min(this.width / this.cols, (this.height - 10) / this.rows));
+        this.offsetX = Math.floor((this.width - (this.cols * this.cellSize)) / 2);
+        this.offsetY = 10;
+
+        this.grid = Array.from({ length: this.rows }, () => Array(this.cols).fill(0));
+        this.running = true;
+        this.score = 0;
+        this.dropCounter = 0;
+        this.lastTime = performance.now();
+        document.getElementById('hud-score-l2').textContent = '0';
+
+        this.spawnPiece();
+        this.loop();
+      }
+
+      stop() {
+        this.running = false;
+      }
+
+      spawnPiece() {
+        const rand = this.shapes[Math.floor(Math.random() * this.shapes.length)];
+        this.currentPiece = {
+          matrix: rand.shape,
+          color: rand.color,
+          x: Math.floor((this.cols - rand.shape[0].length) / 2),
+          y: 0
+        };
+
+        if (this.collide(this.grid, this.currentPiece)) {
+          soundEngine.playBuzzer();
+          document.getElementById('c-text-l2').textContent = '"Tower reached the top! Resetting luxury boutique stack!"';
+          this.grid = Array.from({ length: this.rows }, () => Array(this.cols).fill(0));
+        }
+      }
+
+      collide(grid, piece) {
+        const m = piece.matrix;
+        for (let r = 0; r < m.length; r++) {
+          for (let c = 0; c < m[r].length; c++) {
+            if (m[r][c] !== 0) {
+              const newX = piece.x + c;
+              const newY = piece.y + r;
+              if (newX < 0 || newX >= this.cols || newY >= this.rows) return true;
+              if (newY >= 0 && grid[newY][newX] !== 0) return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      rotateMatrix(matrix) {
+        const result = [];
+        for (let c = 0; c < matrix[0].length; c++) {
+          const row = [];
+          for (let r = matrix.length - 1; r >= 0; r--) {
+            row.push(matrix[r][c]);
+          }
+          result.push(row);
+        }
+        return result;
+      }
+
+      rotate() {
+        if (!this.running || !this.currentPiece) return;
+        const oldMatrix = this.currentPiece.matrix;
+        this.currentPiece.matrix = this.rotateMatrix(oldMatrix);
+        if (this.collide(this.grid, this.currentPiece)) {
+          this.currentPiece.matrix = oldMatrix;
+        } else {
+          soundEngine.playJump();
+        }
+      }
+
+      move(dir) {
+        if (!this.running || !this.currentPiece) return;
+        this.currentPiece.x += dir;
+        if (this.collide(this.grid, this.currentPiece)) {
+          this.currentPiece.x -= dir;
+        }
+      }
+
+      drop() {
+        if (!this.running || !this.currentPiece) return;
+        this.currentPiece.y++;
+        if (this.collide(this.grid, this.currentPiece)) {
+          this.currentPiece.y--;
+          this.merge();
+          this.clearLines();
+          this.spawnPiece();
+        }
+        this.dropCounter = 0;
+      }
+
+      merge() {
+        const m = this.currentPiece.matrix;
+        for (let r = 0; r < m.length; r++) {
+          for (let c = 0; c < m[r].length; c++) {
+            if (m[r][c] !== 0) {
+              const gY = this.currentPiece.y + r;
+              const gX = this.currentPiece.x + c;
+              if (gY >= 0 && gY < this.rows && gX >= 0 && gX < this.cols) {
+                this.grid[gY][gX] = this.currentPiece.color;
+              }
+            }
+          }
+        }
+      }
+
+      clearLines() {
+        let linesCleared = 0;
+        for (let r = this.rows - 1; r >= 0; r--) {
+          if (this.grid[r].every(cell => cell !== 0)) {
+            this.grid.splice(r, 1);
+            this.grid.unshift(Array(this.cols).fill(0));
+            linesCleared++;
+            r++;
+          }
+        }
+
+        if (linesCleared > 0) {
+          soundEngine.playChaChing();
+          ScreenManager.burstTriviaConfetti();
+          const pts = linesCleared * 300;
+          this.score += pts;
+          appState.totalScore += pts;
+          document.getElementById('hud-score-l2').textContent = this.score;
+          document.getElementById('c-text-l2').textContent = `"Line Clear! +${pts} PTS! Stacking like a queen!"`;
+
+          if (this.score >= 1000) {
+            this.stop();
+            appState.unlockNextLevel(3);
+            ScreenManager.showRewardModal('💎', 'A Custom Diamond Jewelry Piece', () => {
+              ScreenManager.showScreen('dashboard');
+            });
+          }
+        }
+      }
+
+      update(deltaTime) {
+        this.dropCounter += deltaTime;
+        if (this.dropCounter > this.dropInterval) {
+          this.drop();
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+
+        // Draw Board Outer Frame
+        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        this.ctx.fillRect(this.offsetX, this.offsetY, this.cols * this.cellSize, this.rows * this.cellSize);
+        this.ctx.strokeStyle = '#D4AF37';
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeRect(this.offsetX, this.offsetY, this.cols * this.cellSize, this.rows * this.cellSize);
+
+        // Draw Grid Cells
+        for (let r = 0; r < this.rows; r++) {
+          for (let c = 0; c < this.cols; c++) {
+            if (this.grid[r][c] !== 0) {
+              this.drawCell(c, r, this.grid[r][c]);
+            } else {
+              this.ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+              this.ctx.fillRect(this.offsetX + c * this.cellSize + this.cellSize / 2 - 1, this.offsetY + r * this.cellSize + this.cellSize / 2 - 1, 2, 2);
+            }
+          }
+        }
+
+        // Draw Falling Piece
+        if (this.currentPiece) {
+          const m = this.currentPiece.matrix;
+          for (let r = 0; r < m.length; r++) {
+            for (let c = 0; c < m[r].length; c++) {
+              if (m[r][c] !== 0) {
+                this.drawCell(this.currentPiece.x + c, this.currentPiece.y + r, this.currentPiece.color);
+              }
+            }
+          }
+        }
+      }
+
+      drawCell(c, r, color) {
+        const x = this.offsetX + c * this.cellSize;
+        const y = this.offsetY + r * this.cellSize;
+        const sz = this.cellSize;
+
+        this.ctx.save();
+        this.ctx.translate(x + sz / 2, y + sz / 2);
+        const scale = sz / 24;
+
+        // 1. Gold Chain Handle Arc above top of bag
+        this.ctx.strokeStyle = '#FFD700';
+        this.ctx.lineWidth = Math.max(1, 1.8 * scale);
+        this.ctx.beginPath();
+        this.ctx.arc(0, -5 * scale, 5.5 * scale, Math.PI, 0);
+        this.ctx.stroke();
+
+        // 2. Chanel Bag Leather Body (in piece's vibrant color)
+        this.ctx.fillStyle = color;
+        const bw = 20 * scale;
+        const bh = 14 * scale;
+        const by = 2 * scale;
+        this.ctx.beginPath();
+        this.ctx.rect(-bw / 2, -bh / 2 + by, bw, bh);
+        this.ctx.fill();
+
+        // Dark outline
+        this.ctx.strokeStyle = '#111111';
+        this.ctx.lineWidth = Math.max(1, 1.2 * scale);
+        this.ctx.strokeRect(-bw / 2, -bh / 2 + by, bw, bh);
+
+        // 3. Quilted Diamond Stitching Overlay
+        this.ctx.strokeStyle = color === '#FFFFFF' ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.45)';
+        this.ctx.lineWidth = Math.max(0.8, 0.8 * scale);
+        this.ctx.beginPath();
+        this.ctx.moveTo(-bw / 2 + 2 * scale, -bh / 2 + by + 2 * scale);
+        this.ctx.lineTo(bw / 2 - 2 * scale, bh / 2 + by - 2 * scale);
+        this.ctx.moveTo(bw / 2 - 2 * scale, -bh / 2 + by + 2 * scale);
+        this.ctx.lineTo(-bw / 2 + 2 * scale, bh / 2 + by - 2 * scale);
+        this.ctx.stroke();
+
+        // 4. Iconic Gold CC Clasp Lock in Center
+        this.ctx.fillStyle = '#FFD700';
+        this.ctx.fillRect(-2.5 * scale, by - 1 * scale, 5 * scale, 3.5 * scale);
+        this.ctx.strokeStyle = '#B8860B';
+        this.ctx.lineWidth = Math.max(0.8, 0.8 * scale);
+        this.ctx.strokeRect(-2.5 * scale, by - 1 * scale, 5 * scale, 3.5 * scale);
+
+        this.ctx.restore();
+      }
+
+      loop(now = performance.now()) {
+        if (!this.running) return;
+        const deltaTime = now - this.lastTime;
+        this.lastTime = now;
+        this.update(deltaTime);
+        this.draw();
+        requestAnimationFrame((t) => this.loop(t));
+      }
+    }
+
+    /* ==========================================
+       8. LEVEL 4 ENGINE: MAHJONG TILE DASH
+       ========================================== */
+    class MahjongEngine {
+      constructor() {
+        this.canvas = document.getElementById('l-mahjong-canvas');
+        this.running = false;
+        this.score = 0;
+        this.playerX = 0;
+        this.playerY = 0;
+        this.items = [];
+        this.lastSpawn = 0;
+      }
+
+      start() {
+        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
+        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
+        this.running = true;
+        this.score = 0;
+        this.items = [];
+        this.playerX = this.width / 2;
+        this.playerY = this.height - 55;
+        document.getElementById('hud-score-l4').textContent = '0';
+
+        const updatePos = (clientX) => {
+          const rect = this.canvas.getBoundingClientRect();
+          this.playerX = Math.max(30, Math.min(this.width - 30, clientX - rect.left));
+        };
+
+        this.canvas.ontouchstart = (e) => updatePos(e.touches[0].clientX);
+        this.canvas.ontouchmove = (e) => updatePos(e.touches[0].clientX);
+        this.canvas.onmousemove = (e) => { if (e.buttons === 1) updatePos(e.clientX); };
+        this.canvas.onclick = (e) => this.handleTap(e);
+        this.loop();
+      }
+
+      stop() {
+        this.running = false;
+        this.canvas.ontouchstart = null;
+        this.canvas.ontouchmove = null;
+        this.canvas.onmousemove = null;
+        this.canvas.onclick = null;
+      }
+
+      handleTap(e) {
+        const rect = this.canvas.getBoundingClientRect();
+        const tapX = e.clientX - rect.left;
+        const tapY = e.clientY - rect.top;
+
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const it = this.items[i];
+          if (Math.hypot(it.x - tapX, it.y - tapY) < 50) {
+            soundEngine.playChaChing();
+            ScreenManager.burstTriviaConfetti();
+            this.score += 250;
+            appState.totalScore += 250;
+            document.getElementById('hud-score-l4').textContent = this.score;
+            document.getElementById('c-text-l4').textContent = '"MAHJONG! Tile collected! +250 PTS!"';
+            this.items.splice(i, 1);
+
+            if (this.score >= 1000) {
+              this.stop();
+              appState.unlockNextLevel(4);
+              ScreenManager.showRewardModal('🀄', 'A VIP Mahjong Tournament Trophy', () => {
+                ScreenManager.showScreen('dashboard');
+              });
+            }
+            break;
+          }
+        }
+      }
+
+      spawnItem() {
+        const tiles = ['🀄', '🀅', '🀆', '🀇', '🀈', '🀉', '🀊', '🀋'];
+        this.items.push({
+          x: Math.random() * (this.width - 80) + 40,
+          y: -30,
+          speed: Math.random() * 2 + 2.5,
+          symbol: tiles[Math.floor(Math.random() * tiles.length)]
+        });
+      }
+
+      update() {
+        if (btnL4Left || keys['ArrowLeft'] || keys['KeyA']) this.playerX = Math.max(35, this.playerX - 9);
+        if (btnL4Right || keys['ArrowRight'] || keys['KeyD']) this.playerX = Math.min(this.width - 35, this.playerX + 9);
+
+        if (Date.now() - this.lastSpawn > 800) {
+          this.spawnItem();
+          this.lastSpawn = Date.now();
+        }
+
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const it = this.items[i];
+          it.y += it.speed;
+
+          if (Math.abs(it.x - this.playerX) < 55 && Math.abs(it.y - this.playerY) < 48) {
+            soundEngine.playChaChing();
+            ScreenManager.burstTriviaConfetti();
+            this.score += 250;
+            appState.totalScore += 250;
+            document.getElementById('hud-score-l4').textContent = this.score;
+            document.getElementById('c-text-l4').textContent = '"MAHJONG! Tile caught! +250 PTS!"';
+            this.items.splice(i, 1);
+          } else if (it.y > this.height + 40) {
+            this.items.splice(i, 1);
+          }
+        }
+
+        if (this.score >= 1000) {
+          this.stop();
+          appState.unlockNextLevel(4);
+          ScreenManager.showRewardModal('🀄', 'A VIP Mahjong Tournament Trophy', () => {
+            ScreenManager.showScreen('dashboard');
+          });
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.fillStyle = '#4A0E17';
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        this.ctx.strokeStyle = 'rgba(255, 215, 0, 0.2)';
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeRect(10, 10, this.width - 20, this.height - 20);
+
+        this.items.forEach(it => {
+          SpriteDrawer.drawMahjongTile(this.ctx, it.x, it.y, it.symbol, 1.6);
+        });
+
+        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.8);
+      }
+
+      loop() {
+        if (!this.running) return;
+        this.update(); this.draw();
+        requestAnimationFrame(() => this.loop());
+      }
+    }
+
+    /* ==========================================
+       9. LEVEL 5 ENGINE: HAMPTONS JET SKI WAVE RIDER
+       ========================================== */
+    class JetskiEngine {
+      constructor() {
+        this.canvas = document.getElementById('l-jetski-canvas');
+        this.running = false;
+        this.score = 0;
+        this.playerX = 0;
+        this.playerY = 0;
+        this.items = [];
+        this.lastSpawn = 0;
+      }
+
+      start() {
+        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
+        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
+        this.running = true;
+        this.score = 0;
+        this.items = [];
+        this.playerX = this.width / 2;
+        this.playerY = this.height - 55;
+        document.getElementById('hud-score-l5').textContent = '0';
+
+        this.canvas.ontouchmove = (e) => {
+          const rect = this.canvas.getBoundingClientRect();
+          this.playerX = e.touches[0].clientX - rect.left;
+        };
+        this.loop();
+      }
+
+      stop() {
+        this.running = false;
+        this.canvas.ontouchmove = null;
+      }
+
+      moveLeft() { if (this.running) this.playerX = Math.max(35, this.playerX - 25); }
+      moveRight() { if (this.running) this.playerX = Math.min(this.width - 35, this.playerX + 25); }
+
+      spawnItem() {
+        const items = ['🍾', '💎', '👜', '🍸'];
+        this.items.push({
+          x: Math.random() * (this.width - 60) + 30,
+          y: -20,
+          speed: Math.random() * 2 + 3,
+          symbol: items[Math.floor(Math.random() * items.length)]
+        });
+      }
+
+      update() {
+        if (Date.now() - this.lastSpawn > 800) {
+          this.spawnItem();
+          this.lastSpawn = Date.now();
+        }
+
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const it = this.items[i];
+          it.y += it.speed;
+
+          if (Math.abs(it.x - this.playerX) < 40 && Math.abs(it.y - this.playerY) < 36) {
+            soundEngine.playChaChing();
+            ScreenManager.burstTriviaConfetti();
+            this.score += 250;
+            appState.totalScore += 250;
+            document.getElementById('hud-score-l5').textContent = this.score;
+            document.getElementById('c-text-l5').textContent = '"Hamptons Wave Reward Catch! +250 PTS!"';
+            this.items.splice(i, 1);
+          } else if (it.y > this.height + 30) {
+            this.items.splice(i, 1);
+          }
+        }
+
+        if (this.score >= 1000) {
+          this.stop();
+          appState.unlockNextLevel(5);
+          ScreenManager.showRewardModal('🌊', 'A Luxury Hamptons Yacht Charter', () => {
+            ScreenManager.showScreen('dashboard');
+          });
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.fillStyle = '#005C8A';
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        this.ctx.lineWidth = 2;
+        for (let y = 40; y < this.height; y += 40) {
+          this.ctx.beginPath();
+          this.ctx.arc(this.width / 2, y, this.width * 0.6, Math.PI * 0.1, Math.PI * 0.9);
+          this.ctx.stroke();
+        }
+
+        this.items.forEach(it => {
+          this.ctx.font = '28px sans-serif';
+          this.ctx.textAlign = 'center';
+          this.ctx.textBaseline = 'middle';
+          this.ctx.fillText(it.symbol, it.x, it.y);
+        });
+
+        this.ctx.font = '32px sans-serif';
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.fillText('🚤', this.playerX, this.playerY);
+        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY - 22, 1.1);
+      }
+
+      loop() {
+        if (!this.running) return;
+        this.update(); this.draw();
+        requestAnimationFrame(() => this.loop());
+      }
+    }
+
+    /* ==========================================
+       10. LEVEL 6 ENGINE: BEDFORD TENNIS & GOLF RALLY
+       ========================================== */
+    class TennisEngine {
+      constructor() {
+        this.canvas = document.getElementById('l-tennis-canvas');
+        this.running = false;
+        this.score = 0;
+        this.playerX = 0;
+        this.playerY = 0;
+        this.items = [];
+        this.lastSpawn = 0;
+      }
+
+      start() {
+        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
+        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
+        this.running = true;
+        this.score = 0;
+        this.items = [];
+        this.playerX = this.width / 2;
+        this.playerY = this.height - 55;
+        document.getElementById('hud-score-l6').textContent = '0';
+        this.loop();
+      }
+
+      stop() { this.running = false; }
+      moveLeft() { if (this.running) this.playerX = Math.max(35, this.playerX - 25); }
+      moveRight() { if (this.running) this.playerX = Math.min(this.width - 35, this.playerX + 25); }
+
+      serve() {
+        if (!this.running) return;
+        soundEngine.playJump();
+        this.items.push({
+          x: this.playerX,
+          y: this.playerY - 20,
+          vy: -8,
+          symbol: Math.random() < 0.5 ? '🎾' : '⛳',
+          type: 'ball'
+        });
+      }
+
+      spawnTarget() {
+        this.items.push({
+          x: Math.random() * (this.width - 60) + 30,
+          y: 40,
+          vx: (Math.random() - 0.5) * 3,
+          symbol: '🎯',
+          type: 'target'
+        });
+      }
+
+      update() {
+        if (Date.now() - this.lastSpawn > 1100) {
+          this.spawnTarget();
+          this.lastSpawn = Date.now();
+        }
+
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const it = this.items[i];
+
+          if (it.type === 'ball') {
+            it.y += it.vy;
+            for (let j = this.items.length - 1; j >= 0; j--) {
+              const target = this.items[j];
+              if (target.type === 'target' && Math.hypot(it.x - target.x, it.y - target.y) < 35) {
+                soundEngine.playChaChing();
+                ScreenManager.burstTriviaConfetti();
+                this.score += 250;
+                appState.totalScore += 250;
+                document.getElementById('hud-score-l6').textContent = this.score;
+                document.getElementById('c-text-l6').textContent = '"Ace Tennis Serve! Target Hit! +250 PTS!"';
+                this.items.splice(j, 1);
+                this.items.splice(i, 1);
+                break;
+              }
+            }
+            if (it.y < -30) this.items.splice(i, 1);
+          } else if (it.type === 'target') {
+            it.x += it.vx;
+            if (it.x < 30 || it.x > this.width - 30) it.vx *= -1;
+          }
+        }
+
+        if (this.score >= 1000) {
+          this.stop();
+          appState.unlockNextLevel(6);
+          ScreenManager.showRewardModal('🏆', 'The Bedford Country Club Championship', () => {
+            ScreenManager.showScreen('dashboard');
+          });
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.fillStyle = '#1E5631';
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        this.ctx.strokeStyle = '#FFFFFF';
+        this.ctx.lineWidth = 3;
+        this.ctx.strokeRect(20, 20, this.width - 40, this.height - 40);
+        this.ctx.beginPath();
+        this.ctx.moveTo(20, this.height / 2);
+        this.ctx.lineTo(this.width - 20, this.height / 2);
+        this.ctx.stroke();
+
+        this.items.forEach(it => {
+          this.ctx.font = '28px sans-serif';
+          this.ctx.textAlign = 'center';
+          this.ctx.textBaseline = 'middle';
+          this.ctx.fillText(it.symbol, it.x, it.y);
+        });
+
+        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.7);
+      }
+
+      loop() {
+        if (!this.running) return;
+        this.update(); this.draw();
+        requestAnimationFrame(() => this.loop());
+      }
+    }
+
+    /* ==========================================
+       11. LEVEL 7 ENGINE: STILETTO RUNWAY DASH (GRAND FINALE)
+       ========================================== */
+    class StilettoEngine {
+      constructor() {
+        this.canvas = document.getElementById('l-stiletto-canvas');
+        this.running = false;
+        this.score = 0;
+        this.playerX = 75;
+        this.playerY = 0;
+        this.playerVY = 0;
+        this.obstacles = [];
+        this.lastSpawn = 0;
+      }
+
+      start() {
+        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
+        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
+        this.running = true;
+        this.score = 0;
+        this.obstacles = [];
+        this.playerY = this.height - 55;
+        this.playerVY = 0;
+        document.getElementById('hud-score-l7').textContent = '0';
+
+        this.canvas.onclick = () => this.jump();
+        this.loop();
+      }
+
+      stop() {
+        this.running = false;
+        this.canvas.onclick = null;
+      }
+
+      jump() {
+        if (!this.running) return;
+        if (this.playerY >= this.height - 60) {
+          this.playerVY = -11;
+          soundEngine.playJump();
+        }
+      }
+
+      spawnObstacle() {
+        const obs = ['🚕', '🚧'];
+        this.obstacles.push({
+          x: this.width + 30,
+          y: this.height - 45,
+          speed: 4.5,
+          symbol: obs[Math.floor(Math.random() * obs.length)]
+        });
+      }
+
+      update() {
+        this.playerVY += 0.55;
+        this.playerY += this.playerVY;
+        if (this.playerY > this.height - 55) {
+          this.playerY = this.height - 55;
+          this.playerVY = 0;
+        }
+
+        if (Date.now() - this.lastSpawn > 1200) {
+          this.spawnObstacle();
+          this.lastSpawn = Date.now();
+        }
+
+        for (let i = this.obstacles.length - 1; i >= 0; i--) {
+          const ob = this.obstacles[i];
+          ob.x -= ob.speed;
+
+          if (Math.abs(ob.x - this.playerX) < 32 && Math.abs(ob.y - this.playerY) < 32) {
+            soundEngine.playBuzzer();
+            document.getElementById('c-text-l7').textContent = '"Careful! Jump high heels over NYC cabs!"';
+            this.obstacles.splice(i, 1);
+          } else if (ob.x < -40) {
+            soundEngine.playChaChing();
+            ScreenManager.burstTriviaConfetti();
+            this.score += 250;
+            appState.totalScore += 250;
+            document.getElementById('hud-score-l7').textContent = this.score;
+            document.getElementById('c-text-l7').textContent = '"Sprinted past yellow cab! +250 PTS!"';
+            this.obstacles.splice(i, 1);
+          }
+        }
+
+        if (this.score >= 1000) {
+          this.stop();
+          appState.unlockNextLevel(7);
+          ScreenManager.showRewardModal('👑', 'The Ultimate Victory Vault & Dream Chanel Bag', () => {
+            ScreenManager.showScreen('vault');
+          });
+        }
+      }
+
+      draw() {
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.fillStyle = '#1A001A';
+        this.ctx.fillRect(0, 0, this.width, this.height);
+
+        this.ctx.fillStyle = '#C2185B';
+        this.ctx.fillRect(0, this.height - 30, this.width, 30);
+
+        this.obstacles.forEach(ob => {
+          this.ctx.font = '28px sans-serif';
+          this.ctx.textAlign = 'center';
+          this.ctx.textBaseline = 'middle';
+          this.ctx.fillText(ob.symbol, ob.x, ob.y);
+        });
+
+        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.6);
+        this.ctx.font = '22px sans-serif';
+        this.ctx.fillText('👠', this.playerX, this.playerY + 22);
+      }
+
+      loop() {
+        if (!this.running) return;
+        this.update(); this.draw();
+        requestAnimationFrame(() => this.loop());
+      }
+    }
+
+    const triviaEngine = new TriviaEngine();
+    const coffeeEngine = new CoffeeEngine();
+    const chanelEngine = new ChanelEngine();
+    const mahjongEngine = new MahjongEngine();
+    const jetskiEngine = new JetskiEngine();
+    const tennisEngine = new TennisEngine();
+    const stilettoEngine = new StilettoEngine();
+
+    const confettiEngine = new (class ConfettiEngine {
+      constructor() {
+        this.canvas = document.getElementById('confetti-canvas');
+        this.particles = [];
+        this.running = false;
+      }
+      start() {
+        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
+        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
+        this.running = true;
+        this.particles = [];
+        for (let i = 0; i < 90; i++) {
+          this.particles.push({
+            x: this.width / 2, y: this.height / 2,
+            vx: (Math.random() - 0.5) * 14, vy: (Math.random() - 0.8) * 16,
+            size: Math.random() * 8 + 4, color: ['#FFD700', '#C2185B', '#FFD1DC', '#FFF'][Math.floor(Math.random()*4)]
+          });
+        }
+        this.loop();
+      }
+      loop() {
+        if (!this.running) return;
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.particles.forEach(p => {
+          p.x += p.vx; p.y += p.vy; p.vy += 0.2;
+          this.ctx.fillStyle = p.color;
+          this.ctx.fillRect(p.x, p.y, p.size, p.size);
+        });
+        requestAnimationFrame(() => this.loop());
+      }
+    })();
+
+    /* ==========================================
+       9. INPUT & NAVIGATION LISTENERS
+       ========================================== */
+    const keys = {};
+    window.addEventListener('keydown', (e) => {
+      keys[e.code] = true;
+      if (e.code === 'Space') stilettoEngine.jump();
+
+      // Level 3 Luxury Tetris Controls
+      if (document.getElementById('screen-level-chanel').classList.contains('active')) {
+        if (e.code === 'ArrowLeft' || e.code === 'KeyA') chanelEngine.move(-1);
+        if (e.code === 'ArrowRight' || e.code === 'KeyD') chanelEngine.move(1);
+        if (e.code === 'ArrowUp' || e.code === 'KeyW') chanelEngine.rotate();
+        if (e.code === 'ArrowDown' || e.code === 'KeyS') chanelEngine.drop();
+      }
+    });
+    window.addEventListener('keyup', (e) => keys[e.code] = false);
+
+    let btnL1Left = false, btnL1Right = false;
+    let btnL4Left = false, btnL4Right = false;
+
+    const bindBtn = (id, onDown, onUp) => {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      btn.addEventListener('touchstart', (e) => { e.preventDefault(); onDown(); });
+      btn.addEventListener('touchend', (e) => { e.preventDefault(); onUp(); });
+      btn.addEventListener('mousedown', () => onDown());
+      btn.addEventListener('mouseup', () => onUp());
+    };
+
+    const bindClick = (id, fn) => {
+      const btn = document.getElementById(id);
+      if (btn) {
+        btn.addEventListener('click', (e) => { e.preventDefault(); fn(); });
+      }
+    };
+
+    bindBtn('btn-l1-left', () => btnL1Left = true, () => btnL1Left = false);
+    bindBtn('btn-l1-right', () => btnL1Right = true, () => btnL1Right = false);
+
+    bindBtn('btn-l4-left', () => btnL4Left = true, () => btnL4Left = false);
+    bindBtn('btn-l4-right', () => btnL4Right = true, () => btnL4Right = false);
+
+    // Level 3 Luxury Tetris Touch Controls
+    bindClick('btn-l2-left', () => chanelEngine.move(-1));
+    bindClick('btn-l2-rotate', () => chanelEngine.rotate());
+    bindClick('btn-l2-down', () => chanelEngine.drop());
+    bindClick('btn-l2-right', () => chanelEngine.move(1));
+
+    // Level 4 Mahjong Touch Controls
+    bindClick('btn-l4-left', () => mahjongEngine.moveLeft());
+    bindClick('btn-l4-right', () => mahjongEngine.moveRight());
+
+    // Level 5 Jet Ski Touch Controls
+    bindClick('btn-l5-left', () => jetskiEngine.moveLeft());
+    bindClick('btn-l5-right', () => jetskiEngine.moveRight());
+
+    // Level 6 Tennis Touch Controls
+    bindClick('btn-l6-left', () => tennisEngine.moveLeft());
+    bindClick('btn-l6-right', () => tennisEngine.moveRight());
+    bindClick('btn-l6-serve', () => tennisEngine.serve());
+
+    // Level 7 Stiletto Touch Controls
+    bindClick('btn-l7-jump', () => stilettoEngine.jump());
+
+    // Password Gatekeeper Submission Handler
+    document.getElementById('pwd-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = document.getElementById('pwd-input').value.trim().toLowerCase();
+      const errorMsg = document.getElementById('pwd-error-msg');
+
+      if (val === 'love') {
+        soundEngine.init();
+        soundEngine.playChaChing();
+        soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
+        localStorage.setItem('elise_bday_auth_v1', 'true');
+        errorMsg.style.opacity = '0';
+        ScreenManager.showScreen('landing');
+      } else {
+        soundEngine.init();
+        soundEngine.playBuzzer();
+        errorMsg.style.opacity = '1';
+        document.getElementById('pwd-input').value = '';
+      }
+    });
+
+    // One-time touch/click listener to unlock Audio on first interaction
+    const unlockAudio = () => {
+      soundEngine.init();
+      window.removeEventListener('touchstart', unlockAudio);
+      window.removeEventListener('click', unlockAudio);
+      window.removeEventListener('pointerdown', unlockAudio);
+    };
+    window.addEventListener('touchstart', unlockAudio, { passive: true });
+    window.addEventListener('click', unlockAudio);
+    window.addEventListener('pointerdown', unlockAudio);
+
+    document.getElementById('btn-start-game').addEventListener('click', () => {
+      soundEngine.init();
+      soundEngine.speakGreeting();
+      soundEngine.playChaChing();
+      
+      const dlg = document.getElementById('landing-dialogue');
+      dlg.classList.add('visible');
+      setTimeout(() => {
+        dlg.classList.remove('visible');
+        ScreenManager.showScreen('dashboard');
+      }, 1800);
+    });
+
+    document.getElementById('btn-home-nav').addEventListener('click', () => {
+      coffeeEngine.stop(); chanelEngine.stop(); mahjongEngine.stop();
+      jetskiEngine.stop(); tennisEngine.stop(); stilettoEngine.stop();
+      ScreenManager.showScreen('dashboard');
+    });
+
+    document.getElementById('btn-sound-toggle').addEventListener('click', () => {
+      soundEngine.init();
+      const isMuted = soundEngine.toggleSound();
+      document.getElementById('sound-icon').textContent = isMuted ? '🔇' : '🔊';
+    });
+
+    document.getElementById('btn-lock-nav').addEventListener('click', () => {
+      localStorage.removeItem('elise_bday_auth_v1');
+      soundEngine.playBuzzer();
+      ScreenManager.showScreen('password');
+    });
+
+    const btnCasual = document.getElementById('opt-casual');
+    const btnParty = document.getElementById('opt-party');
+    btnCasual.addEventListener('click', () => {
+      btnCasual.classList.add('active'); btnParty.classList.remove('active', 'party');
+      appState.mode = 'casual';
+    });
+    btnParty.addEventListener('click', () => {
+      btnParty.classList.add('active', 'party'); btnCasual.classList.remove('active');
+      appState.mode = 'party';
+    });
+
+    // Level Dashboard Card Listeners with Unlock Checks for 7 Levels
+    document.getElementById('card-l1').addEventListener('click', () => {
+      if (appState.unlockedLevel >= 1) {
+        ScreenManager.showScreen('trivia'); triviaEngine.start();
+      }
+    });
+
+    document.getElementById('card-l2').addEventListener('click', () => {
+      if (appState.unlockedLevel >= 2) {
+        ScreenManager.showScreen('level-coffee'); coffeeEngine.start();
+      } else {
+        soundEngine.playBuzzer();
+        soundEngine.speakText("Level 2 is locked! Complete Level 1 Love Trivia first.");
+      }
+    });
+
+    document.getElementById('card-l3').addEventListener('click', () => {
+      if (appState.unlockedLevel >= 3) {
+        ScreenManager.showScreen('level-chanel'); chanelEngine.start();
+      } else {
+        soundEngine.playBuzzer();
+        soundEngine.speakText("Level 3 is locked! Complete Level 2 Coffee Run first.");
+      }
+    });
+
+    document.getElementById('card-l4').addEventListener('click', () => {
+      if (appState.unlockedLevel >= 4) {
+        ScreenManager.showScreen('level-mahjong'); mahjongEngine.start();
+      } else {
+        soundEngine.playBuzzer();
+        soundEngine.speakText("Level 4 is locked! Complete Level 3 Boutique Sweep first.");
+      }
+    });
+
+    document.getElementById('card-l5').addEventListener('click', () => {
+      if (appState.unlockedLevel >= 5) {
+        ScreenManager.showScreen('level-jetski'); jetskiEngine.start();
+      } else {
+        soundEngine.playBuzzer();
+        soundEngine.speakText("Level 5 is locked! Complete Level 4 Mahjong Dash first.");
+      }
+    });
+
+    document.getElementById('card-l6').addEventListener('click', () => {
+      if (appState.unlockedLevel >= 6) {
+        ScreenManager.showScreen('level-tennis'); tennisEngine.start();
+      } else {
+        soundEngine.playBuzzer();
+        soundEngine.speakText("Level 6 is locked! Complete Level 5 Jet Ski Rider first.");
+      }
+    });
+
+    document.getElementById('card-l7').addEventListener('click', () => {
+      if (appState.unlockedLevel >= 7) {
+        ScreenManager.showScreen('level-stiletto'); stilettoEngine.start();
+      } else {
+        soundEngine.playBuzzer();
+        soundEngine.speakText("Level 7 is locked! Complete Level 6 Bedford Tennis first.");
+      }
+    });
+
+    document.getElementById('btn-share-victory').addEventListener('click', () => {
+      const text = `I just beat Queen Elise's Luxury Life Tour and unlocked her dream Chanel bag! Can you beat my score? ${window.location.href}`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          const toast = document.getElementById('toast');
+          toast.textContent = "Copied to Clipboard!";
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2500);
+        });
+      }
+    });
+
+    document.getElementById('btn-save-score').addEventListener('click', () => {
+      const name = document.getElementById('guest-name-input').value.trim() || 'Queen Elise';
+      appState.addScore(name, appState.totalScore);
+      const toast = document.getElementById('toast');
+      toast.textContent = `Score saved for ${name}!`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+      ScreenManager.renderLeaderboard();
+    });
+
+    window.addEventListener('load', () => {
+      ScreenManager.showScreen('password');
+    });
+  </script>
+</body>
+</html>
