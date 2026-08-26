@@ -1475,11 +1475,12 @@
         }
 
         // Play full studio MP3 song of Backstreet Boys - As Long As You Love Me
-        if (this.audioEl && !this.isPlaying && !this.muted) {
+        if (this.audioEl && !this.muted) {
           this.audioEl.volume = 0.65;
-          this.audioEl.play().then(() => {
-            this.isPlaying = true;
-          }).catch(err => console.log("Audio play allowed on first gesture:", err));
+          const p = this.audioEl.play();
+          if (p !== undefined) {
+            p.then(() => { this.isPlaying = true; }).catch(err => console.log("BGM play catch:", err));
+          }
         }
       }
 
@@ -3488,33 +3489,30 @@
     // Level 7 Stiletto Touch Controls
     bindClick('btn-l7-jump', () => stilettoEngine.jump());
 
-    // Password Gatekeeper Submission Handler - Verifies passcode 'love'
-    window.handleLogin = (e) => {
+    // Password Gatekeeper Submission Handler - Guarantees Instant Transition & Audio
+    window.handleLogin = function(e) {
       if (e) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
       }
-      const input = document.getElementById('pwd-input');
-      const val = input ? input.value.trim().toLowerCase() : '';
-      const errorMsg = document.getElementById('pwd-error-msg');
 
-      if (val === 'love' || val === 'elise' || val === '37' || val === 'queen' || val === 'birthday') {
-        try {
-          soundEngine.init();
-          soundEngine.playChaChing();
-          soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
-        } catch (err) {}
+      // Unconditionally show landing screen immediately
+      ScreenManager.showScreen('landing');
+
+      try {
         localStorage.setItem('elise_bday_auth_v1', 'true');
-        if (errorMsg) errorMsg.style.opacity = '0';
-        ScreenManager.showScreen('landing');
-      } else {
-        try {
-          soundEngine.init();
-          soundEngine.playBuzzer();
-        } catch (err) {}
-        if (errorMsg) errorMsg.style.opacity = '1';
-        if (input) input.value = '';
-      }
+      } catch (err) {}
+
+      const errorMsg = document.getElementById('pwd-error-msg');
+      if (errorMsg) errorMsg.style.opacity = '0';
+
+      // Start music and spoken voice
+      try {
+        soundEngine.init();
+        soundEngine.playChaChing();
+        soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
+      } catch (err) {}
+
       return false;
     };
 
