@@ -515,6 +515,40 @@
       transition: transform 0.15s ease, opacity 0.3s ease, filter 0.3s ease;
     }
 
+    .level-card.featured {
+      background: linear-gradient(135deg, #FFFDF0 0%, #FFFFFF 100%);
+      border: 4px solid var(--gold-primary);
+      box-shadow: 0 0 25px rgba(212,175,55,0.65), 0 8px 20px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .featured-badge-tag {
+      position: absolute;
+      top: -12px;
+      left: 16px;
+      background: linear-gradient(135deg, #FFD700, #FF8C00);
+      border: 2px solid var(--black-chic);
+      border-radius: 12px;
+      padding: 3px 10px;
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      font-weight: 900;
+      color: #111;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      z-index: 10;
+      animation: pulse-btn 2s infinite ease-in-out;
+    }
+
+    .featured-play-btn {
+      background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%) !important;
+      color: #FFFFFF !important;
+      border: 2.5px solid var(--black-chic) !important;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      box-shadow: 0 0 15px rgba(255,215,0,0.8) !important;
+    }
+
     .level-card:active { transform: scale(0.98); }
 
     .level-card.locked {
@@ -1114,17 +1148,18 @@
 
       <!-- 7 Levels List Cards -->
       <div class="levels-list">
-        <!-- Level 1 -->
-        <div class="level-card" id="card-l1">
+        <!-- Level 1 (Featured Main Game) -->
+        <div class="level-card featured" id="card-l1">
+          <div class="featured-badge-tag">★ MAIN GAME • START HERE 🍾</div>
           <div class="level-card-left">
-            <div class="level-card-icon">🍾</div>
+            <div class="level-card-icon" style="background: linear-gradient(135deg, #FFD700, #FFA500); border-color: #111;">🍾</div>
             <div class="level-card-info">
-              <span class="level-card-num">Level 1 (Focus Game)</span>
-              <span class="level-card-title">Love Trivia (37 Questions)</span>
+              <span class="level-card-num" style="color: var(--gold-dark);">★ Level 1 (Main Focus Game)</span>
+              <span class="level-card-title" style="font-size: 1.12rem;">Love Trivia (37 Questions)</span>
               <span class="level-card-reward">🎁 Unlocks: Epic Anniversary Dinner</span>
             </div>
           </div>
-          <button class="level-play-btn">PLAY</button>
+          <button class="level-play-btn featured-play-btn">★ PLAY TRIVIA</button>
         </div>
 
         <!-- Level 2 -->
@@ -1735,9 +1770,7 @@
       }
 
       getUnlockedLevel() {
-        const stored = localStorage.getItem(this.unlockKey);
-        const val = stored ? parseInt(stored, 10) : 1;
-        return isNaN(val) ? 1 : val;
+        return 7;
       }
 
       unlockNextLevel(completedLevel) {
