@@ -1332,7 +1332,7 @@
       </div>
     </section>
 
-    <!-- LEVEL 5: HAMPTONS JET SKI WAVE RIDER -->
+    <!-- LEVEL 5: HAMPTONS HANDBAG MEMORY MATCH -->
     <section id="screen-level-jetski" class="screen">
       <div class="game-hud">
         <div class="hud-box">SCORE: <span id="hud-score-l5">0</span></div>
@@ -1341,14 +1341,15 @@
 
       <canvas id="l-jetski-canvas"></canvas>
 
-      <div class="touch-controls">
-        <button class="touch-btn" id="btn-l5-left">◀</button>
-        <button class="touch-btn" id="btn-l5-right">▶</button>
+      <div class="level-action-zone" style="gap: 10px;">
+        <button id="btn-l5-left" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">◀</button>
+        <button id="btn-l5-flip" class="flap-btn" style="flex: 1; padding: 14px; font-size: 0.95rem;">👜 FLIP CARD 👜</button>
+        <button id="btn-l5-right" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">▶</button>
       </div>
 
       <div class="commentary-bar">
         <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
-        <p id="c-text-l5" class="commentary-text">"Ride the Hamptons ocean waves catching champagne, diamonds, & Chanel bags!"</p>
+        <p id="c-text-l5" class="commentary-text">"Tap cards directly or use ◀ FLIP CARD ▶ to match all 6 handbag pairs!"</p>
       </div>
     </section>
 
@@ -2756,29 +2757,7 @@
       }
 
       draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
-        this.ctx.fillStyle = '#4A0E17';
-        this.ctx.fillRect(0, 0, this.width, this.height);
-
-        this.ctx.strokeStyle = 'rgba(255, 215, 0, 0.2)';
-        this.ctx.lineWidth = 3;
-        this.ctx.strokeRect(10, 10, this.width - 20, this.height - 20);
-
-        this.items.forEach(it => {
-          SpriteDrawer.drawMahjongTile(this.ctx, it.x, it.y, it.symbol, 1.6);
-        });
-
-        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.8);
-      }
-
-      loop() {
-        if (!this.running) return;
-        this.update(); this.draw();
-        requestAnimationFrame(() => this.loop());
-      }
-    }
-
-    /* ==========================================
+        this.ctx.clearRect(0    /* ==========================================
        9. LEVEL 5 ENGINE: HAMPTONS HANDBAG MEMORY MATCH
        ========================================== */
     class JetskiEngine {
@@ -2788,6 +2767,7 @@
         this.score = 0;
         this.cards = [];
         this.selected = [];
+        this.selectedIndex = 0;
         this.matchedPairs = 0;
         this.isChecking = false;
       }
@@ -2798,10 +2778,11 @@
         this.running = true;
         this.score = 0;
         this.selected = [];
+        this.selectedIndex = 0;
         this.matchedPairs = 0;
         this.isChecking = false;
         document.getElementById('hud-score-l5').textContent = '0';
-        document.getElementById('c-text-l5').textContent = '"Flip cards to match all 6 pairs of luxury designer handbags!"';
+        document.getElementById('c-text-l5').textContent = '"Tap cards directly or use ◀ FLIP CARD ▶ to match all 6 handbag pairs!"';
 
         this.initCards();
 
@@ -2845,8 +2826,8 @@
 
         const cols = 4;
         const rows = 3;
-        const paddingX = 14;
-        const paddingY = 14;
+        const paddingX = 12;
+        const paddingY = 12;
         const cardW = (this.width - paddingX * (cols + 1)) / cols;
         const cardH = (this.height - 30 - paddingY * (rows + 1)) / rows;
 
@@ -2855,8 +2836,22 @@
           const r = Math.floor(idx / cols);
           const x = paddingX + c * (cardW + paddingX);
           const y = 15 + paddingY + r * (cardH + paddingY);
-          return { ...card, x, y, w: cardW, h: cardH };
+          return { ...card, x, y, w: cardW, h: cardH, index: idx };
         });
+      }
+
+      moveCursor(dir) {
+        if (!this.running) return;
+        soundEngine.playJump();
+        this.selectedIndex = (this.selectedIndex + dir + 12) % 12;
+      }
+
+      flipSelected() {
+        if (!this.running || this.isChecking) return;
+        const target = this.cards[this.selectedIndex];
+        if (target && !target.flipped && !target.matched) {
+          this.flipCard(target);
+        }
       }
 
       handleTap(e) {
@@ -2872,10 +2867,14 @@
         );
 
         if (!tappedCard) return;
+        this.selectedIndex = tappedCard.index;
+        this.flipCard(tappedCard);
+      }
 
+      flipCard(card) {
         soundEngine.playJump();
-        tappedCard.flipped = true;
-        this.selected.push(tappedCard);
+        card.flipped = true;
+        this.selected.push(card);
 
         if (this.selected.length === 2) {
           this.isChecking = true;
@@ -2931,9 +2930,11 @@
         this.ctx.lineWidth = 2;
         this.ctx.strokeRect(6, 6, this.width - 12, this.height - 12);
 
-        this.cards.forEach(card => {
+        this.cards.forEach((card, idx) => {
           this.ctx.save();
           this.ctx.translate(card.x, card.y);
+
+          const isSelected = idx === this.selectedIndex;
 
           if (card.matched) {
             this.ctx.fillStyle = 'rgba(255, 255, 240, 0.95)';
@@ -2969,6 +2970,35 @@
             const bgGrad = this.ctx.createLinearGradient(0, 0, card.w, card.h);
             bgGrad.addColorStop(0, '#E75480');
             bgGrad.addColorStop(1, '#C2185B');
+            this.ctx.fillStyle = bgGrad;
+            this.ctx.fillRect(0, 0, card.w, card.h);
+
+            this.ctx.strokeStyle = isSelected ? '#FFD700' : 'rgba(255,215,0,0.5)';
+            this.ctx.lineWidth = isSelected ? 3.5 : 2;
+            this.ctx.strokeRect(2, 2, card.w - 4, card.h - 4);
+
+            this.ctx.font = `${Math.min(card.w, card.h) * 0.38}px sans-serif`;
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
+            this.ctx.fillText('👜', card.w / 2, card.h / 2);
+          }
+
+          if (isSelected && !card.matched) {
+            this.ctx.strokeStyle = '#FFD700';
+            this.ctx.lineWidth = 3.5;
+            this.ctx.strokeRect(-2, -2, card.w + 4, card.h + 4);
+          }
+
+          this.ctx.restore();
+        });
+      }
+
+      loop() {
+        if (!this.running) return;
+        this.draw();
+        requestAnimationFrame(() => this.loop());
+      }
+    }op(1, '#C2185B');
             this.ctx.fillStyle = bgGrad;
             this.ctx.fillRect(0, 0, card.w, card.h);
 
@@ -3307,12 +3337,20 @@
         if (e.code === 'ArrowUp' || e.code === 'KeyW') chanelEngine.rotate();
         if (e.code === 'ArrowDown' || e.code === 'KeyS') chanelEngine.drop();
       }
+
+      // Level 5 Handbag Memory Match Controls
+      if (document.getElementById('screen-level-jetski').classList.contains('active')) {
+        if (e.code === 'ArrowLeft' || e.code === 'KeyA') jetskiEngine.moveCursor(-1);
+        if (e.code === 'ArrowRight' || e.code === 'KeyD') jetskiEngine.moveCursor(1);
+        if (e.code === 'ArrowUp' || e.code === 'KeyW') jetskiEngine.moveCursor(-4);
+        if (e.code === 'ArrowDown' || e.code === 'KeyS') jetskiEngine.moveCursor(4);
+        if (e.code === 'Space' || e.code === 'Enter') jetskiEngine.flipSelected();
+      }
     });
     window.addEventListener('keyup', (e) => keys[e.code] = false);
 
     let btnL1Left = false, btnL1Right = false;
     let btnL4Left = false, btnL4Right = false;
-    let btnL5Left = false, btnL5Right = false;
     let btnL6Left = false, btnL6Right = false;
 
     const bindBtn = (id, onDown, onUp) => {
@@ -3337,9 +3375,6 @@
     bindBtn('btn-l4-left', () => btnL4Left = true, () => btnL4Left = false);
     bindBtn('btn-l4-right', () => btnL4Right = true, () => btnL4Right = false);
 
-    bindBtn('btn-l5-left', () => btnL5Left = true, () => btnL5Left = false);
-    bindBtn('btn-l5-right', () => btnL5Right = true, () => btnL5Right = false);
-
     bindBtn('btn-l6-left', () => btnL6Left = true, () => btnL6Left = false);
     bindBtn('btn-l6-right', () => btnL6Right = true, () => btnL6Right = false);
 
@@ -3353,9 +3388,10 @@
     bindClick('btn-l4-left', () => mahjongEngine.moveLeft());
     bindClick('btn-l4-right', () => mahjongEngine.moveRight());
 
-    // Level 5 Jet Ski Touch Controls
-    bindClick('btn-l5-left', () => jetskiEngine.moveLeft());
-    bindClick('btn-l5-right', () => jetskiEngine.moveRight());
+    // Level 5 Handbag Memory Match Touch & Click Controls
+    bindClick('btn-l5-left', () => jetskiEngine.moveCursor(-1));
+    bindClick('btn-l5-right', () => jetskiEngine.moveCursor(1));
+    bindClick('btn-l5-flip', () => jetskiEngine.flipSelected());
 
     // Level 6 Tennis Touch Controls
     bindClick('btn-l6-left', () => tennisEngine.moveLeft());
