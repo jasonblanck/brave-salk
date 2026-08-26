@@ -282,14 +282,16 @@
       overflow: hidden;
     }
 
-    #confetti-pwd-canvas {
+    #confetti-pwd-canvas,
+    #confetti-landing-canvas,
+    #confetti-trivia-canvas {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100% !important;
+      height: 100% !important;
       pointer-events: none;
-      z-index: 2;
+      z-index: 3;
     }
 
     .pwd-card {
@@ -320,16 +322,6 @@
       height: 100%;
       overflow: hidden;
       z-index: 10;
-    }
-
-    #confetti-landing-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 2;
     }
 
     .vogue-title {
@@ -497,11 +489,11 @@
       background: white;
       border: 3.5px solid var(--black-chic);
       border-radius: 20px;
-      padding: 14px 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      padding: 14px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease, transform 0.3s ease;
@@ -1915,12 +1907,12 @@
 
         if (screenId === 'password') {
           if (topNav) topNav.style.display = 'none';
-          ScreenManager.startPasswordConfetti();
+          setTimeout(() => ScreenManager.startPasswordConfetti(), 50);
         } else {
           if (topNav) topNav.style.display = 'flex';
           if (screenId === 'landing') {
             document.getElementById('level-indicator').textContent = 'Queen Elise Tour';
-            ScreenManager.startLandingConfetti();
+            setTimeout(() => ScreenManager.startLandingConfetti(), 50);
           } else if (screenId === 'dashboard') {
             document.getElementById('level-indicator').textContent = 'Level Tour Dashboard';
             ScreenManager.renderDashboardLevels();
