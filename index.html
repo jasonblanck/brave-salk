@@ -15,6 +15,36 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Pacifico&family=Fredoka:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Montserrat:wght@600;800;900&family=Great+Vibes&display=swap" rel="stylesheet">
 
+  <script>
+    window.handleLogin = function(e) {
+      if (e) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+      }
+      var pwdScreen = document.getElementById('screen-password');
+      var landing = document.getElementById('screen-landing');
+      var topNav = document.getElementById('top-nav');
+
+      if (pwdScreen) pwdScreen.classList.remove('active');
+      if (landing) landing.classList.add('active');
+      if (topNav) topNav.style.display = 'flex';
+
+      try {
+        if (window.soundEngine) {
+          window.soundEngine.init();
+          window.soundEngine.playChaChing();
+          window.soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
+        } else {
+          var audio = document.getElementById('bgm-audio');
+          if (audio) { audio.volume = 0.65; audio.play().catch(function(){}); }
+        }
+      } catch (err) {}
+
+      try { localStorage.setItem('elise_bday_auth_v1', 'true'); } catch (err) {}
+      return false;
+    };
+  </script>
+
   <style>
     /* ==========================================
        1. RESET & HIGH-CONTRAST MOBILE STYLES
@@ -1053,7 +1083,7 @@
         </p>
 
         <div id="pwd-box" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
-          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" onkeydown="if(event.keyCode===13||event.key==='Enter'||event.code==='Enter'){event.preventDefault();handleLogin(event);}" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
+          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.keyCode===13||event.key==='Enter'||event.code==='Enter'){event.preventDefault();handleLogin(event);}" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
           
           <button type="button" id="btn-submit-pwd" onclick="handleLogin(event)" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
             🔓 Unlock Birthday Tour
