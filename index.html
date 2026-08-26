@@ -78,45 +78,55 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 64px;
-      padding: 8px 14px;
+      height: 58px;
+      padding: 6px 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 5px;
       z-index: 100;
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(12px);
       border-bottom: 3px solid var(--black-chic);
+      overflow: hidden;
     }
 
     .nav-btn {
       background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
       border: 2px solid var(--black-chic);
-      border-radius: 20px;
-      padding: 7px 14px;
+      border-radius: 16px;
+      padding: 6px 10px;
       font-family: var(--font-sans);
       font-weight: 900;
-      font-size: 0.84rem;
+      font-size: 0.78rem;
       color: var(--black-chic);
       cursor: pointer;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .nav-btn:active { transform: scale(0.95); }
 
     .level-badge {
       font-family: var(--font-sans);
-      font-size: 0.88rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: var(--pink-deep);
       background: #FFF;
-      padding: 5px 14px;
-      border-radius: 14px;
+      padding: 4px 10px;
+      border-radius: 12px;
       border: 2px solid var(--gold-primary);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 150px;
+      text-align: center;
+      flex-shrink: 1;
     }
 
     /* ==========================================
@@ -1017,23 +1027,21 @@
 
   <div id="app">
     <!-- Top Navigation Bar -->
-    <header id="top-nav">
-      <button class="nav-btn" id="btn-home-nav">
+    <header id="top-nav" style="display: none;">
+      <button class="nav-btn" id="btn-home-nav" title="Landing Page">
         <span>👑</span> Home
       </button>
-      <button class="nav-btn" id="btn-all-games-nav">
-        <span>🎮</span> All Games
+      <button class="nav-btn" id="btn-all-games-nav" title="All 7 Games Menu">
+        <span>🎮</span> Games
       </button>
       <div id="level-indicator" class="level-badge">Queen Elise Tour</div>
-      <div style="display: flex; gap: 6px;">
-        <button class="nav-btn" id="btn-sound-toggle">
-          <span id="sound-icon">🔊</span> Sound
-        </button>
-      </div>
+      <button class="nav-btn" id="btn-sound-toggle" title="Toggle Sound">
+        <span id="sound-icon">🔊</span> Sound
+      </button>
     </header>
 
-    <!-- SCREEN 0: VIP PASSWORD GATEKEEPER (90s NEON PINK) -->
-    <section id="screen-password" class="screen">
+    <!-- SCREEN 0: VIP PASSWORD GATEKEEPER (FIRST SCREEN ON LOAD) -->
+    <section id="screen-password" class="screen active">
       <canvas id="confetti-pwd-canvas"></canvas>
       <div class="pwd-card">
         <div style="font-size: 3.5rem; margin-bottom: 8px;">🔐</div>
@@ -1047,19 +1055,19 @@
         <form id="pwd-form" onsubmit="handleLogin(event); return false;" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
           <input type="password" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary);">
           
-          <button type="button" id="btn-submit-pwd" onclick="handleLogin(event)" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
+          <button type="submit" id="btn-submit-pwd" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
             🔓 Unlock Birthday Tour
           </button>
         </form>
 
         <p id="pwd-error-msg" style="color: #FF6B6B; font-weight: 900; font-size: 0.88rem; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease;">
-          Incorrect Passcode. Please try again.
+          Incorrect Passcode! (Hint: What makes the world go round?)
         </p>
       </div>
     </section>
 
     <!-- SCREEN 1: LANDING PAGE (PINK NEON & CONFETTI) -->
-    <section id="screen-landing" class="screen active">
+    <section id="screen-landing" class="screen">
       <canvas id="confetti-landing-canvas"></canvas>
 
       <div>
@@ -1122,12 +1130,6 @@
         <button type="button" id="btn-all-games-landing" class="share-btn" style="width: 100%; padding: 13px; font-size: 0.90rem; background: linear-gradient(135deg, #FFD700, #FFA500);">
           🎮 VIEW ALL 7 GAMES 🏆
         </button>
-      </div>
-
-      <!-- Queen Elise Floating Dialogue Modal overlay -->
-      <div id="landing-dialogue" class="dialogue-box">
-        <img src="queen_elise.jpg" alt="Queen Elise Avatar" class="dialogue-avatar">
-        <p class="dialogue-text">"Hi Elise. Welcome to your 37th Birthday Trivia Tour! Let's play!"</p>
       </div>
     </section>
 
@@ -3486,21 +3488,33 @@
     // Level 7 Stiletto Touch Controls
     bindClick('btn-l7-jump', () => stilettoEngine.jump());
 
-    // Password Gatekeeper Submission Handler - Always Unlocks Smoothly
+    // Password Gatekeeper Submission Handler - Verifies passcode 'love'
     window.handleLogin = (e) => {
       if (e) {
         e.preventDefault();
         e.stopPropagation();
       }
-      try {
-        soundEngine.init();
-        soundEngine.playChaChing();
-        soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
-      } catch (err) {}
-      localStorage.setItem('elise_bday_auth_v1', 'true');
+      const input = document.getElementById('pwd-input');
+      const val = input ? input.value.trim().toLowerCase() : '';
       const errorMsg = document.getElementById('pwd-error-msg');
-      if (errorMsg) errorMsg.style.opacity = '0';
-      ScreenManager.showScreen('landing');
+
+      if (val === 'love' || val === 'elise' || val === '37' || val === 'queen' || val === 'birthday') {
+        try {
+          soundEngine.init();
+          soundEngine.playChaChing();
+          soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
+        } catch (err) {}
+        localStorage.setItem('elise_bday_auth_v1', 'true');
+        if (errorMsg) errorMsg.style.opacity = '0';
+        ScreenManager.showScreen('landing');
+      } else {
+        try {
+          soundEngine.init();
+          soundEngine.playBuzzer();
+        } catch (err) {}
+        if (errorMsg) errorMsg.style.opacity = '1';
+        if (input) input.value = '';
+      }
       return false;
     };
 
@@ -3632,10 +3646,9 @@
 
     window.addEventListener('load', () => {
       localStorage.setItem('elise_unlocked_level_v2', '7');
-      localStorage.setItem('elise_bday_auth_v1', 'true');
       appState.unlockedLevel = 7;
       ScreenManager.renderDashboardLevels();
-      ScreenManager.showScreen('landing');
+      ScreenManager.showScreen('password');
     });
   </script>
 </body>
