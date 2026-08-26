@@ -1021,11 +1021,11 @@
       <button class="nav-btn" id="btn-home-nav">
         <span>👑</span> Home
       </button>
+      <button class="nav-btn" id="btn-all-games-nav">
+        <span>🎮</span> All Games
+      </button>
       <div id="level-indicator" class="level-badge">Queen Elise Tour</div>
       <div style="display: flex; gap: 6px;">
-        <button class="nav-btn" id="btn-lock-nav" style="padding: 7px 10px;" title="Lock VIP Gatekeeper">
-          🔐
-        </button>
         <button class="nav-btn" id="btn-sound-toggle">
           <span id="sound-icon">🔊</span> Sound
         </button>
@@ -1059,7 +1059,7 @@
     </section>
 
     <!-- SCREEN 1: LANDING PAGE (PINK NEON & CONFETTI) -->
-    <section id="screen-landing" class="screen">
+    <section id="screen-landing" class="screen active">
       <canvas id="confetti-landing-canvas"></canvas>
 
       <div>
@@ -1115,9 +1115,14 @@
         <span>🎵 Tap Anywhere for Music & Voice 🔊</span>
       </div>
 
-      <button type="button" id="btn-start-game" class="start-btn">
-        ✨ START BIRTHDAY TOUR ✨
-      </button>
+      <div style="display: flex; flex-direction: column; gap: 10px; width: 90%; max-width: 320px; margin-top: 8px;">
+        <button type="button" id="btn-start-game" class="start-btn" style="width: 100%; margin-bottom: 0; padding: 15px; font-size: 1.0rem;">
+          ★ PLAY MAIN TRIVIA GAME 🍾
+        </button>
+        <button type="button" id="btn-all-games-landing" class="share-btn" style="width: 100%; padding: 13px; font-size: 0.90rem; background: linear-gradient(135deg, #FFD700, #FFA500);">
+          🎮 VIEW ALL 7 GAMES 🏆
+        </button>
+      </div>
 
       <!-- Queen Elise Floating Dialogue Modal overlay -->
       <div id="landing-dialogue" class="dialogue-box">
@@ -3520,42 +3525,47 @@
     window.addEventListener('click', unlockAudio);
     window.addEventListener('pointerdown', unlockAudio);
 
+    // Start Main Game button launches Level 1 Trivia directly
     document.getElementById('btn-start-game').addEventListener('click', (e) => {
       e.stopPropagation();
-      try {
-        soundEngine.init();
-        soundEngine.playChaChing();
-      } catch (err) {}
-      ScreenManager.showScreen('dashboard');
+      soundEngine.init();
+      soundEngine.playChaChing();
+      ScreenManager.showScreen('trivia');
+      triviaEngine.start();
     });
 
-    const screenLanding = document.getElementById('screen-landing');
-    if (screenLanding) {
-      screenLanding.addEventListener('click', () => {
-        try {
-          soundEngine.init();
-          soundEngine.playChaChing();
-        } catch (err) {}
+    // View All 7 Games button on Landing Page
+    const btnAllGamesLanding = document.getElementById('btn-all-games-landing');
+    if (btnAllGamesLanding) {
+      btnAllGamesLanding.addEventListener('click', (e) => {
+        e.stopPropagation();
+        soundEngine.init();
+        soundEngine.playChaChing();
         ScreenManager.showScreen('dashboard');
       });
     }
 
+    // Top Nav Home button -> opens Landing Page
     document.getElementById('btn-home-nav').addEventListener('click', () => {
       coffeeEngine.stop(); chanelEngine.stop(); mahjongEngine.stop();
       jetskiEngine.stop(); tennisEngine.stop(); stilettoEngine.stop();
-      ScreenManager.showScreen('dashboard');
+      ScreenManager.showScreen('landing');
     });
+
+    // Top Nav All Games button -> opens Dashboard Menu
+    const btnAllGamesNav = document.getElementById('btn-all-games-nav');
+    if (btnAllGamesNav) {
+      btnAllGamesNav.addEventListener('click', () => {
+        coffeeEngine.stop(); chanelEngine.stop(); mahjongEngine.stop();
+        jetskiEngine.stop(); tennisEngine.stop(); stilettoEngine.stop();
+        ScreenManager.showScreen('dashboard');
+      });
+    }
 
     document.getElementById('btn-sound-toggle').addEventListener('click', () => {
       soundEngine.init();
       const isMuted = soundEngine.toggleSound();
       document.getElementById('sound-icon').textContent = isMuted ? '🔇' : '🔊';
-    });
-
-    document.getElementById('btn-lock-nav').addEventListener('click', () => {
-      localStorage.removeItem('elise_bday_auth_v1');
-      soundEngine.playBuzzer();
-      ScreenManager.showScreen('password');
     });
 
     const btnCasual = document.getElementById('opt-casual');
@@ -3625,7 +3635,7 @@
       localStorage.setItem('elise_bday_auth_v1', 'true');
       appState.unlockedLevel = 7;
       ScreenManager.renderDashboardLevels();
-      ScreenManager.showScreen('dashboard');
+      ScreenManager.showScreen('landing');
     });
   </script>
 </body>
