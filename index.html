@@ -1164,6 +1164,33 @@
     <!-- SCREEN 0: VIP PASSWORD GATEKEEPER (FIRST SCREEN ON LOAD) -->
     <section id="screen-password" class="screen active">
       <div id="confetti-pwd-container" class="confetti-container"></div>
+      <script>
+        (function() {
+          var container = document.getElementById('confetti-pwd-container');
+          if (container) {
+            var symbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '🍾', '👑', '👠', '👜', '🤍'];
+            var colors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF', '#FFFDD0'];
+            var html = '';
+            for (var i = 0; i < 50; i++) {
+              var isEmoji = Math.random() < 0.65;
+              var left = (Math.random() * 94).toFixed(2);
+              var dur = (Math.random() * 3 + 2.5).toFixed(2);
+              var delay = (-(Math.random() * 5)).toFixed(2);
+              if (isEmoji) {
+                var sym = symbols[Math.floor(Math.random() * symbols.length)];
+                var fSize = Math.floor(Math.random() * 16 + 20);
+                html += '<span class="confetti-item" style="left:' + left + '%; font-size:' + fSize + 'px; color:#FFF; animation-duration:' + dur + 's; animation-delay:' + delay + 's;">' + sym + '</span>';
+              } else {
+                var sz = Math.floor(Math.random() * 12 + 6);
+                var col = colors[Math.floor(Math.random() * colors.length)];
+                var br = Math.random() < 0.5 ? '50%' : '3px';
+                html += '<span class="confetti-item" style="left:' + left + '%; width:' + sz + 'px; height:' + sz + 'px; background:' + col + '; box-shadow:0 0 10px ' + col + '; border-radius:' + br + '; animation-duration:' + dur + 's; animation-delay:' + delay + 's;"></span>';
+              }
+            }
+            container.innerHTML = html;
+          }
+        })();
+      </script>
       <div class="pwd-card">
         <div style="font-size: 3.5rem; margin-bottom: 8px;">🔐</div>
         <h1 class="vogue-title" style="font-size: 2.0rem;">VIP Access Only</h1>
@@ -1190,6 +1217,33 @@
     <!-- SCREEN 1: LANDING PAGE (PINK NEON & CONFETTI) -->
     <section id="screen-landing" class="screen">
       <div id="confetti-landing-container" class="confetti-container"></div>
+      <script>
+        (function() {
+          var container = document.getElementById('confetti-landing-container');
+          if (container) {
+            var symbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '🍾', '👑', '👠', '👜', '🤍'];
+            var colors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF', '#FFFDD0'];
+            var html = '';
+            for (var i = 0; i < 60; i++) {
+              var isEmoji = Math.random() < 0.65;
+              var left = (Math.random() * 94).toFixed(2);
+              var dur = (Math.random() * 3 + 2.5).toFixed(2);
+              var delay = (-(Math.random() * 5)).toFixed(2);
+              if (isEmoji) {
+                var sym = symbols[Math.floor(Math.random() * symbols.length)];
+                var fSize = Math.floor(Math.random() * 16 + 20);
+                html += '<span class="confetti-item" style="left:' + left + '%; font-size:' + fSize + 'px; color:#FFF; animation-duration:' + dur + 's; animation-delay:' + delay + 's;">' + sym + '</span>';
+              } else {
+                var sz = Math.floor(Math.random() * 12 + 6);
+                var col = colors[Math.floor(Math.random() * colors.length)];
+                var br = Math.random() < 0.5 ? '50%' : '3px';
+                html += '<span class="confetti-item" style="left:' + left + '%; width:' + sz + 'px; height:' + sz + 'px; background:' + col + '; box-shadow:0 0 10px ' + col + '; border-radius:' + br + '; animation-duration:' + dur + 's; animation-delay:' + delay + 's;"></span>';
+              }
+            }
+            container.innerHTML = html;
+          }
+        })();
+      </script>
 
       <div>
         <h1 class="vogue-title">Queen Elise's Luxury Life</h1>
