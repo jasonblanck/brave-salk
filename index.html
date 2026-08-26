@@ -1444,7 +1444,10 @@
         </div>
 
         <div id="trivia-answers" class="trivia-answers">
-          <!-- Populated by JS -->
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(true, this)">Cornell University</button>
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(false, this)">Harvard</button>
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(false, this)">Columbia</button>
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(false, this)">NYU</button>
         </div>
       </div>
 
@@ -2313,65 +2316,55 @@
 
       renderQuestion() {
         const q = this.questions[this.currentIndex];
+        if (!q) return;
         const total = this.questions.length;
-        document.getElementById('trivia-q-num').textContent = `Question ${this.currentIndex + 1} of ${total}`;
+
+        const qNumEl = document.getElementById('trivia-q-num');
+        if (qNumEl) qNumEl.textContent = `Question ${this.currentIndex + 1} of ${total}`;
         
         const fillPct = Math.round(((this.currentIndex + 1) / total) * 100);
-        document.getElementById('trivia-progress-fill').style.width = `${fillPct}%`;
+        const fillEl = document.getElementById('trivia-progress-fill');
+        if (fillEl) fillEl.style.width = `${fillPct}%`;
 
-        document.getElementById('trivia-question').textContent = q.q;
+        const qTextEl = document.getElementById('trivia-question');
+        if (qTextEl) qTextEl.textContent = q.q;
 
         const iconEl = document.getElementById('trivia-image-icon');
         if (iconEl && q.icon) {
           iconEl.textContent = q.icon;
-          const container = document.getElementById('trivia-image-container');
-          if (container) {
-            container.style.animation = 'none';
-            container.offsetHeight; // reflow
-            container.style.animation = 'pop-icon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+          const imgContainer = document.getElementById('trivia-image-container');
+          if (imgContainer) {
+            imgContainer.style.animation = 'none';
+            imgContainer.offsetHeight; // reflow
+            imgContainer.style.animation = 'pop-icon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
           }
+        }
+
+        const container = document.getElementById('trivia-answers');
+        if (container) {
+          container.innerHTML = '';
+          q.options.forEach((optText, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'trivia-btn';
+            btn.textContent = optText;
+            btn.onclick = (e) => {
+              if (e) {
+                if (e.preventDefault) e.preventDefault();
+                if (e.stopPropagation) e.stopPropagation();
+              }
+              this.handleAnswer(idx === q.correct, btn);
+            };
+            container.appendChild(btn);
+          });
         }
 
         try {
-          if (soundEngine && typeof soundEngine.speakText === 'function') {
+          if (window.soundEngine && typeof window.soundEngine.speakText === 'function') {
             const speechText = q.q.replace(/^\d+\.\s*/, '');
-            soundEngine.speakText(speechText);
+            window.soundEngine.speakText(speechText);
           }
         } catch (err) {}
-
-        const container = document.getElementById('trivia-answers');
-        container.innerHTML = '';
-
-        // Create array of indexed options with correctness tag
-        let optionsList = q.options.map((opt, idx) => ({
-          text: opt,
-          isCorrect: idx === q.correct
-        }));
-
-        // If the question has "All of the above!" as the last option, keep it at the bottom
-        const hasAllOfAbove = optionsList[optionsList.length - 1].text.includes("All of the above");
-
-        if (hasAllOfAbove) {
-          const lastOpt = optionsList.pop();
-          for (let i = optionsList.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [optionsList[i], optionsList[j]] = [optionsList[j], optionsList[i]];
-          }
-          optionsList.push(lastOpt);
-        } else {
-          for (let i = optionsList.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [optionsList[i], optionsList[j]] = [optionsList[j], optionsList[i]];
-          }
-        }
-
-        optionsList.forEach((optObj) => {
-          const btn = document.createElement('button');
-          btn.className = 'trivia-btn';
-          btn.textContent = optObj.text;
-          btn.onclick = () => this.handleAnswer(optObj.isCorrect, btn);
-          container.appendChild(btn);
-        });
       }
 
       handleAnswer(isCorrect, btnEl) {
