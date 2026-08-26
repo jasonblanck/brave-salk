@@ -1052,13 +1052,13 @@
           Enter the secret passcode to enter the party:
         </p>
 
-        <form id="pwd-form" onsubmit="handleLogin(event); return false;" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
-          <input type="password" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary);">
+        <div id="pwd-box" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" onkeydown="if(event.key==='Enter'){handleLogin(event);}" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
           
-          <button type="submit" id="btn-submit-pwd" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
+          <button type="button" id="btn-submit-pwd" onclick="handleLogin(event)" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
             🔓 Unlock Birthday Tour
           </button>
-        </form>
+        </div>
 
         <p id="pwd-error-msg" style="color: #FF6B6B; font-weight: 900; font-size: 0.88rem; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease;">
           Incorrect Passcode! (Hint: What makes the world go round?)
@@ -3491,8 +3491,8 @@
     // Password Gatekeeper Submission Handler - Verifies passcode 'love'
     window.handleLogin = (e) => {
       if (e) {
-        e.preventDefault();
-        e.stopPropagation();
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
       }
       const input = document.getElementById('pwd-input');
       const val = input ? input.value.trim().toLowerCase() : '';
@@ -3517,11 +3517,6 @@
       }
       return false;
     };
-
-    const pwdForm = document.getElementById('pwd-form');
-    if (pwdForm) {
-      pwdForm.addEventListener('submit', (e) => window.handleLogin(e));
-    }
 
     const btnSubmitPwd = document.getElementById('btn-submit-pwd');
     if (btnSubmitPwd) {
