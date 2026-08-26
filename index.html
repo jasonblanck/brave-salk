@@ -1760,6 +1760,17 @@
         });
       }
 
+      speakText(text) {
+        if (this.muted || !('speechSynthesis' in window)) return;
+        try {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 1.0;
+          utterance.pitch = 1.1;
+          window.speechSynthesis.speak(utterance);
+        } catch (e) {}
+      }
+
       playFanfare() {
         if (this.muted || !this.ctx) return;
         const now = this.ctx.currentTime;
@@ -2314,9 +2325,12 @@
           }
         }
 
-        // Speak question text aloud cleanly (stripping prefix number)
-        const speechText = q.q.replace(/^\d+\.\s*/, '');
-        soundEngine.speakText(speechText);
+        try {
+          if (soundEngine && typeof soundEngine.speakText === 'function') {
+            const speechText = q.q.replace(/^\d+\.\s*/, '');
+            soundEngine.speakText(speechText);
+          }
+        } catch (err) {}
 
         const container = document.getElementById('trivia-answers');
         container.innerHTML = '';
