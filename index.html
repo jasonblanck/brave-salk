@@ -863,21 +863,9 @@
     }
 
     /* ==========================================
-       LEVEL 4: RUNWAY FLAPPER (FLAPPY COUTURE)
+       LEVEL CONTROL ACTION ZONES
        ========================================== */
-    #screen-level-flapper {
-      padding-top: 64px;
-      background: #0D0814;
-      justify-content: space-between;
-    }
-
-    #l-flapper-canvas {
-      width: 100%;
-      height: calc(100% - 145px);
-      display: block;
-    }
-
-    .flapper-tap-zone {
+    .level-action-zone {
       height: 75px;
       background: rgba(13,8,20,0.95);
       border-top: 2px solid var(--gold-primary);
@@ -1373,7 +1361,7 @@
 
       <canvas id="l-tennis-canvas"></canvas>
 
-      <div class="flapper-tap-zone" style="gap: 10px;">
+      <div class="level-action-zone" style="gap: 10px;">
         <button id="btn-l6-left" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">◀</button>
         <button id="btn-l6-serve" class="flap-btn" style="flex: 1; padding: 14px; font-size: 0.95rem;">🎾 SERVE / RALLY ⛳</button>
         <button id="btn-l6-right" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">▶</button>
@@ -1394,7 +1382,7 @@
 
       <canvas id="l-stiletto-canvas"></canvas>
 
-      <div class="flapper-tap-zone">
+      <div class="level-action-zone">
         <button id="btn-l7-jump" class="flap-btn">✨ JUMP STILETTOS OVER CABS ✨</button>
       </div>
 
