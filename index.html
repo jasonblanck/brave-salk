@@ -62,9 +62,14 @@
         }
       } catch(err){}
 
-      if (window.ScreenManager) {
-        window.ScreenManager.showScreen('trivia');
-      }
+      document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+      var triviaScreen = document.getElementById('screen-trivia');
+      if (triviaScreen) triviaScreen.classList.add('active');
+      var topNav = document.getElementById('top-nav');
+      if (topNav) topNav.style.display = 'flex';
+      var indicator = document.getElementById('level-indicator');
+      if (indicator) indicator.textContent = 'Level 1: 37 Love Questions 🍾';
+
       if (window.triviaEngine) {
         window.triviaEngine.start();
       }
@@ -83,8 +88,17 @@
         }
       } catch(err){}
 
+      document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+      var dashScreen = document.getElementById('screen-dashboard');
+      if (dashScreen) dashScreen.classList.add('active');
+      var topNav = document.getElementById('top-nav');
+      if (topNav) topNav.style.display = 'flex';
+      var indicator = document.getElementById('level-indicator');
+      if (indicator) indicator.textContent = 'Level Tour Dashboard';
+
       if (window.ScreenManager) {
-        window.ScreenManager.showScreen('dashboard');
+        window.ScreenManager.renderDashboardLevels();
+        window.ScreenManager.renderLeaderboard();
       }
       return false;
     };
@@ -1205,7 +1219,7 @@
     </section>
 
     <!-- SCREEN 2: SIMPLIFIED LEVEL DASHBOARD -->
-    <section id="screen-dashboard" class="screen active">
+    <section id="screen-dashboard" class="screen">
       <div class="dashboard-header">
         <h2 class="dashboard-title">👑 Queen Elise's Birthday Tour</h2>
         <p class="dashboard-subtitle">37 Personal Questions for 37 Years + Luxury Arcade Levels!</p>
@@ -1937,19 +1951,25 @@
         const cvs = document.getElementById('confetti-pwd-canvas');
         if (!cvs) return;
         const ctx = cvs.getContext('2d');
-        const dpr = window.devicePixelRatio || 1;
 
-        let width = cvs.clientWidth || window.innerWidth || 380;
-        let height = cvs.clientHeight || window.innerHeight || 650;
-        cvs.width = width * dpr;
-        cvs.height = height * dpr;
-        ctx.scale(dpr, dpr);
+        const resize = () => {
+          const dpr = window.devicePixelRatio || 1;
+          const w = cvs.clientWidth || (cvs.parentElement ? cvs.parentElement.clientWidth : 0) || window.innerWidth || 380;
+          const h = cvs.clientHeight || (cvs.parentElement ? cvs.parentElement.clientHeight : 0) || window.innerHeight || 650;
+          cvs.width = w * dpr;
+          cvs.height = h * dpr;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          return { w, h };
+        };
+
+        let dim = resize();
+        let width = dim.w, height = dim.h;
 
         const particles = [];
         const retroSymbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '🍾', '👑'];
         const neonColors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF', '#FFFDD0'];
 
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 65; i++) {
           particles.push({
             x: Math.random() * width,
             y: Math.random() * height,
@@ -1971,16 +1991,6 @@
         const loop = () => {
           const pwdScreen = document.getElementById('screen-password');
           if (!pwdScreen || !pwdScreen.classList.contains('active')) return;
-
-          let w = cvs.clientWidth || window.innerWidth || 380;
-          let h = cvs.clientHeight || window.innerHeight || 650;
-          if (cvs.width !== w * dpr || cvs.height !== h * dpr) {
-            cvs.width = w * dpr;
-            cvs.height = h * dpr;
-            ctx.scale(dpr, dpr);
-            width = w;
-            height = h;
-          }
 
           ctx.clearRect(0, 0, width, height);
           time += 0.03;
@@ -2022,19 +2032,25 @@
         const cvs = document.getElementById('confetti-landing-canvas');
         if (!cvs) return;
         const ctx = cvs.getContext('2d');
-        const dpr = window.devicePixelRatio || 1;
 
-        let width = cvs.clientWidth || window.innerWidth || 380;
-        let height = cvs.clientHeight || window.innerHeight || 650;
-        cvs.width = width * dpr;
-        cvs.height = height * dpr;
-        ctx.scale(dpr, dpr);
+        const resize = () => {
+          const dpr = window.devicePixelRatio || 1;
+          const w = cvs.clientWidth || (cvs.parentElement ? cvs.parentElement.clientWidth : 0) || window.innerWidth || 380;
+          const h = cvs.clientHeight || (cvs.parentElement ? cvs.parentElement.clientHeight : 0) || window.innerHeight || 650;
+          cvs.width = w * dpr;
+          cvs.height = h * dpr;
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          return { w, h };
+        };
+
+        let dim = resize();
+        let width = dim.w, height = dim.h;
 
         const particles = [];
         const retroSymbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '🍾', '👑', '👠', '👜'];
         const neonColors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF', '#FFFDD0'];
 
-        for (let i = 0; i < 70; i++) {
+        for (let i = 0; i < 75; i++) {
           particles.push({
             x: Math.random() * width,
             y: Math.random() * height,
@@ -2056,16 +2072,6 @@
         const loop = () => {
           const screenLanding = document.getElementById('screen-landing');
           if (!screenLanding || !screenLanding.classList.contains('active')) return;
-
-          let w = cvs.clientWidth || window.innerWidth || 380;
-          let h = cvs.clientHeight || window.innerHeight || 650;
-          if (cvs.width !== w * dpr || cvs.height !== h * dpr) {
-            cvs.width = w * dpr;
-            cvs.height = h * dpr;
-            ctx.scale(dpr, dpr);
-            width = w;
-            height = h;
-          }
 
           ctx.clearRect(0, 0, width, height);
           time += 0.03;
