@@ -1053,7 +1053,7 @@
         </p>
 
         <div id="pwd-box" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
-          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" onkeydown="if(event.key==='Enter'){handleLogin(event);}" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
+          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" onkeydown="if(event.keyCode===13||event.key==='Enter'||event.code==='Enter'){event.preventDefault();handleLogin(event);}" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
           
           <button type="button" id="btn-submit-pwd" onclick="handleLogin(event)" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
             🔓 Unlock Birthday Tour
@@ -3521,6 +3521,22 @@
     const btnSubmitPwd = document.getElementById('btn-submit-pwd');
     if (btnSubmitPwd) {
       btnSubmitPwd.addEventListener('click', (e) => window.handleLogin(e));
+    }
+
+    const pwdInput = document.getElementById('pwd-input');
+    if (pwdInput) {
+      pwdInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13 || e.code === 'Enter' || e.which === 13) {
+          e.preventDefault();
+          window.handleLogin(e);
+        }
+      });
+      pwdInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13 || e.code === 'Enter' || e.which === 13) {
+          e.preventDefault();
+          window.handleLogin(e);
+        }
+      });
     }
 
     // One-time touch/click listener to unlock Audio on first interaction
