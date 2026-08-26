@@ -1059,7 +1059,7 @@
     </section>
 
     <!-- SCREEN 1: LANDING PAGE (PINK NEON & CONFETTI) -->
-    <section id="screen-landing" class="screen active">
+    <section id="screen-landing" class="screen">
       <canvas id="confetti-landing-canvas"></canvas>
 
       <div>
@@ -1091,39 +1091,43 @@
         </div>
 
         <div class="luxury-badge badge-mid-right">
-          <span class="badge-icon">👧👦</span>
+          <span class="badge-icon">👑🐶</span>
           <span class="badge-label">Bella + AJ</span>
         </div>
 
-        <div class="luxury-badge badge-lower-left">
-          <span class="badge-icon">👑</span>
+        <div class="luxury-badge badge-low-left">
+          <span class="badge-icon">⛳🏌️‍♂️</span>
           <span class="badge-label">Jason</span>
         </div>
 
-        <div class="luxury-badge badge-lower-right">
-          <span class="badge-icon">🏡</span>
+        <div class="luxury-badge badge-low-right">
+          <span class="badge-icon">🏡🎾</span>
           <span class="badge-label">Bedford</span>
         </div>
 
         <div class="luxury-badge badge-bottom-center">
-          <span class="badge-icon">👨‍👩‍👧‍👦</span>
+          <span class="badge-icon">👨‍👩‍👧‍👦❤️</span>
           <span class="badge-label">Family</span>
         </div>
       </div>
 
-      <div class="sound-hint-banner">🎵 Tap Anywhere for Music & Voice 🔊</div>
+      <div class="audio-hint-pill" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; margin: 0 auto; background: rgba(0,0,0,0.4); border: 2px solid var(--gold-primary); border-radius: 20px; font-size: 0.82rem; font-weight: 800; color: var(--gold-light);">
+        <span>🎵 Tap Anywhere for Music & Voice 🔊</span>
+      </div>
 
-      <button id="btn-start-game" class="start-btn">✨ Start Birthday Tour ✨</button>
+      <button type="button" id="btn-start-game" class="start-btn">
+        ✨ START BIRTHDAY TOUR ✨
+      </button>
 
-      <!-- Dialogue Popup -->
-      <div id="landing-dialogue" class="dialogue-popup">
+      <!-- Queen Elise Floating Dialogue Modal overlay -->
+      <div id="landing-dialogue" class="dialogue-box">
         <img src="queen_elise.jpg" alt="Queen Elise Avatar" class="dialogue-avatar">
         <p class="dialogue-text">"Hi Elise. Welcome to your 37th Birthday Trivia Tour! Let's play!"</p>
       </div>
     </section>
 
     <!-- SCREEN 2: SIMPLIFIED LEVEL DASHBOARD -->
-    <section id="screen-dashboard" class="screen">
+    <section id="screen-dashboard" class="screen active">
       <div class="dashboard-header">
         <h2 class="dashboard-title">👑 Queen Elise's Birthday Tour</h2>
         <p class="dashboard-subtitle">37 Personal Questions for 37 Years + Luxury Arcade Levels!</p>
@@ -3516,18 +3520,25 @@
     window.addEventListener('click', unlockAudio);
     window.addEventListener('pointerdown', unlockAudio);
 
-    document.getElementById('btn-start-game').addEventListener('click', () => {
-      soundEngine.init();
-      soundEngine.speakGreeting();
-      soundEngine.playChaChing();
-      
-      const dlg = document.getElementById('landing-dialogue');
-      dlg.classList.add('visible');
-      setTimeout(() => {
-        dlg.classList.remove('visible');
-        ScreenManager.showScreen('dashboard');
-      }, 1800);
+    document.getElementById('btn-start-game').addEventListener('click', (e) => {
+      e.stopPropagation();
+      try {
+        soundEngine.init();
+        soundEngine.playChaChing();
+      } catch (err) {}
+      ScreenManager.showScreen('dashboard');
     });
+
+    const screenLanding = document.getElementById('screen-landing');
+    if (screenLanding) {
+      screenLanding.addEventListener('click', () => {
+        try {
+          soundEngine.init();
+          soundEngine.playChaChing();
+        } catch (err) {}
+        ScreenManager.showScreen('dashboard');
+      });
+    }
 
     document.getElementById('btn-home-nav').addEventListener('click', () => {
       coffeeEngine.stop(); chanelEngine.stop(); mahjongEngine.stop();
@@ -3614,7 +3625,7 @@
       localStorage.setItem('elise_bday_auth_v1', 'true');
       appState.unlockedLevel = 7;
       ScreenManager.renderDashboardLevels();
-      ScreenManager.showScreen('landing');
+      ScreenManager.showScreen('dashboard');
     });
   </script>
 </body>
