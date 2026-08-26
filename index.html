@@ -1033,7 +1033,7 @@
     </header>
 
     <!-- SCREEN 0: VIP PASSWORD GATEKEEPER (90s NEON PINK) -->
-    <section id="screen-password" class="screen active">
+    <section id="screen-password" class="screen">
       <canvas id="confetti-pwd-canvas"></canvas>
       <div class="pwd-card">
         <div style="font-size: 3.5rem; margin-bottom: 8px;">🔐</div>
@@ -1059,7 +1059,7 @@
     </section>
 
     <!-- SCREEN 1: LANDING PAGE (PINK NEON & CONFETTI) -->
-    <section id="screen-landing" class="screen">
+    <section id="screen-landing" class="screen active">
       <canvas id="confetti-landing-canvas"></canvas>
 
       <div>
@@ -3611,15 +3611,10 @@
 
     window.addEventListener('load', () => {
       localStorage.setItem('elise_unlocked_level_v2', '7');
+      localStorage.setItem('elise_bday_auth_v1', 'true');
       appState.unlockedLevel = 7;
       ScreenManager.renderDashboardLevels();
-
-      const isAuthenticated = localStorage.getItem('elise_bday_auth_v1') === 'true';
-      if (isAuthenticated) {
-        ScreenManager.showScreen('landing');
-      } else {
-        ScreenManager.showScreen('password');
-      }
+      ScreenManager.showScreen('landing');
     });
   </script>
 </body>
