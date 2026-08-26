@@ -2998,31 +2998,6 @@
         this.draw();
         requestAnimationFrame(() => this.loop());
       }
-    }op(1, '#C2185B');
-            this.ctx.fillStyle = bgGrad;
-            this.ctx.fillRect(0, 0, card.w, card.h);
-
-            this.ctx.strokeStyle = '#FFD700';
-            this.ctx.lineWidth = 2;
-            this.ctx.strokeRect(2, 2, card.w - 4, card.h - 4);
-
-            this.ctx.font = `${Math.min(card.w, card.h) * 0.38}px sans-serif`;
-            this.ctx.textAlign = 'center';
-            this.ctx.textBaseline = 'middle';
-            this.ctx.fillText('👜', card.w / 2, card.h / 2);
-          }
-
-          this.ctx.restore();
-        });
-      }
-
-      loop() {
-        if (!this.running) return;
-        this.draw();
-        requestAnimationFrame(() => this.loop());
-      }
-    }
-
     /* ==========================================
        10. LEVEL 6 ENGINE: BEDFORD TENNIS & GOLF RALLY
        ========================================== */
@@ -3052,7 +3027,10 @@
           this.playerX = Math.max(35, Math.min(this.width - 35, clientX - rect.left));
         };
 
-        this.canvas.ontouchstart = (e) => updatePos(e.touches[0].clientX);
+        this.canvas.ontouchstart = (e) => {
+          updatePos(e.touches[0].clientX);
+          this.serve();
+        };
         this.canvas.ontouchmove = (e) => updatePos(e.touches[0].clientX);
         this.canvas.onmousemove = (e) => { if (e.buttons === 1) updatePos(e.clientX); };
         this.canvas.onclick = () => this.serve();
@@ -3066,6 +3044,9 @@
         this.canvas.onmousemove = null;
         this.canvas.onclick = null;
       }
+
+      moveLeft() { if (this.running) this.playerX = Math.max(35, this.playerX - 30); }
+      moveRight() { if (this.running) this.playerX = Math.min(this.width - 35, this.playerX + 30); }
 
       serve() {
         if (!this.running) return;
@@ -3090,8 +3071,9 @@
       }
 
       update() {
-        if (btnL6Left || keys['ArrowLeft'] || keys['KeyA']) this.playerX = Math.max(35, this.playerX - 9);
-        if (btnL6Right || keys['ArrowRight'] || keys['KeyD']) this.playerX = Math.min(this.width - 35, this.playerX + 9);
+        if (btnL6Left || keys['ArrowLeft'] || keys['KeyA']) this.playerX = Math.max(35, this.playerX - 10);
+        if (btnL6Right || keys['ArrowRight'] || keys['KeyD']) this.playerX = Math.min(this.width - 35, this.playerX + 10);
+
         if (Date.now() - this.lastSpawn > 1100) {
           this.spawnTarget();
           this.lastSpawn = Date.now();
@@ -3104,7 +3086,7 @@
             it.y += it.vy;
             for (let j = this.items.length - 1; j >= 0; j--) {
               const target = this.items[j];
-              if (target.type === 'target' && Math.hypot(it.x - target.x, it.y - target.y) < 35) {
+              if (target.type === 'target' && Math.hypot(it.x - target.x, it.y - target.y) < 38) {
                 soundEngine.playChaChing();
                 ScreenManager.burstTriviaConfetti();
                 this.score += 250;
@@ -3174,6 +3156,7 @@
         this.playerY = 0;
         this.playerVY = 0;
         this.obstacles = [];
+        this.confetti = [];
         this.lastSpawn = 0;
       }
 
@@ -3187,19 +3170,39 @@
         this.playerVY = 0;
         document.getElementById('hud-score-l7').textContent = '0';
 
-        this.canvas.onclick = () => this.jump();
+        const EMOJIS = ['💖', '✨', '⭐', '🎀', '🎶', '💎', '💖'];
+        this.confetti = [];
+        for (let i = 0; i < 35; i++) {
+          this.confetti.push({
+            x: Math.random() * this.width,
+            y: Math.random() * this.height,
+            vy: Math.random() * 1.5 + 0.8,
+            vx: Math.random() * 0.8 - 0.4,
+            size: Math.random() * 12 + 14,
+            symbol: EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
+          });
+        }
+
+        const handleJump = (e) => {
+          if (e) e.preventDefault();
+          this.jump();
+        };
+
+        this.canvas.onclick = handleJump;
+        this.canvas.ontouchstart = handleJump;
         this.loop();
       }
 
       stop() {
         this.running = false;
         this.canvas.onclick = null;
+        this.canvas.ontouchstart = null;
       }
 
       jump() {
         if (!this.running) return;
         if (this.playerY >= this.height - 60) {
-          this.playerVY = -11;
+          this.playerVY = -12;
           soundEngine.playJump();
         }
       }
@@ -3209,18 +3212,27 @@
         this.obstacles.push({
           x: this.width + 30,
           y: this.height - 45,
-          speed: 4.5,
+          speed: 4.8,
           symbol: obs[Math.floor(Math.random() * obs.length)]
         });
       }
 
       update() {
-        this.playerVY += 0.55;
+        this.playerVY += 0.58;
         this.playerY += this.playerVY;
         if (this.playerY > this.height - 55) {
           this.playerY = this.height - 55;
           this.playerVY = 0;
         }
+
+        this.confetti.forEach(c => {
+          c.y += c.vy;
+          c.x += c.vx;
+          if (c.y > this.height + 20) {
+            c.y = -20;
+            c.x = Math.random() * this.width;
+          }
+        });
 
         if (Date.now() - this.lastSpawn > 1200) {
           this.spawnObstacle();
@@ -3257,8 +3269,48 @@
 
       draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
-        this.ctx.fillStyle = '#1A001A';
+
+        const grad = this.ctx.createRadialGradient(
+          this.width / 2, this.height * 0.4, 10,
+          this.width / 2, this.height * 0.4, this.width * 0.8
+        );
+        grad.addColorStop(0, '#FF007F');
+        grad.addColorStop(0.35, '#FF1493');
+        grad.addColorStop(0.7, '#C2185B');
+        grad.addColorStop(1, '#3D001D');
+        this.ctx.fillStyle = grad;
         this.ctx.fillRect(0, 0, this.width, this.height);
+
+        this.confetti.forEach(c => {
+          this.ctx.font = `${c.size}px sans-serif`;
+          this.ctx.textAlign = 'center';
+          this.ctx.textBaseline = 'middle';
+          this.ctx.fillText(c.symbol, c.x, c.y);
+        });
+
+        this.ctx.fillStyle = '#FF1493';
+        this.ctx.fillRect(0, this.height - 32, this.width, 32);
+        this.ctx.fillStyle = '#FFD700';
+        this.ctx.fillRect(0, this.height - 32, this.width, 4);
+
+        this.obstacles.forEach(ob => {
+          this.ctx.font = '32px sans-serif';
+          this.ctx.textAlign = 'center';
+          this.ctx.textBaseline = 'middle';
+          this.ctx.fillText(ob.symbol, ob.x, ob.y);
+        });
+
+        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.6);
+        this.ctx.font = '24px sans-serif';
+        this.ctx.fillText('👠', this.playerX, this.playerY + 22);
+      }
+
+      loop() {
+        if (!this.running) return;
+        this.update(); this.draw();
+        requestAnimationFrame(() => this.loop());
+      }
+    }, this.width, this.height);
 
         this.ctx.fillStyle = '#C2185B';
         this.ctx.fillRect(0, this.height - 30, this.width, 30);
@@ -3345,6 +3397,18 @@
         if (e.code === 'ArrowUp' || e.code === 'KeyW') jetskiEngine.moveCursor(-4);
         if (e.code === 'ArrowDown' || e.code === 'KeyS') jetskiEngine.moveCursor(4);
         if (e.code === 'Space' || e.code === 'Enter') jetskiEngine.flipSelected();
+      }
+
+      // Level 6 Tennis Controls
+      if (document.getElementById('screen-level-tennis').classList.contains('active')) {
+        if (e.code === 'ArrowLeft' || e.code === 'KeyA') tennisEngine.moveLeft();
+        if (e.code === 'ArrowRight' || e.code === 'KeyD') tennisEngine.moveRight();
+        if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Enter') tennisEngine.serve();
+      }
+
+      // Level 7 Stiletto Controls
+      if (document.getElementById('screen-level-stiletto').classList.contains('active')) {
+        if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Enter') stilettoEngine.jump();
       }
     });
     window.addEventListener('keyup', (e) => keys[e.code] = false);
