@@ -867,6 +867,8 @@
     }
 
     .trivia-card {
+      position: relative;
+      z-index: 150;
       width: 100%;
       max-width: 440px;
       background: white;
@@ -2093,6 +2095,10 @@
         ScreenManager.createConfettiHTML('confetti-landing-container', 60);
       }
 
+      static burstTriviaConfetti() {
+        ScreenManager.createConfettiHTML('confetti-landing-container', 50);
+      }
+
       static renderDashboardLevels() {
         ['card-l1', 'card-l2', 'card-l3', 'card-l4', 'card-l5', 'card-l6', 'card-l7'].forEach(cardId => {
           const card = document.getElementById(cardId);
@@ -2368,15 +2374,19 @@
       }
 
       handleAnswer(isCorrect, btnEl) {
+        if (!btnEl) return;
         if (isCorrect) {
           btnEl.classList.add('correct');
-          soundEngine.playChaChing();
-          ScreenManager.burstTriviaConfetti();
+          try { if (window.soundEngine) window.soundEngine.playChaChing(); } catch(e){}
+          try { if (window.ScreenManager && typeof window.ScreenManager.burstTriviaConfetti === 'function') window.ScreenManager.burstTriviaConfetti(); } catch(e){}
           
-          // Cycle through the 8 verbal praise responses
-          const praiseText = this.praiseResponses[this.praiseIndex];
-          soundEngine.speakText(praiseText);
-          this.praiseIndex = (this.praiseIndex + 1) % this.praiseResponses.length;
+          try {
+            if (this.praiseResponses && this.praiseResponses.length > 0) {
+              const praiseText = this.praiseResponses[this.praiseIndex];
+              if (window.soundEngine && typeof window.soundEngine.speakText === 'function') window.soundEngine.speakText(praiseText);
+              this.praiseIndex = (this.praiseIndex + 1) % this.praiseResponses.length;
+            }
+          } catch(e){}
 
           appState.totalScore += 200;
 
@@ -2390,13 +2400,17 @@
             } else {
               this.renderQuestion();
             }
-          }, 2800);
+          }, 1200);
         } else {
           btnEl.classList.add('wrong');
-          soundEngine.playBuzzer();
-          const wrongText = this.wrongResponses[this.wrongIndex];
-          soundEngine.speakText(wrongText);
-          this.wrongIndex = (this.wrongIndex + 1) % this.wrongResponses.length;
+          try { if (window.soundEngine) window.soundEngine.playBuzzer(); } catch(e){}
+          try {
+            if (this.wrongResponses && this.wrongResponses.length > 0) {
+              const wrongText = this.wrongResponses[this.wrongIndex];
+              if (window.soundEngine && typeof window.soundEngine.speakText === 'function') window.soundEngine.speakText(wrongText);
+              this.wrongIndex = (this.wrongIndex + 1) % this.wrongResponses.length;
+            }
+          } catch(e){}
         }
       }
     }
