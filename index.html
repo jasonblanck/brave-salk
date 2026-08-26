@@ -290,7 +290,7 @@
       height: 100%;
       pointer-events: none;
       overflow: hidden;
-      z-index: 4;
+      z-index: 50 !important;
     }
 
     .confetti-item {
@@ -301,6 +301,7 @@
       pointer-events: none;
       animation: fall-sway linear infinite;
       will-change: transform;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.35));
     }
 
     @keyframes fall-sway {
@@ -309,12 +310,12 @@
         opacity: 1;
       }
       50% {
-        transform: translateY(50vh) rotate(180deg) translateX(28px);
-        opacity: 0.95;
+        transform: translateY(50vh) rotate(180deg) translateX(30px);
+        opacity: 1;
       }
       100% {
-        transform: translateY(105vh) rotate(360deg) translateX(-28px);
-        opacity: 0.8;
+        transform: translateY(105vh) rotate(360deg) translateX(-30px);
+        opacity: 1;
       }
     }
 
@@ -1981,7 +1982,7 @@
       static createConfettiHTML(containerId, count) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        if (container.children.length > 0) return;
+        container.innerHTML = '';
         const symbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '🍾', '👑', '👠', '👜', '🤍'];
         const colors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF', '#FFFDD0'];
 
@@ -1992,29 +1993,29 @@
           
           if (isEmoji) {
             item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            item.style.fontSize = `${Math.floor(Math.random() * 14 + 18)}px`;
+            item.style.fontSize = `${Math.floor(Math.random() * 16 + 20)}px`;
           } else {
-            const size = Math.floor(Math.random() * 10 + 6);
+            const size = Math.floor(Math.random() * 12 + 6);
             item.style.width = `${size}px`;
             item.style.height = `${size}px`;
             item.style.background = colors[Math.floor(Math.random() * colors.length)];
-            item.style.boxShadow = `0 0 8px ${item.style.background}`;
+            item.style.boxShadow = `0 0 10px ${item.style.background}`;
             item.style.borderRadius = Math.random() < 0.5 ? '50%' : '3px';
           }
 
-          item.style.left = `${Math.random() * 95}%`;
+          item.style.left = `${Math.random() * 94}%`;
           item.style.animationDuration = `${(Math.random() * 3 + 2.5).toFixed(2)}s`;
-          item.style.animationDelay = `${(Math.random() * 4).toFixed(2)}s`;
+          item.style.animationDelay = `-${(Math.random() * 5).toFixed(2)}s`;
           container.appendChild(item);
         }
       }
 
       static startPasswordConfetti() {
-        ScreenManager.createConfettiHTML('confetti-pwd-container', 45);
+        ScreenManager.createConfettiHTML('confetti-pwd-container', 50);
       }
 
       static startLandingConfetti() {
-        ScreenManager.createConfettiHTML('confetti-landing-container', 55);
+        ScreenManager.createConfettiHTML('confetti-landing-container', 60);
       }
 
       static renderDashboardLevels() {
@@ -3753,6 +3754,8 @@
       localStorage.setItem('elise_unlocked_level_v2', '7');
       appState.unlockedLevel = 7;
       ScreenManager.renderDashboardLevels();
+      ScreenManager.startPasswordConfetti();
+      ScreenManager.startLandingConfetti();
       ScreenManager.showScreen('password');
     });
   </script>
