@@ -1149,10 +1149,10 @@
   <div id="app">
     <!-- Top Navigation Bar -->
     <header id="top-nav" style="display: none;">
-      <button class="nav-btn" id="btn-home-nav" title="Landing Page">
+      <button class="nav-btn" id="btn-home-nav" onclick="ScreenManager.showScreen('landing');" title="Landing Page">
         <span>👑</span> Home
       </button>
-      <button class="nav-btn" id="btn-all-games-nav" title="All 7 Games Menu">
+      <button class="nav-btn" id="btn-all-games-nav" onclick="ScreenManager.showScreen('dashboard');" title="All 7 Games Menu">
         <span>🎮</span> Games
       </button>
       <div id="level-indicator" class="level-badge">Queen Elise Tour</div>
@@ -1323,7 +1323,7 @@
       <!-- 7 Levels List Cards -->
       <div class="levels-list">
         <!-- Level 1 (Featured Main Game) -->
-        <div class="level-card featured" id="card-l1">
+        <div class="level-card featured" id="card-l1" onclick="ScreenManager.showScreen('trivia');" style="cursor: pointer;">
           <div class="featured-badge-tag">★ MAIN GAME • START HERE 🍾</div>
           <div class="level-card-left">
             <div class="level-card-icon" style="background: linear-gradient(135deg, #FFD700, #FFA500); border-color: #111;">🍾</div>
@@ -1333,11 +1333,11 @@
               <span class="level-card-reward">🎁 Unlocks: Epic Anniversary Dinner</span>
             </div>
           </div>
-          <button class="level-play-btn featured-play-btn">★ PLAY TRIVIA</button>
+          <button type="button" class="level-play-btn featured-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('trivia');">★ PLAY TRIVIA</button>
         </div>
 
         <!-- Level 2 -->
-        <div class="level-card" id="card-l2">
+        <div class="level-card" id="card-l2" onclick="ScreenManager.showScreen('level-coffee');" style="cursor: pointer;">
           <div class="level-card-left">
             <div class="level-card-icon">☕</div>
             <div class="level-card-info">
@@ -1346,11 +1346,11 @@
               <span class="level-card-reward">🎁 Unlocks: Luxury Spa Day Voucher</span>
             </div>
           </div>
-          <button class="level-play-btn">PLAY</button>
+          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-coffee');">PLAY</button>
         </div>
 
         <!-- Level 3 -->
-        <div class="level-card" id="card-l3">
+        <div class="level-card" id="card-l3" onclick="ScreenManager.showScreen('level-chanel');" style="cursor: pointer;">
           <div class="level-card-left">
             <div class="level-card-icon">👜</div>
             <div class="level-card-info">
@@ -1359,11 +1359,11 @@
               <span class="level-card-reward">🎁 Unlocks: Custom Diamond Piece</span>
             </div>
           </div>
-          <button class="level-play-btn">PLAY</button>
+          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-chanel');">PLAY</button>
         </div>
 
         <!-- Level 4 -->
-        <div class="level-card" id="card-l4">
+        <div class="level-card" id="card-l4" onclick="ScreenManager.showScreen('level-mahjong');" style="cursor: pointer;">
           <div class="level-card-left">
             <div class="level-card-icon">🀄</div>
             <div class="level-card-info">
@@ -1372,11 +1372,11 @@
               <span class="level-card-reward">🎁 Unlocks: VIP Mahjong Trophy</span>
             </div>
           </div>
-          <button class="level-play-btn">PLAY</button>
+          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-mahjong');">PLAY</button>
         </div>
 
         <!-- Level 5 -->
-        <div class="level-card" id="card-l5">
+        <div class="level-card" id="card-l5" onclick="ScreenManager.showScreen('level-jetski');" style="cursor: pointer;">
           <div class="level-card-left">
             <div class="level-card-icon">👜</div>
             <div class="level-card-info">
@@ -1385,11 +1385,11 @@
               <span class="level-card-reward">🎁 Unlocks: Luxury Yacht Charter</span>
             </div>
           </div>
-          <button class="level-play-btn">PLAY</button>
+          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-jetski');">PLAY</button>
         </div>
 
         <!-- Level 6 -->
-        <div class="level-card" id="card-l6">
+        <div class="level-card" id="card-l6" onclick="ScreenManager.showScreen('level-tennis');" style="cursor: pointer;">
           <div class="level-card-left">
             <div class="level-card-icon">🎾</div>
             <div class="level-card-info">
@@ -1398,11 +1398,11 @@
               <span class="level-card-reward">🎁 Unlocks: Bedford Club Championship</span>
             </div>
           </div>
-          <button class="level-play-btn">PLAY</button>
+          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-tennis');">PLAY</button>
         </div>
 
         <!-- Level 7 -->
-        <div class="level-card" id="card-l7">
+        <div class="level-card" id="card-l7" onclick="ScreenManager.showScreen('level-stiletto');" style="cursor: pointer;">
           <div class="level-card-left">
             <div class="level-card-icon">👠</div>
             <div class="level-card-info">
@@ -1411,7 +1411,7 @@
               <span class="level-card-reward">👑 Unlocks: Ultimate Victory Vault</span>
             </div>
           </div>
-          <button class="level-play-btn">PLAY</button>
+          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-stiletto');">PLAY</button>
         </div>
       </div>
 
@@ -2024,18 +2024,25 @@
             ScreenManager.renderLeaderboard();
           } else if (screenId === 'trivia') {
             document.getElementById('level-indicator').textContent = 'Level 1: 37 Love Questions 🍾';
+            if (window.triviaEngine) window.triviaEngine.start();
           } else if (screenId === 'level-coffee') {
             document.getElementById('level-indicator').textContent = 'Level 2: Coffee Run ☕';
+            if (window.coffeeEngine) window.coffeeEngine.start();
           } else if (screenId === 'level-chanel') {
             document.getElementById('level-indicator').textContent = 'Level 3: Boutique Sweep 👜';
+            if (window.chanelEngine) window.chanelEngine.start();
           } else if (screenId === 'level-mahjong') {
             document.getElementById('level-indicator').textContent = 'Level 4: Mahjong Tile Dash 🀄';
+            if (window.mahjongEngine) window.mahjongEngine.start();
           } else if (screenId === 'level-jetski') {
             document.getElementById('level-indicator').textContent = 'Level 5: Hamptons Jet Ski 🌊';
+            if (window.jetskiEngine) window.jetskiEngine.start();
           } else if (screenId === 'level-tennis') {
             document.getElementById('level-indicator').textContent = 'Level 6: Bedford Tennis 🎾';
+            if (window.tennisEngine) window.tennisEngine.start();
           } else if (screenId === 'level-stiletto') {
             document.getElementById('level-indicator').textContent = 'Level 7: Stiletto Dash 👠';
+            if (window.stilettoEngine) window.stilettoEngine.start();
           } else if (screenId === 'vault') {
             document.getElementById('level-indicator').textContent = 'Victory Vault 👑';
             confettiEngine.start();
