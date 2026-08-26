@@ -1043,16 +1043,20 @@
           Enter the secret passcode to enter the party:
         </p>
 
-        <form id="pwd-form" onsubmit="return false;" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
-          <input type="password" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary);">
+        <form id="pwd-form" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
+          <input type="text" id="pwd-input" class="name-input" placeholder="Passcode: love" autocomplete="off" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary);">
           
           <button type="submit" id="btn-submit-pwd" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
             🔓 Unlock Birthday Tour
           </button>
         </form>
 
-        <p id="pwd-error-msg" style="color: #FF6B6B; font-weight: 900; font-size: 0.88rem; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease;">
-          Incorrect Passcode! (Hint: What makes the world go round?)
+        <button type="button" id="btn-quick-login" class="nav-btn" style="margin-top: 12px; padding: 10px 18px; font-size: 0.88rem; background: linear-gradient(135deg, #FFD700, #FFA500);">
+          ✨ Tap Here to Enter Directly ✨
+        </button>
+
+        <p id="pwd-error-msg" style="color: #FFD700; font-weight: 900; font-size: 0.88rem; margin-top: 10px; opacity: 0; transition: opacity 0.3s ease;">
+          Hint: Passcode is "love" (or tap Enter directly!)
         </p>
       </div>
     </section>
@@ -3465,26 +3469,44 @@
     // Level 7 Stiletto Touch Controls
     bindClick('btn-l7-jump', () => stilettoEngine.jump());
 
-    // Password Gatekeeper Submission Handler
-    document.getElementById('pwd-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const val = document.getElementById('pwd-input').value.trim().toLowerCase();
+    // Password Gatekeeper Submission & Quick Entrance Handler
+    const handleLogin = () => {
+      const input = document.getElementById('pwd-input');
+      const val = input ? input.value.trim().toLowerCase() : '';
       const errorMsg = document.getElementById('pwd-error-msg');
 
-      if (val === 'love') {
-        soundEngine.init();
-        soundEngine.playChaChing();
-        soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
-        localStorage.setItem('elise_bday_auth_v1', 'true');
-        errorMsg.style.opacity = '0';
-        ScreenManager.showScreen('landing');
-      } else {
-        soundEngine.init();
-        soundEngine.playBuzzer();
-        errorMsg.style.opacity = '1';
-        document.getElementById('pwd-input').value = '';
-      }
-    });
+      // Unlocks for passcode 'love', 'elise', '37', 'queen', 'birthday', OR directly on button tap/submit!
+      soundEngine.init();
+      soundEngine.playChaChing();
+      soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
+      localStorage.setItem('elise_bday_auth_v1', 'true');
+      if (errorMsg) errorMsg.style.opacity = '0';
+      ScreenManager.showScreen('landing');
+    };
+
+    const pwdForm = document.getElementById('pwd-form');
+    if (pwdForm) {
+      pwdForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        handleLogin();
+      });
+    }
+
+    const btnSubmitPwd = document.getElementById('btn-submit-pwd');
+    if (btnSubmitPwd) {
+      btnSubmitPwd.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleLogin();
+      });
+    }
+
+    const btnQuickLogin = document.getElementById('btn-quick-login');
+    if (btnQuickLogin) {
+      btnQuickLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        handleLogin();
+      });
+    }
 
     // One-time touch/click listener to unlock Audio on first interaction
     const unlockAudio = () => {
@@ -3594,7 +3616,13 @@
       localStorage.setItem('elise_unlocked_level_v2', '7');
       appState.unlockedLevel = 7;
       ScreenManager.renderDashboardLevels();
-      ScreenManager.showScreen('password');
+
+      const isAuthenticated = localStorage.getItem('elise_bday_auth_v1') === 'true';
+      if (isAuthenticated) {
+        ScreenManager.showScreen('landing');
+      } else {
+        ScreenManager.showScreen('password');
+      }
     });
   </script>
 </body>
