@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#FF1493">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Queen Elise's Luxury Life - 37th Birthday Tour</title>
   
   <!-- Google Fonts: Barbie Fonts & Luxury Display -->
@@ -3376,6 +3379,9 @@
     });
 
     window.addEventListener('load', () => {
+      localStorage.setItem('elise_unlocked_level_v2', '7');
+      appState.unlockedLevel = 7;
+      ScreenManager.renderDashboardLevels();
       ScreenManager.showScreen('password');
     });
   </script>
