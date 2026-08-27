@@ -12,7 +12,7 @@
   <!-- Forced Instant Cache-Buster: Prevents stale disk caching on GitHub Pages -->
   <script>
     (function() {
-      var currentVer = '20260827_v101_toggle_sound';
+      var currentVer = '20260827_v102_triple_coverage';
       try {
         var params = new URLSearchParams(window.location.search);
         if (params.get('v') !== currentVer) {
@@ -991,9 +991,9 @@
         </p>
 
         <div id="pwd-box" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
-          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
+          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();window.handleLogin(event);}" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
           
-          <button type="button" id="btn-submit-pwd" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
+          <button type="button" id="btn-submit-pwd" onclick="window.handleLogin(event);" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px; cursor: pointer; position: relative; z-index: 500 !important;">
             🔓 Unlock Birthday Tour
           </button>
         </div>
@@ -1052,11 +1052,11 @@
         <div class="luxury-badge badge-bottom-center"><span class="badge-icon">👨‍👩‍👧‍👦❤️</span><span class="badge-label">Family</span></div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 12px; width: 94%; max-width: 360px; margin-top: 14px; z-index: 200;">
-        <button type="button" id="btn-start-game" class="start-btn" style="width: 100%; margin-bottom: 0; padding: 18px 24px; font-size: 1.25rem; font-weight: 900;">
+      <div style="display: flex; flex-direction: column; gap: 14px; width: 94%; max-width: 380px; margin: 16px auto 32px; z-index: 500 !important; position: relative;">
+        <button type="button" id="btn-start-game" onclick="window.startGameTrivia(event);" class="start-btn" style="width: 100%; margin-bottom: 0; padding: 18px 24px; font-size: 1.25rem; font-weight: 900; cursor: pointer; position: relative; z-index: 500 !important;">
           ★ PLAY MAIN TRIVIA GAME 🍾
         </button>
-        <button type="button" id="btn-all-games-landing" class="share-btn" style="width: 100%; padding: 15px; font-size: 1.0rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: 3px solid #111;">
+        <button type="button" id="btn-all-games-landing" onclick="window.showDashboard(event);" class="share-btn" style="width: 100%; padding: 16px; font-size: 1.0rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: 3px solid #111; cursor: pointer; position: relative; z-index: 500 !important;">
           🎮 VIEW ALL 7 GAMES 🏆
         </button>
       </div>
