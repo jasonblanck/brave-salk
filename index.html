@@ -9,19 +9,7 @@
   <meta http-equiv="Expires" content="0">
   <title>Queen Elise's Luxury Life - 37th Birthday Tour</title>
 
-  <!-- Forced Instant Cache-Buster: Prevents stale disk caching on GitHub Pages -->
-  <script>
-    (function() {
-      var currentVer = '20260827_v102_triple_coverage';
-      try {
-        var params = new URLSearchParams(window.location.search);
-        if (params.get('v') !== currentVer) {
-          params.set('v', currentVer);
-          window.location.replace(window.location.pathname + '?' + params.toString() + window.location.hash);
-        }
-      } catch(e) {}
-    })();
-  </script>
+
 
   <!-- Google Fonts: Barbie Fonts & Luxury Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -354,7 +342,6 @@
       padding: 64px 12px 24px;
       height: 100%;
       overflow-y: auto;
-      z-index: 100;
       gap: 12px;
     }
 
@@ -1345,21 +1332,28 @@
       static showScreen(screenId) {
         document.querySelectorAll('.screen').forEach(s => {
           s.classList.remove('active');
-          s.style.display = 'none';
+          s.style.setProperty('display', 'none', 'important');
+          s.style.opacity = '0';
+          s.style.zIndex = '1';
         });
         const target = document.getElementById(`screen-${screenId}`);
         if (target) {
           target.classList.add('active');
-          target.style.display = 'flex';
+          target.style.setProperty('display', 'flex', 'important');
+          target.style.opacity = '1';
+          target.style.zIndex = '1000';
           target.scrollTop = 0;
         }
 
         const topNav = document.getElementById('top-nav');
 
         if (screenId === 'password') {
-          if (topNav) topNav.style.display = 'none';
+          if (topNav) topNav.style.setProperty('display', 'none', 'important');
         } else {
-          if (topNav) topNav.style.display = 'flex';
+          if (topNav) {
+            topNav.style.setProperty('display', 'flex', 'important');
+            topNav.style.zIndex = '10000';
+          }
           if (screenId === 'landing') {
             document.getElementById('level-indicator').textContent = 'Queen Elise Tour';
           } else if (screenId === 'dashboard') {
