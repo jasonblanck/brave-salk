@@ -12,7 +12,7 @@
   <!-- Forced Instant Cache-Buster: Prevents stale disk caching on GitHub Pages -->
   <script>
     (function() {
-      var currentVer = '20260827_v100_rebuilt';
+      var currentVer = '20260827_v101_toggle_sound';
       try {
         var params = new URLSearchParams(window.location.search);
         if (params.get('v') !== currentVer) {
@@ -203,6 +203,13 @@
 
     .nav-btn:active { transform: scale(0.95); }
 
+    .nav-btn.muted-off {
+      background: linear-gradient(135deg, #555555, #333333) !important;
+      color: #FFFFFF !important;
+      border-color: #777777 !important;
+      box-shadow: none !important;
+    }
+
     .level-badge {
       font-family: var(--font-sans);
       font-size: 0.78rem;
@@ -340,14 +347,15 @@
        SCREEN 1: LANDING PAGE (BARBIE NEON PINK & GLAMOUR)
        ========================================== */
     #screen-landing {
-      justify-content: space-around;
+      justify-content: flex-start;
       align-items: center;
       text-align: center;
       background: radial-gradient(circle at 50% 35%, #FF66B2 0%, #FF007F 40%, #C2185B 75%, #4D0026 100%);
-      padding: 68px 12px 12px;
+      padding: 64px 12px 24px;
       height: 100%;
-      overflow: hidden;
+      overflow-y: auto;
       z-index: 100;
+      gap: 12px;
     }
 
     .vogue-title {
@@ -938,8 +946,8 @@
         <span>🎮</span> Games
       </button>
       <div id="level-indicator" class="level-badge">Queen Elise Tour</div>
-      <button type="button" class="nav-btn" id="btn-sound-toggle" title="Toggle Sound">
-        <span id="sound-icon">🔊</span> Sound
+      <button type="button" class="nav-btn" id="btn-sound-toggle" title="Toggle Sound ON/OFF">
+        <span id="sound-icon">🔊 Sound ON</span>
       </button>
     </header>
 
@@ -1785,7 +1793,7 @@
         return;
       }
 
-      // 6. Top Nav Sound Toggle
+      // 6. Top Nav Sound Toggle Switch (ON / OFF)
       const btnSound = target.closest('#btn-sound-toggle');
       if (btnSound) {
         if (e.preventDefault) e.preventDefault();
@@ -1795,7 +1803,9 @@
             window.soundEngine.init();
             const isMuted = window.soundEngine.toggleSound();
             const icon = document.getElementById('sound-icon');
-            if (icon) icon.textContent = isMuted ? '🔇' : '🔊';
+            if (icon) icon.textContent = isMuted ? '🔇 Sound OFF' : '🔊 Sound ON';
+            if (isMuted) btnSound.classList.add('muted-off');
+            else btnSound.classList.remove('muted-off');
           }
         } catch(err){}
         return;
