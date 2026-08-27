@@ -1051,10 +1051,10 @@
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 14px; width: 94%; max-width: 380px; margin: 16px auto 32px; z-index: 500 !important; position: relative;">
-        <button type="button" id="btn-start-game" class="start-btn" style="width: 100%; margin-bottom: 0; padding: 18px 24px; font-size: 1.25rem; font-weight: 900; cursor: pointer; position: relative; z-index: 500 !important;">
+        <button type="button" id="btn-start-game" onclick="window.startGameTrivia(event);" class="start-btn" style="width: 100%; margin-bottom: 0; padding: 18px 24px; font-size: 1.25rem; font-weight: 900; cursor: pointer; position: relative; z-index: 500 !important;">
           ★ PLAY MAIN TRIVIA GAME 🍾
         </button>
-        <button type="button" id="btn-all-games-landing" class="share-btn" style="width: 100%; padding: 16px; font-size: 1.0rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: 3px solid #111; cursor: pointer; position: relative; z-index: 500 !important;">
+        <button type="button" id="btn-all-games-landing" onclick="window.showDashboard(event);" class="share-btn" style="width: 100%; padding: 16px; font-size: 1.0rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: 3px solid #111; cursor: pointer; position: relative; z-index: 500 !important;">
           🎮 VIEW ALL 7 GAMES 🏆
         </button>
       </div>
@@ -1741,14 +1741,9 @@
     window.stilettoEngine = new SimpleLevelEngine('l-stiletto-canvas', 'hud-score-l7', 'Stiletto Dash');
 
     /* BULLETPROOF DOCUMENT EVENT DELEGATOR */
-    let lastGlobalClickTime = 0;
     function handleGlobalClick(e) {
       const target = e.target;
       if (!target) return;
-
-      const now = Date.now();
-      if (now - lastGlobalClickTime < 250) return;
-      lastGlobalClickTime = now;
 
       try {
         if (window.soundEngine && typeof window.soundEngine.init === 'function') {
