@@ -949,20 +949,24 @@
 
     .trivia-btn {
       width: 100%;
-      padding: 9px 12px;
+      padding: 10px 12px;
       border-radius: 14px;
       background: linear-gradient(135deg, #FFFFFF, #FFFDD0);
       border: 2.5px solid var(--black-chic);
       font-family: var(--font-sans);
-      font-size: 0.88rem;
+      font-size: 0.90rem;
       font-weight: 800;
       color: var(--black-chic);
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.1s ease, background 0.2s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    .trivia-btn:active { transform: scale(0.97); }
+    .trivia-btn:active { transform: scale(0.96); background: #FFF0F5; }
     .trivia-btn.correct { background: #4CAF50 !important; color: white !important; border-color: #2E7D32 !important; }
     .trivia-btn.wrong { background: #E53935 !important; color: white !important; border-color: #B71C1C !important; }
 
@@ -1158,7 +1162,7 @@
         <span>🎮</span> Games
       </button>
       <div id="level-indicator" class="level-badge">Queen Elise Tour</div>
-      <button class="nav-btn" id="btn-sound-toggle" title="Toggle Sound">
+      <button class="nav-btn" id="btn-sound-toggle" onclick="toggleSoundGlobal()" title="Toggle Sound">
         <span id="sound-icon">🔊</span> Sound
       </button>
     </header>
@@ -1665,9 +1669,15 @@
         this.muted = !this.muted;
         if (this.audioEl) {
           this.audioEl.muted = this.muted;
-          if (!this.muted && this.audioEl.paused) {
-            this.audioEl.play().then(() => this.isPlaying = true);
+          if (!this.muted) {
+            this.audioEl.play().then(() => this.isPlaying = true).catch(e => {});
+          } else {
+            this.audioEl.pause();
           }
+        }
+        if (this.ctx) {
+          if (this.muted && this.ctx.state === 'running') this.ctx.suspend();
+          if (!this.muted && this.ctx.state === 'suspended') this.ctx.resume();
         }
         return this.muted;
       }
@@ -2354,11 +2364,7 @@
             btn.type = 'button';
             btn.className = 'trivia-btn';
             btn.textContent = optText;
-            btn.onclick = (e) => {
-              if (e) {
-                if (e.preventDefault) e.preventDefault();
-                if (e.stopPropagation) e.stopPropagation();
-              }
+            btn.onclick = () => {
               this.handleAnswer(idx === q.correct, btn);
             };
             container.appendChild(btn);
@@ -2375,6 +2381,9 @@
 
       handleAnswer(isCorrect, btnEl) {
         if (!btnEl) return;
+        if (this.isAnswering) return;
+        this.isAnswering = true;
+
         if (isCorrect) {
           btnEl.classList.add('correct');
           try { if (window.soundEngine) window.soundEngine.playChaChing(); } catch(e){}
@@ -2392,6 +2401,7 @@
 
           setTimeout(() => {
             this.currentIndex++;
+            this.isAnswering = false;
             if (this.currentIndex >= this.questions.length) {
               appState.unlockNextLevel(1);
               ScreenManager.showRewardModal('🍾', 'An Epic Anniversary Dinner Out & 37th Birthday Crown!', () => {
@@ -2400,7 +2410,7 @@
             } else {
               this.renderQuestion();
             }
-          }, 1200);
+          }, 1000);
         } else {
           btnEl.classList.add('wrong');
           try { if (window.soundEngine) window.soundEngine.playBuzzer(); } catch(e){}
@@ -2411,6 +2421,9 @@
               this.wrongIndex = (this.wrongIndex + 1) % this.wrongResponses.length;
             }
           } catch(e){}
+          setTimeout(() => {
+            this.isAnswering = false;
+          }, 500);
         }
       }
     }
@@ -3764,11 +3777,21 @@
       });
     }
 
-    document.getElementById('btn-sound-toggle').addEventListener('click', () => {
-      soundEngine.init();
-      const isMuted = soundEngine.toggleSound();
-      document.getElementById('sound-icon').textContent = isMuted ? '🔇' : '🔊';
-    });
+    window.toggleSoundGlobal = function() {
+      try {
+        if (window.soundEngine) {
+          soundEngine.init();
+          const isMuted = soundEngine.toggleSound();
+          const icon = document.getElementById('sound-icon');
+          if (icon) icon.textContent = isMuted ? '🔇' : '🔊';
+        }
+      } catch (err) {}
+    };
+
+    const btnSoundToggle = document.getElementById('btn-sound-toggle');
+    if (btnSoundToggle) {
+      btnSoundToggle.addEventListener('click', window.toggleSoundGlobal);
+    }
 
     const btnCasual = document.getElementById('opt-casual');
     const btnParty = document.getElementById('opt-party');
