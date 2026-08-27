@@ -8,14 +8,38 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Queen Elise's Luxury Life - 37th Birthday Tour</title>
-  <!-- GitHub Pages Build Cache-Bust Version 2026.08.26.1417 -->
-  
+
+  <!-- Forced Instant Cache-Buster: Prevents stale disk caching on GitHub Pages -->
+  <script>
+    (function() {
+      var currentVer = '20260827_v100_rebuilt';
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('v') !== currentVer) {
+          params.set('v', currentVer);
+          window.location.replace(window.location.pathname + '?' + params.toString() + window.location.hash);
+        }
+      } catch(e) {}
+    })();
+  </script>
+
   <!-- Google Fonts: Barbie Fonts & Luxury Display -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Pacifico&family=Fredoka:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Montserrat:wght@600;800;900&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <script>
+    window.stopAllEngines = function() {
+      try {
+        if (window.coffeeEngine) window.coffeeEngine.stop();
+        if (window.chanelEngine) window.chanelEngine.stop();
+        if (window.mahjongEngine) window.mahjongEngine.stop();
+        if (window.jetskiEngine) window.jetskiEngine.stop();
+        if (window.tennisEngine) window.tennisEngine.stop();
+        if (window.stilettoEngine) window.stilettoEngine.stop();
+      } catch(e) {}
+    };
+
     window.handleLogin = function(e) {
       if (e) {
         if (e.preventDefault) e.preventDefault();
@@ -62,15 +86,6 @@
 
       if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
         window.ScreenManager.showScreen('trivia');
-      } else {
-        document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); s.style.display = 'none'; });
-        var triviaScreen = document.getElementById('screen-trivia');
-        if (triviaScreen) { triviaScreen.classList.add('active'); triviaScreen.style.display = 'flex'; }
-        var topNav = document.getElementById('top-nav');
-        if (topNav) topNav.style.display = 'flex';
-        var indicator = document.getElementById('level-indicator');
-        if (indicator) indicator.textContent = 'Level 1: 37 Love Questions 🍾';
-        if (window.triviaEngine) window.triviaEngine.start();
       }
       return false;
     };
@@ -89,18 +104,6 @@
 
       if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
         window.ScreenManager.showScreen('dashboard');
-      } else {
-        document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); s.style.display = 'none'; });
-        var dashScreen = document.getElementById('screen-dashboard');
-        if (dashScreen) { dashScreen.classList.add('active'); dashScreen.style.display = 'flex'; }
-        var topNav = document.getElementById('top-nav');
-        if (topNav) topNav.style.display = 'flex';
-        var indicator = document.getElementById('level-indicator');
-        if (indicator) indicator.textContent = 'Level Tour Dashboard';
-        if (window.ScreenManager) {
-          window.ScreenManager.renderDashboardLevels();
-          window.ScreenManager.renderLeaderboard();
-        }
       }
       return false;
     };
@@ -171,7 +174,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 5px;
-      z-index: 1000;
+      z-index: 10000 !important;
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(12px);
       border-bottom: 3px solid var(--black-chic);
@@ -194,6 +197,8 @@
       gap: 4px;
       white-space: nowrap;
       flex-shrink: 0;
+      position: relative;
+      z-index: 200 !important;
     }
 
     .nav-btn:active { transform: scale(0.95); }
@@ -238,7 +243,7 @@
     .screen.active {
       display: flex !important;
       opacity: 1 !important;
-      z-index: 10 !important;
+      z-index: 100 !important;
     }
 
     /* Game Screens Strict Full-Height Layout */
@@ -286,7 +291,7 @@
       height: 100%;
       pointer-events: none !important;
       overflow: hidden;
-      z-index: 0 !important;
+      z-index: 1 !important;
     }
 
     .confetti-item {
@@ -317,7 +322,7 @@
 
     .pwd-card {
       position: relative;
-      z-index: 100 !important;
+      z-index: 200 !important;
       width: 100%;
       max-width: 360px;
       background: rgba(255, 255, 255, 0.18);
@@ -342,7 +347,7 @@
       padding: 68px 12px 12px;
       height: 100%;
       overflow: hidden;
-      z-index: 10;
+      z-index: 100;
     }
 
     .vogue-title {
@@ -460,21 +465,6 @@
     .badge-low-right { bottom: 10px; right: -10px; }
     .badge-bottom-center { bottom: -24px; left: 50%; transform: translateX(-50%); }
 
-    .sound-hint-banner {
-      font-family: var(--font-sans);
-      font-size: 0.82rem;
-      font-weight: 900;
-      color: #FFFFFF;
-      background: rgba(255,0,127,0.85);
-      padding: 6px 16px;
-      border-radius: 16px;
-      border: 2px solid #FFD700;
-      box-shadow: 0 0 20px rgba(255,0,127,0.9);
-      animation: pulse-btn 2s infinite ease-in-out;
-      position: relative;
-      z-index: 5;
-    }
-
     .start-btn {
       width: 92%;
       max-width: 360px;
@@ -493,7 +483,7 @@
       cursor: pointer;
       animation: pulse-btn 2s infinite ease-in-out;
       position: relative;
-      z-index: 100 !important;
+      z-index: 200 !important;
     }
 
     @keyframes pulse-btn {
@@ -501,46 +491,11 @@
       50% { transform: scale(1.03); }
     }
 
-    .dialogue-popup {
-      position: absolute;
-      bottom: 85px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 94%;
-      background: white;
-      border: 3.5px solid var(--black-chic);
-      border-radius: 20px;
-      padding: 14px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 50;
-    }
-
-    .dialogue-popup.visible {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(-10px);
-    }
-
-    .dialogue-avatar {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      border: 3px solid var(--pink-deep);
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .dialogue-text {
-      font-size: 0.98rem;
-      font-weight: 800;
-      color: var(--black-chic);
-      line-height: 1.35;
+    .share-btn {
+      border-radius: 24px;
+      cursor: pointer;
+      position: relative;
+      z-index: 200 !important;
     }
 
     /* ==========================================
@@ -579,6 +534,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
+      z-index: 200 !important;
     }
 
     .mode-options {
@@ -592,11 +549,12 @@
     .mode-opt-btn {
       padding: 8px 14px;
       border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 900;
       border: none;
-      font-size: 0.85rem;
-      font-weight: 800;
       cursor: pointer;
-      color: #555;
+      color: var(--gold-dark);
       background: transparent;
     }
 
@@ -620,7 +578,7 @@
 
     .level-card {
       position: relative;
-      z-index: 100 !important;
+      z-index: 200 !important;
       background: white;
       border: 3.5px solid var(--black-chic);
       border-radius: 22px;
@@ -637,7 +595,6 @@
       background: linear-gradient(135deg, #FFFDF0 0%, #FFFFFF 100%);
       border: 4px solid var(--gold-primary);
       box-shadow: 0 0 25px rgba(212,175,55,0.65), 0 8px 20px rgba(0,0,0,0.15);
-      position: relative;
     }
 
     .featured-badge-tag {
@@ -659,32 +616,30 @@
       animation: pulse-btn 2s infinite ease-in-out;
     }
 
+    .level-play-btn {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      border: 2.5px solid var(--black-chic);
+      border-radius: 16px;
+      padding: 10px 18px;
+      font-family: var(--font-sans);
+      font-weight: 900;
+      font-size: 0.88rem;
+      color: var(--black-chic);
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      position: relative;
+      z-index: 200 !important;
+    }
+
     .featured-play-btn {
       background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%) !important;
       color: #FFFFFF !important;
       border: 2.5px solid var(--black-chic) !important;
       text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-      box-shadow: 0 0 15px rgba(255,215,0,0.8) !important;
+      box-shadow: 0 0 15px rgba(212,175,55,0.8) !important;
     }
 
     .level-card:active { transform: scale(0.98); }
-
-    .level-card.locked {
-      opacity: 0.55;
-      cursor: not-allowed;
-      filter: grayscale(0.65);
-      background: #F0F0F0;
-    }
-
-    .level-card.locked:active { transform: none; }
-
-    .level-card.locked .level-play-btn {
-      background: #CCCCCC !important;
-      color: #666666 !important;
-      box-shadow: none !important;
-      border-color: #888888 !important;
-      cursor: not-allowed;
-    }
 
     .level-card-left {
       display: flex;
@@ -716,168 +671,79 @@
     }
 
     .level-card-title {
-      font-family: var(--font-sans);
-      font-size: 1.05rem;
-      font-weight: 800;
+      font-size: 1.02rem;
+      font-weight: 900;
       color: var(--black-chic);
-      line-height: 1.25;
+      margin: 1px 0;
     }
 
     .level-card-reward {
-      font-family: var(--font-sans);
-      font-size: 0.84rem;
+      font-size: 0.76rem;
       font-weight: 800;
       color: var(--gold-dark);
-      margin-top: 2px;
-    }
-
-    .level-play-btn {
-      padding: 10px 18px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
-      border: 2.5px solid var(--black-chic);
-      font-size: 0.88rem;
-      font-weight: 900;
-      color: var(--black-chic);
-      text-transform: uppercase;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
     }
 
     .leaderboard-card {
       background: white;
       border: 3.5px solid var(--black-chic);
       border-radius: 20px;
-      padding: 14px 16px;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+      padding: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      position: relative;
+      z-index: 200 !important;
     }
 
     .lb-header {
-      font-family: var(--font-sans);
-      font-size: 1.02rem;
-      font-weight: 900;
-      color: var(--black-chic);
-      margin-bottom: 8px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed #EEE;
     }
 
-    .lb-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .lb-list { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+
     .lb-item {
-      display: flex; justifyContent: space-between; align-items: center;
-      padding: 8px 12px; background: var(--bg-cream-soft); border-radius: 8px;
-      font-size: 0.88rem; font-weight: 800;
-    }
-    .lb-rank { font-weight: 900; color: var(--pink-deep); width: 24px; }
-    .lb-name { flex: 1; color: var(--black-chic); }
-    .lb-score { font-size: 0.82rem; font-weight: 900; color: var(--black-chic); }
-
-    /* ==========================================
-       4. GAME HUD & COMMENTARY TICKER
-       ========================================== */
-    .game-hud {
-      position: absolute;
-      top: 72px;
-      left: 14px;
-      right: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 20;
-      pointer-events: none;
-    }
-
-    .hud-box {
-      background: rgba(255, 255, 255, 0.98);
-      border: 2.5px solid var(--black-chic);
-      border-radius: 14px;
-      padding: 6px 14px;
+      padding: 6px 10px;
+      background: var(--bg-cream-soft);
+      border-radius: 10px;
       font-size: 0.85rem;
-      font-weight: 900;
-      color: var(--black-chic);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-    }
-
-    .commentary-bar {
-      height: 75px;
-      background: linear-gradient(135deg, var(--black-chic), #222);
-      border-top: 3px solid var(--gold-primary);
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .commentary-avatar {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      border: 2px solid var(--gold-light);
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    .commentary-text {
-      color: var(--bg-cream);
-      font-size: 0.88rem;
       font-weight: 800;
-      font-style: italic;
-      line-height: 1.35;
     }
 
-    .touch-controls {
-      height: 75px;
-      background: rgba(0,0,0,0.95);
-      border-top: 2px solid var(--gold-primary);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 24px;
-      z-index: 40;
-    }
-
-    .touch-btn {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.25);
-      border: 3px solid rgba(255,255,255,0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5rem;
-      color: white;
-      cursor: pointer;
-    }
-
-    .touch-btn:active { background: rgba(231,84,128,0.6); }
+    .lb-rank { color: var(--pink-neon); width: 28px; }
+    .lb-name { flex-grow: 1; color: var(--black-chic); }
+    .lb-score { color: var(--gold-dark); }
 
     /* ==========================================
-       LEVEL 1: RELATIONSHIP TRIVIA (37 QUESTIONS)
+       TRIVIA SCREEN & ANSWER BUTTONS
        ========================================== */
     #screen-trivia {
-      padding: 62px 10px 10px;
-      background: linear-gradient(180deg, #FFF5F7 0%, var(--bg-cream) 100%);
-      display: flex;
-      flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      overflow-y: auto;
+      padding: 70px 16px 20px;
+      background: linear-gradient(180deg, #FAF6EE 0%, #FFF0F5 100%);
     }
 
     .trivia-card {
       position: relative;
-      z-index: 150;
+      z-index: 200 !important;
       width: 100%;
       max-width: 440px;
       background: white;
       border: 3.5px solid var(--black-chic);
       border-radius: 20px;
-      padding: 10px 12px;
+      padding: 16px 14px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.18);
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 10px;
     }
 
     .trivia-q-num {
@@ -886,263 +752,175 @@
       color: var(--pink-deep);
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 2px;
     }
 
     .trivia-progress-bar {
       width: 100%;
       height: 8px;
-      background: var(--bg-cream-soft);
-      border: 2px solid var(--black-chic);
-      border-radius: 10px;
-      margin: 2px 0 6px;
+      background: #EEE;
+      border-radius: 4px;
       overflow: hidden;
+      border: 1px solid var(--black-chic);
     }
 
     .trivia-progress-fill {
       height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--gold-light), var(--pink-deep));
+      width: 3%;
+      background: linear-gradient(90deg, var(--pink-accent), var(--pink-neon));
       transition: width 0.3s ease;
     }
 
     .trivia-question {
       font-family: var(--font-sans);
-      font-size: 0.98rem;
-      font-weight: 800;
+      font-size: 1.05rem;
+      font-weight: 900;
       color: var(--black-chic);
-      margin-bottom: 4px;
-      line-height: 1.25;
+      line-height: 1.35;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .trivia-image-badge {
-      margin: 2px auto 6px;
-      width: 54px;
-      height: 54px;
+      width: 64px;
+      height: 64px;
+      margin: 0 auto;
       border-radius: 50%;
-      background: radial-gradient(circle, #FFF0F5 0%, #FFD1DC 70%, #FF69B4 100%);
-      border: 2.5px solid var(--black-chic);
-      box-shadow: 0 4px 12px rgba(255,20,147,0.35);
+      background: var(--pink-soft);
+      border: 3px solid var(--black-chic);
       display: flex;
       justify-content: center;
       align-items: center;
-      animation: pop-icon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     }
 
-    .trivia-image-icon {
-      font-size: 1.85rem;
-      line-height: 1;
-    }
-
-    @keyframes pop-icon {
-      0% { transform: scale(0.6); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
+    .trivia-image-icon { font-size: 2.2rem; }
 
     .trivia-answers {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
     }
 
     .trivia-btn {
       width: 100%;
-      padding: 10px 12px;
-      border-radius: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
       background: linear-gradient(135deg, #FFFFFF, #FFFDD0);
-      border: 2.5px solid var(--black-chic);
+      border: 3px solid var(--black-chic);
       font-family: var(--font-sans);
-      font-size: 0.90rem;
-      font-weight: 800;
+      font-size: 0.96rem;
+      font-weight: 900;
       color: var(--black-chic);
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
       transition: transform 0.1s ease, background 0.2s ease;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-      -webkit-user-select: none;
+      position: relative;
+      z-index: 200 !important;
     }
 
-    .trivia-btn:active { transform: scale(0.96); background: #FFF0F5; }
-    .trivia-btn.correct { background: #4CAF50 !important; color: white !important; border-color: #2E7D32 !important; }
-    .trivia-btn.wrong { background: #E53935 !important; color: white !important; border-color: #B71C1C !important; }
+    .trivia-btn:active { transform: scale(0.97); }
 
-    /* ==========================================
-       LEVEL 2: MORNING COFFEE RUN
-       ========================================== */
-    #screen-level-coffee {
-      padding-top: 64px;
-      background: #FFF8F0;
-      justify-content: space-between;
+    .trivia-btn.correct {
+      background: #4CAF50 !important;
+      color: white !important;
+      border-color: #1B5E20 !important;
+      box-shadow: 0 0 15px rgba(76,175,80,0.6) !important;
     }
 
-    #l-coffee-canvas {
+    .trivia-btn.wrong {
+      background: #E53935 !important;
+      color: white !important;
+      border-color: #B71C1C !important;
+    }
+
+    .commentary-bar {
+      position: relative;
+      z-index: 200 !important;
       width: 100%;
-      height: calc(100% - 145px);
-      display: block;
-    }
-
-    /* ==========================================
-       LEVEL 3: THE BOUTIQUE SWEEP
-       ========================================== */
-    #screen-level-chanel {
-      padding-top: 64px;
-      background: #111;
-      justify-content: space-between;
-    }
-
-    #l-chanel-canvas {
-      width: 100%;
-      height: calc(100% - 145px);
-      display: block;
-    }
-
-    /* ==========================================
-       LEVEL CONTROL ACTION ZONES
-       ========================================== */
-    .level-action-zone {
-      height: 75px;
-      background: rgba(13,8,20,0.95);
-      border-top: 2px solid var(--gold-primary);
+      max-width: 440px;
+      background: var(--black-chic);
+      border: 3px solid var(--gold-primary);
+      border-radius: 16px;
+      padding: 10px;
       display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .commentary-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-light);
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .commentary-text {
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 800;
+      font-style: italic;
+      line-height: 1.25;
+    }
+
+    /* REWARD MODAL */
+    .reward-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      display: none;
       justify-content: center;
       align-items: center;
-      padding: 0 20px;
-      z-index: 40;
+      z-index: 20000 !important;
+      padding: 20px;
     }
 
-    .flap-btn {
-      width: 100%;
-      padding: 16px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
-      border: 3px solid var(--black-chic);
-      color: var(--black-chic);
-      font-family: var(--font-sans);
-      font-weight: 900;
-      font-size: 1.08rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      box-shadow: 0 5px 18px rgba(212,175,55,0.6);
-      cursor: pointer;
-    }
+    .reward-modal-overlay.active { display: flex !important; }
 
-    .flap-btn:active { transform: scale(0.96); }
-
-    /* ==========================================
-       REWARD UNLOCKED MODAL CARD
-       ========================================== */
-    .reward-modal {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.78);
-      backdrop-filter: blur(8px);
-      display: flex; justify-content: center; align-items: center;
-      z-index: 150; opacity: 0; pointer-events: none;
-      transition: opacity 0.35s ease; padding: 20px;
-    }
-
-    .reward-modal.active { opacity: 1; pointer-events: auto; }
-
-    .reward-card {
+    .reward-modal-card {
       background: white;
-      border: 4px solid var(--black-chic);
-      border-radius: 26px; padding: 26px 22px;
-      max-width: 360px; width: 100%; text-align: center;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.5);
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
+      border: 4px solid var(--gold-primary);
+      border-radius: 28px;
+      padding: 24px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 0 40px var(--pink-neon);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
     }
 
     .reward-icon { font-size: 3.5rem; }
 
     .reward-title {
-      font-family: var(--font-sans);
-      font-size: 1.45rem; font-weight: 900; color: var(--pink-deep);
+      font-family: var(--font-barbie);
+      font-size: 1.5rem;
+      color: var(--pink-deep);
     }
 
     .reward-name {
-      font-family: var(--font-sans);
-      font-size: 1.08rem; font-weight: 800; color: var(--black-chic);
-      background: var(--bg-cream-soft); padding: 12px 16px;
-      border-radius: 16px; border: 2px dashed var(--gold-primary); width: 100%;
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--black-chic);
     }
 
-    .reward-next-btn {
-      width: 100%; padding: 16px; border-radius: 20px;
+    .reward-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 20px;
       background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
-      border: 2.5px solid var(--black-chic); color: var(--black-chic);
-      font-family: var(--font-sans); font-weight: 900; font-size: 0.98rem;
-      text-transform: uppercase; cursor: pointer;
+      border: 3px solid var(--black-chic);
+      font-weight: 900;
+      font-size: 1.0rem;
+      cursor: pointer;
     }
-
-    /* ==========================================
-       SCREEN 5: VICTORY VAULT (GRAND FINALE)
-       ========================================== */
-    #screen-vault {
-      background: linear-gradient(180deg, #1A000C 0%, #3D001D 100%);
-      padding: 74px 18px 24px; align-items: center; justify-content: center;
-    }
-
-    #confetti-canvas {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; z-index: 5;
-    }
-
-    .victory-card {
-      position: relative; z-index: 10; width: 100%; max-width: 400px;
-      background: rgba(255, 255, 255, 0.98);
-      border: 4px solid var(--black-chic);
-      border-radius: 26px; padding: 24px 20px; text-align: center;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-
-    .victory-badge { font-size: 2.5rem; }
-
-    .victory-header {
-      font-family: var(--font-sans);
-      font-size: 1.45rem; font-weight: 900; color: var(--pink-deep);
-    }
-
-    .unlocked-rewards-list {
-      background: var(--bg-cream-soft); border: 2px solid var(--gold-primary);
-      border-radius: 16px; padding: 12px 14px; text-align: left;
-      font-size: 0.88rem; font-weight: 800; display: flex; flex-direction: column; gap: 8px;
-    }
-
-    .unlocked-item { display: flex; align-items: center; gap: 8px; color: var(--black-chic); }
-
-    .submit-score-section { display: flex; gap: 8px; }
-
-    .name-input {
-      flex: 1; padding: 12px 14px; border-radius: 14px;
-      border: 2.5px solid var(--black-chic); font-family: var(--font-sans);
-      font-size: 0.88rem; font-weight: 800; outline: none;
-    }
-
-    .submit-btn {
-      padding: 12px 16px; border-radius: 14px; background: var(--pink-deep);
-      color: white; border: none; font-weight: 900; font-size: 0.82rem; cursor: pointer;
-    }
-
-    .share-btn {
-      width: 100%; padding: 14px; border-radius: 20px;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
-      border: 2.5px solid var(--black-chic); color: var(--black-chic);
-      font-family: var(--font-sans); font-weight: 900; font-size: 0.95rem;
-      text-transform: uppercase; cursor: pointer;
-    }
-
-    #toast {
-      position: absolute; bottom: 25px; left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: var(--black-chic); color: var(--gold-light);
-      border: 2px solid var(--gold-primary); padding: 12px 24px;
-      border-radius: 24px; font-size: 0.88rem; font-weight: 800; z-index: 200;
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    #toast.show { transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
@@ -1153,14 +931,14 @@
   <div id="app">
     <!-- Top Navigation Bar -->
     <header id="top-nav" style="display: none;">
-      <button class="nav-btn" id="btn-home-nav" onclick="ScreenManager.showScreen('landing');" title="Landing Page">
+      <button type="button" class="nav-btn" id="btn-home-nav" title="Landing Page">
         <span>👑</span> Home
       </button>
-      <button class="nav-btn" id="btn-all-games-nav" onclick="ScreenManager.showScreen('dashboard');" title="All 7 Games Menu">
+      <button type="button" class="nav-btn" id="btn-all-games-nav" title="All 7 Games Menu">
         <span>🎮</span> Games
       </button>
       <div id="level-indicator" class="level-badge">Queen Elise Tour</div>
-      <button class="nav-btn" id="btn-sound-toggle" onclick="toggleSoundGlobal()" title="Toggle Sound">
+      <button type="button" class="nav-btn" id="btn-sound-toggle" title="Toggle Sound">
         <span id="sound-icon">🔊</span> Sound
       </button>
     </header>
@@ -1205,20 +983,16 @@
         </p>
 
         <div id="pwd-box" style="width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center;">
-          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.keyCode===13||event.key==='Enter'||event.code==='Enter'){event.preventDefault();handleLogin(event);}" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
+          <input type="text" id="pwd-input" class="name-input" placeholder="Enter Passcode..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="text-align: center; font-size: 1.1rem; letter-spacing: 2px; width: 90%; padding: 14px; border: 3px solid var(--gold-primary); -webkit-text-security: disc; text-security: disc;">
           
-          <button type="button" id="btn-submit-pwd" onclick="handleLogin(event)" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
+          <button type="button" id="btn-submit-pwd" class="start-btn" style="width: 90%; margin-bottom: 0; padding: 16px;">
             🔓 Unlock Birthday Tour
           </button>
         </div>
-
-        <p id="pwd-error-msg" style="color: #FF6B6B; font-weight: 900; font-size: 0.88rem; margin-top: 12px; opacity: 0; transition: opacity 0.3s ease;">
-          Incorrect Passcode! (Hint: What makes the world go round?)
-        </p>
       </div>
     </section>
 
-    <!-- SCREEN 1: LANDING PAGE (PINK NEON & CONFETTI) -->
+    <!-- SCREEN 1: LANDING PAGE -->
     <section id="screen-landing" class="screen">
       <div id="confetti-landing-container" class="confetti-container"></div>
       <script>
@@ -1255,54 +1029,26 @@
         <p class="bday-date-tag">✨ September 3 • Birthday Edition ✨</p>
       </div>
 
-      <!-- Outer Stage Wrapper (320px x 280px) to guarantee zero badge overlap on portrait -->
+      <!-- Outer Stage Wrapper -->
       <div class="avatar-stage">
         <div class="avatar-viewport">
           <img src="queen_elise.jpg" alt="Queen Elise" class="portrait-img">
         </div>
 
-        <!-- 7 Static Labeled Badges floating completely OUTSIDE the 190px portrait circle -->
-        <div class="luxury-badge badge-top-left">
-          <span class="badge-icon">🤍👜</span>
-          <span class="badge-label">Chanel Bag</span>
-        </div>
-
-        <div class="luxury-badge badge-top-right">
-          <span class="badge-icon">🕶️</span>
-          <span class="badge-label">Gucci Glasses</span>
-        </div>
-
-        <div class="luxury-badge badge-mid-left">
-          <span class="badge-icon">🀄</span>
-          <span class="badge-label">Mahjong</span>
-        </div>
-
-        <div class="luxury-badge badge-mid-right">
-          <span class="badge-icon">👑🐶</span>
-          <span class="badge-label">Bella + AJ</span>
-        </div>
-
-        <div class="luxury-badge badge-low-left">
-          <span class="badge-icon">⛳🏌️‍♂️</span>
-          <span class="badge-label">Jason</span>
-        </div>
-
-        <div class="luxury-badge badge-low-right">
-          <span class="badge-icon">🏡🎾</span>
-          <span class="badge-label">Bedford</span>
-        </div>
-
-        <div class="luxury-badge badge-bottom-center">
-          <span class="badge-icon">👨‍👩‍👧‍👦❤️</span>
-          <span class="badge-label">Family</span>
-        </div>
+        <div class="luxury-badge badge-top-left"><span class="badge-icon">🤍👜</span><span class="badge-label">Chanel Bag</span></div>
+        <div class="luxury-badge badge-top-right"><span class="badge-icon">🕶️</span><span class="badge-label">Gucci Glasses</span></div>
+        <div class="luxury-badge badge-mid-left"><span class="badge-icon">🀄</span><span class="badge-label">Mahjong</span></div>
+        <div class="luxury-badge badge-mid-right"><span class="badge-icon">👑🐶</span><span class="badge-label">Bella + AJ</span></div>
+        <div class="luxury-badge badge-low-left"><span class="badge-icon">⛳🏌️‍♂️</span><span class="badge-label">Jason</span></div>
+        <div class="luxury-badge badge-low-right"><span class="badge-icon">🏡🎾</span><span class="badge-label">Bedford</span></div>
+        <div class="luxury-badge badge-bottom-center"><span class="badge-icon">👨‍👩‍👧‍👦❤️</span><span class="badge-label">Family</span></div>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 12px; width: 94%; max-width: 360px; margin-top: 14px; z-index: 10;">
-        <button type="button" id="btn-start-game" onclick="startGameTrivia(event)" class="start-btn" style="width: 100%; margin-bottom: 0; padding: 18px 24px; font-size: 1.25rem; font-weight: 900; background: linear-gradient(135deg, #FF007F 0%, #FF1493 50%, #FFD700 100%); border: 4px solid #FFFFFF; box-shadow: 0 0 35px #FF007F, 0 0 60px #FF1493, 0 10px 30px rgba(0,0,0,0.6); text-transform: uppercase; cursor: pointer;">
+      <div style="display: flex; flex-direction: column; gap: 12px; width: 94%; max-width: 360px; margin-top: 14px; z-index: 200;">
+        <button type="button" id="btn-start-game" class="start-btn" style="width: 100%; margin-bottom: 0; padding: 18px 24px; font-size: 1.25rem; font-weight: 900;">
           ★ PLAY MAIN TRIVIA GAME 🍾
         </button>
-        <button type="button" id="btn-all-games-landing" onclick="showDashboard(event)" class="share-btn" style="width: 100%; padding: 15px; font-size: 1.0rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: 3px solid #111; cursor: pointer;">
+        <button type="button" id="btn-all-games-landing" class="share-btn" style="width: 100%; padding: 15px; font-size: 1.0rem; font-weight: 900; background: linear-gradient(135deg, #FFD700, #FFA500); color: #111; border: 3px solid #111;">
           🎮 VIEW ALL 7 GAMES 🏆
         </button>
       </div>
@@ -1319,15 +1065,15 @@
       <div class="mode-selector-card">
         <span style="font-size: 0.82rem; font-weight: 900; color: #111;">Game Mode:</span>
         <div class="mode-options">
-          <button id="opt-casual" class="mode-opt-btn active">Casual Play</button>
-          <button id="opt-party" class="mode-opt-btn">Party Mode (60s)</button>
+          <button type="button" id="opt-casual" class="mode-opt-btn active">Casual Play</button>
+          <button type="button" id="opt-party" class="mode-opt-btn">Party Mode (60s)</button>
         </div>
       </div>
 
       <!-- 7 Levels List Cards -->
       <div class="levels-list">
-        <!-- Level 1 (Featured Main Game) -->
-        <div class="level-card featured" id="card-l1" onclick="ScreenManager.showScreen('trivia');" style="cursor: pointer;">
+        <!-- Level 1 -->
+        <div class="level-card featured" id="card-l1">
           <div class="featured-badge-tag">★ MAIN GAME • START HERE 🍾</div>
           <div class="level-card-left">
             <div class="level-card-icon" style="background: linear-gradient(135deg, #FFD700, #FFA500); border-color: #111;">🍾</div>
@@ -1337,11 +1083,11 @@
               <span class="level-card-reward">🎁 Unlocks: Epic Anniversary Dinner</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn featured-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('trivia');">★ PLAY TRIVIA</button>
+          <button type="button" class="level-play-btn featured-play-btn">★ PLAY TRIVIA</button>
         </div>
 
         <!-- Level 2 -->
-        <div class="level-card" id="card-l2" onclick="ScreenManager.showScreen('level-coffee');" style="cursor: pointer;">
+        <div class="level-card" id="card-l2">
           <div class="level-card-left">
             <div class="level-card-icon">☕</div>
             <div class="level-card-info">
@@ -1350,11 +1096,11 @@
               <span class="level-card-reward">🎁 Unlocks: Luxury Spa Day Voucher</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-coffee');">PLAY</button>
+          <button type="button" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 3 -->
-        <div class="level-card" id="card-l3" onclick="ScreenManager.showScreen('level-chanel');" style="cursor: pointer;">
+        <div class="level-card" id="card-l3">
           <div class="level-card-left">
             <div class="level-card-icon">👜</div>
             <div class="level-card-info">
@@ -1363,11 +1109,11 @@
               <span class="level-card-reward">🎁 Unlocks: Custom Diamond Piece</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-chanel');">PLAY</button>
+          <button type="button" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 4 -->
-        <div class="level-card" id="card-l4" onclick="ScreenManager.showScreen('level-mahjong');" style="cursor: pointer;">
+        <div class="level-card" id="card-l4">
           <div class="level-card-left">
             <div class="level-card-icon">🀄</div>
             <div class="level-card-info">
@@ -1376,11 +1122,11 @@
               <span class="level-card-reward">🎁 Unlocks: VIP Mahjong Trophy</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-mahjong');">PLAY</button>
+          <button type="button" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 5 -->
-        <div class="level-card" id="card-l5" onclick="ScreenManager.showScreen('level-jetski');" style="cursor: pointer;">
+        <div class="level-card" id="card-l5">
           <div class="level-card-left">
             <div class="level-card-icon">👜</div>
             <div class="level-card-info">
@@ -1389,11 +1135,11 @@
               <span class="level-card-reward">🎁 Unlocks: Luxury Yacht Charter</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-jetski');">PLAY</button>
+          <button type="button" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 6 -->
-        <div class="level-card" id="card-l6" onclick="ScreenManager.showScreen('level-tennis');" style="cursor: pointer;">
+        <div class="level-card" id="card-l6">
           <div class="level-card-left">
             <div class="level-card-icon">🎾</div>
             <div class="level-card-info">
@@ -1402,11 +1148,11 @@
               <span class="level-card-reward">🎁 Unlocks: Bedford Club Championship</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-tennis');">PLAY</button>
+          <button type="button" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 7 -->
-        <div class="level-card" id="card-l7" onclick="ScreenManager.showScreen('level-stiletto');" style="cursor: pointer;">
+        <div class="level-card" id="card-l7">
           <div class="level-card-left">
             <div class="level-card-icon">👠</div>
             <div class="level-card-info">
@@ -1415,7 +1161,7 @@
               <span class="level-card-reward">👑 Unlocks: Ultimate Victory Vault</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn" onclick="event.stopPropagation(); ScreenManager.showScreen('level-stiletto');">PLAY</button>
+          <button type="button" class="level-play-btn">PLAY</button>
         </div>
       </div>
 
@@ -1425,9 +1171,7 @@
           <span>🏆 Party High Scores</span>
           <span style="font-size: 0.78rem; color: var(--pink-deep);">Top Guests</span>
         </div>
-        <ul id="lb-list-container" class="lb-list">
-          <!-- Populated by JS -->
-        </ul>
+        <ul id="lb-list-container" class="lb-list"></ul>
       </div>
     </section>
 
@@ -1442,16 +1186,15 @@
         </div>
         <h2 id="trivia-question" class="trivia-question">Where did our academic journey begin?</h2>
         
-        <!-- Relatable Icon / Illustration Badge -->
         <div id="trivia-image-container" class="trivia-image-badge">
           <span id="trivia-image-icon" class="trivia-image-icon">🎓🏛️</span>
         </div>
 
         <div id="trivia-answers" class="trivia-answers">
-          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(true, this)">Cornell University</button>
-          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(false, this)">Harvard</button>
-          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(false, this)">Columbia</button>
-          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine)window.triviaEngine.handleAnswer(false, this)">NYU</button>
+          <button type="button" class="trivia-btn">Cornell University</button>
+          <button type="button" class="trivia-btn">Harvard</button>
+          <button type="button" class="trivia-btn">Columbia</button>
+          <button type="button" class="trivia-btn">NYU</button>
         </div>
       </div>
 
@@ -1465,200 +1208,233 @@
     <section id="screen-level-coffee" class="screen">
       <div class="game-hud">
         <div class="hud-box">SCORE: <span id="hud-score-l1">0</span></div>
+        <div class="hud-box">LEVEL 2: COFFEE RUN ☕</div>
       </div>
-
       <canvas id="l-coffee-canvas"></canvas>
-
       <div class="touch-controls">
-        <button class="touch-btn" id="btn-l1-left">◀</button>
-        <button class="touch-btn" id="btn-l1-right">▶</button>
-      </div>
-
-      <div class="commentary-bar">
-        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
-        <p id="c-text-l1" class="commentary-text">"Caffeine levels optimal. Ready to conquer Madison Avenue."</p>
+        <button type="button" class="touch-btn" id="btn-l1-left">◀ LEFT</button>
+        <button type="button" class="touch-btn" id="btn-l1-right">RIGHT ▶</button>
       </div>
     </section>
 
-    <!-- LEVEL 3: THE BOUTIQUE SWEEP (LUXURY TETRIS) -->
+    <!-- LEVEL 3: BOUTIQUE SWEEP TETRIS -->
     <section id="screen-level-chanel" class="screen">
       <div class="game-hud">
         <div class="hud-box">SCORE: <span id="hud-score-l2">0</span></div>
-        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+        <div class="hud-box">LEVEL 3: CHANEL TETRIS 👜</div>
       </div>
-
       <canvas id="l-chanel-canvas"></canvas>
-
-      <div class="touch-controls" style="gap: 8px; justify-content: space-around;">
-        <button class="touch-btn" id="btn-l2-left">◀</button>
-        <button class="touch-btn" id="btn-l2-rotate" style="background: rgba(212,175,55,0.4); border-color: var(--gold-light);">🔄</button>
-        <button class="touch-btn" id="btn-l2-down" style="background: rgba(255,20,147,0.4); border-color: var(--pink-soft);">⬇️</button>
-        <button class="touch-btn" id="btn-l2-right">▶</button>
-      </div>
-
-      <div class="commentary-bar">
-        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
-        <p id="c-text-l2" class="commentary-text">"Stack those luxury boxes cleanly to clear lines and unlock your diamond piece!"</p>
+      <div class="touch-controls">
+        <button type="button" class="touch-btn" id="btn-l2-left">◀</button>
+        <button type="button" class="touch-btn" id="btn-l2-rotate">↻ ROTATE</button>
+        <button type="button" class="touch-btn" id="btn-l2-right">▶</button>
+        <button type="button" class="touch-btn" id="btn-l2-drop">⬇ DROP</button>
       </div>
     </section>
 
     <!-- LEVEL 4: MAHJONG TILE DASH -->
     <section id="screen-level-mahjong" class="screen">
       <div class="game-hud">
-        <div class="hud-box">SCORE: <span id="hud-score-l4">0</span></div>
-        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+        <div class="hud-box">SCORE: <span id="hud-score-l3">0</span></div>
+        <div class="hud-box">LEVEL 4: MAHJONG DASH 🀄</div>
       </div>
-
       <canvas id="l-mahjong-canvas"></canvas>
-
       <div class="touch-controls">
-        <button class="touch-btn" id="btn-l4-left">◀</button>
-        <button class="touch-btn" id="btn-l4-right">▶</button>
-      </div>
-
-      <div class="commentary-bar">
-        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
-        <p id="c-text-l4" class="commentary-text">"Catch Mahjong Dragon & Flower tiles to score points and yell MAHJONG!"</p>
+        <button type="button" class="touch-btn" id="btn-l3-left">◀ LEFT</button>
+        <button type="button" class="touch-btn" id="btn-l3-right">RIGHT ▶</button>
       </div>
     </section>
 
-    <!-- LEVEL 5: HAMPTONS HANDBAG MEMORY MATCH -->
+    <!-- LEVEL 5: HAMPTONS MEMORY MATCH -->
     <section id="screen-level-jetski" class="screen">
       <div class="game-hud">
-        <div class="hud-box">SCORE: <span id="hud-score-l5">0</span></div>
-        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+        <div class="hud-box">MATCHES: <span id="hud-score-l4">0</span> / 6</div>
+        <div class="hud-box">LEVEL 5: MEMORY MATCH 👜</div>
       </div>
-
       <canvas id="l-jetski-canvas"></canvas>
-
-      <div class="level-action-zone" style="gap: 10px;">
-        <button id="btn-l5-left" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">◀</button>
-        <button id="btn-l5-flip" class="flap-btn" style="flex: 1; padding: 14px; font-size: 0.95rem;">👜 FLIP CARD 👜</button>
-        <button id="btn-l5-right" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">▶</button>
-      </div>
-
-      <div class="commentary-bar">
-        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
-        <p id="c-text-l5" class="commentary-text">"Tap cards directly or use ◀ FLIP CARD ▶ to match all 6 handbag pairs!"</p>
-      </div>
     </section>
 
-    <!-- LEVEL 6: BEDFORD TENNIS & GOLF RALLY -->
+    <!-- LEVEL 6: BEDFORD TENNIS RALLY -->
     <section id="screen-level-tennis" class="screen">
       <div class="game-hud">
-        <div class="hud-box">SCORE: <span id="hud-score-l6">0</span></div>
-        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+        <div class="hud-box">RALLY: <span id="hud-score-l6">0</span></div>
+        <div class="hud-box">LEVEL 6: BEDFORD TENNIS 🎾</div>
       </div>
-
       <canvas id="l-tennis-canvas"></canvas>
-
-      <div class="level-action-zone" style="gap: 10px;">
-        <button id="btn-l6-left" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">◀</button>
-        <button id="btn-l6-serve" class="flap-btn" style="flex: 1; padding: 14px; font-size: 0.95rem;">🎾 SERVE / RALLY ⛳</button>
-        <button id="btn-l6-right" class="touch-btn" style="width: 52px; height: 52px; font-size: 1.2rem;">▶</button>
-      </div>
-
-      <div class="commentary-bar">
-        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
-        <p id="c-text-l6" class="commentary-text">"Serve tennis balls & hit golf drives to knock out moving targets on court!"</p>
+      <div class="touch-controls">
+        <button type="button" class="touch-btn" id="btn-l6-left">◀ LEFT</button>
+        <button type="button" class="touch-btn" id="btn-l6-serve">🎾 SERVE / HIT</button>
+        <button type="button" class="touch-btn" id="btn-l6-right">RIGHT ▶</button>
       </div>
     </section>
 
-    <!-- LEVEL 7: STILETTO RUNWAY DASH (GRAND FINALE) -->
+    <!-- LEVEL 7: STILETTO RUNWAY DASH -->
     <section id="screen-level-stiletto" class="screen">
       <div class="game-hud">
         <div class="hud-box">SCORE: <span id="hud-score-l7">0</span></div>
-        <div class="hud-box" style="font-size: 0.78rem;">GOAL: 1,000 PTS</div>
+        <div class="hud-box">LEVEL 7: STILETTO DASH 👠</div>
       </div>
-
       <canvas id="l-stiletto-canvas"></canvas>
-
-      <div class="level-action-zone">
-        <button id="btn-l7-jump" class="flap-btn">✨ JUMP STILETTOS OVER CABS ✨</button>
-      </div>
-
-      <div class="commentary-bar">
-        <img src="queen_elise.jpg" alt="Queen Elise" class="commentary-avatar">
-        <p id="c-text-l7" class="commentary-text">"Sprint down Madison Avenue in high heels into the Victory Vault!"</p>
+      <div class="touch-controls">
+        <button type="button" class="touch-btn" id="btn-l7-jump" style="width: 100%; height: 50px; font-size: 1.1rem;">👠 JUMP OVER HURDLES!</button>
       </div>
     </section>
 
-    <!-- REWARD UNLOCKED MODAL CARD -->
-    <div id="reward-modal" class="reward-modal">
-      <div class="reward-card">
-        <div id="rw-icon" class="reward-icon">🍾</div>
-        <h3 class="reward-title">LEVEL COMPLETE!</h3>
-        <p style="font-size: 0.88rem; font-weight: 700; color: #444;">You unlocked a new luxury reward:</p>
-        <div id="rw-name" class="reward-name">An Epic Anniversary Dinner Out</div>
-        <button id="btn-next-level" class="reward-next-btn">Continue to Next Level ✨</button>
+    <!-- REWARD MODAL -->
+    <div id="reward-modal" class="reward-modal-overlay">
+      <div class="reward-modal-card">
+        <div id="rw-icon" class="reward-icon">🎁</div>
+        <h3 class="reward-title">LEVEL UNLOCKED!</h3>
+        <p id="rw-name" class="reward-name">Luxury Spa Voucher</p>
+        <button type="button" id="btn-next-level" class="reward-btn">CONTINUE TOUR 👑</button>
       </div>
     </div>
-
-    <!-- SCREEN 5: VICTORY VAULT (GRAND FINALE) -->
-    <section id="screen-vault" class="screen">
-      <canvas id="confetti-canvas"></canvas>
-
-      <div class="victory-card">
-        <div class="victory-badge">👑 👜 💎</div>
-        <h2 class="victory-header">CONGRATULATIONS, QUEEN ELISE!</h2>
-        
-        <p style="font-size: 0.9rem; line-height: 1.4; color: var(--black-chic); font-weight: 700;">
-          You’ve conquered the <strong>37th Birthday Tour</strong>! You unlocked your dream <strong>Chanel bag</strong>! <em>(Redeem with your loving husband)</em>.
-        </p>
-
-        <div class="unlocked-rewards-list">
-          <div style="font-weight: 900; color: var(--pink-deep); margin-bottom: 2px;">🎁 ALL UNLOCKED REWARDS:</div>
-          <div class="unlocked-item"><span>🍾</span> Level 1: Epic Anniversary Dinner Out</div>
-          <div class="unlocked-item"><span>🧖‍♀️</span> Level 2: Luxury Spa Day Voucher</div>
-          <div class="unlocked-item"><span>💎</span> Level 3: Custom Diamond Jewelry Piece</div>
-          <div class="unlocked-item"><span>👜</span> Level 4: Ultimate Dream Chanel Bag</div>
-        </div>
-
-        <div class="submit-score-section">
-          <input type="text" id="guest-name-input" class="name-input" placeholder="Enter Guest Name..." maxlength="12" value="Queen Elise">
-          <button id="btn-save-score" class="submit-btn">Save Score</button>
-        </div>
-
-        <button id="btn-share-victory" class="share-btn">📲 Share Victory Score</button>
-      </div>
-    </section>
-
-    <!-- Toast Notification -->
-    <div id="toast">Copied to Clipboard!</div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- JS ENGINE & GLOBAL DELEGATOR -->
   <script>
-    /* ==========================================
-       1. SOUND ENGINE WITH FULL STUDIO MP3 MUSIC: BACKSTREET BOYS - AS LONG AS YOU LOVE ME
-       ========================================== */
+    class AppState {
+      constructor() {
+        this.unlockedLevel = 7;
+        this.totalScore = 0;
+        this.mode = 'casual';
+        this.leaderboardKey = 'elise_bday_leaderboard_v1';
+      }
+
+      unlockNextLevel(completedLevel) {
+        if (completedLevel >= this.unlockedLevel && this.unlockedLevel < 7) {
+          this.unlockedLevel = completedLevel + 1;
+          localStorage.setItem('elise_unlocked_level_v2', this.unlockedLevel.toString());
+        }
+      }
+
+      getLeaderboard() {
+        try {
+          const data = localStorage.getItem(this.leaderboardKey);
+          if (data) return JSON.parse(data);
+        } catch(e) {}
+        return [
+          { name: 'Jason (Hubby)', score: 15400 },
+          { name: 'Isabella', score: 14200 },
+          { name: 'AJ', score: 13800 },
+          { name: 'Queen Elise', score: 19990 }
+        ].sort((a, b) => b.score - a.score);
+      }
+
+      addScore(name, score) {
+        const list = this.getLeaderboard();
+        list.push({ name: name || 'Guest', score: score });
+        list.sort((a, b) => b.score - a.score);
+        const top5 = list.slice(0, 5);
+        localStorage.setItem(this.leaderboardKey, JSON.stringify(top5));
+        return top5;
+      }
+    }
+
+    const appState = new AppState();
+
+    class ScreenManager {
+      static showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => {
+          s.classList.remove('active');
+          s.style.display = 'none';
+        });
+        const target = document.getElementById(`screen-${screenId}`);
+        if (target) {
+          target.classList.add('active');
+          target.style.display = 'flex';
+          target.scrollTop = 0;
+        }
+
+        const topNav = document.getElementById('top-nav');
+
+        if (screenId === 'password') {
+          if (topNav) topNav.style.display = 'none';
+        } else {
+          if (topNav) topNav.style.display = 'flex';
+          if (screenId === 'landing') {
+            document.getElementById('level-indicator').textContent = 'Queen Elise Tour';
+          } else if (screenId === 'dashboard') {
+            document.getElementById('level-indicator').textContent = 'Level Tour Dashboard';
+            ScreenManager.renderLeaderboard();
+          } else if (screenId === 'trivia') {
+            document.getElementById('level-indicator').textContent = 'Level 1: 37 Love Questions 🍾';
+            if (window.triviaEngine) window.triviaEngine.start();
+          } else if (screenId === 'level-coffee') {
+            document.getElementById('level-indicator').textContent = 'Level 2: Coffee Run ☕';
+            if (window.coffeeEngine) window.coffeeEngine.start();
+          } else if (screenId === 'level-chanel') {
+            document.getElementById('level-indicator').textContent = 'Level 3: Boutique Sweep 👜';
+            if (window.chanelEngine) window.chanelEngine.start();
+          } else if (screenId === 'level-mahjong') {
+            document.getElementById('level-indicator').textContent = 'Level 4: Mahjong Tile Dash 🀄';
+            if (window.mahjongEngine) window.mahjongEngine.start();
+          } else if (screenId === 'level-jetski') {
+            document.getElementById('level-indicator').textContent = 'Level 5: Hamptons Jet Ski 🌊';
+            if (window.jetskiEngine) window.jetskiEngine.start();
+          } else if (screenId === 'level-tennis') {
+            document.getElementById('level-indicator').textContent = 'Level 6: Bedford Tennis 🎾';
+            if (window.tennisEngine) window.tennisEngine.start();
+          } else if (screenId === 'level-stiletto') {
+            document.getElementById('level-indicator').textContent = 'Level 7: Stiletto Dash 👠';
+            if (window.stilettoEngine) window.stilettoEngine.start();
+          }
+        }
+      }
+
+      static renderLeaderboard() {
+        const container = document.getElementById('lb-list-container');
+        if (!container) return;
+        container.innerHTML = '';
+        const list = appState.getLeaderboard();
+        list.forEach((item, idx) => {
+          const li = document.createElement('li');
+          li.className = 'lb-item';
+          li.innerHTML = `
+            <span class="lb-rank">#${idx + 1}</span>
+            <span class="lb-name">${item.name}</span>
+            <span class="lb-score">${item.score.toLocaleString()} PTS</span>
+          `;
+          container.appendChild(li);
+        });
+      }
+
+      static showRewardModal(icon, name, onNext) {
+        document.getElementById('rw-icon').textContent = icon;
+        document.getElementById('rw-name').textContent = name;
+        const modal = document.getElementById('reward-modal');
+        modal.classList.add('active');
+        if (window.soundEngine) window.soundEngine.playChime();
+
+        const btn = document.getElementById('btn-next-level');
+        const clickHandler = () => {
+          modal.classList.remove('active');
+          btn.removeEventListener('click', clickHandler);
+          if (onNext) onNext();
+        };
+        btn.addEventListener('click', clickHandler);
+      }
+    }
+
     class SoundEngine {
       constructor() {
         this.ctx = null;
-        this.audioEl = document.getElementById('bgm-audio');
         this.muted = false;
-        this.isPlaying = false;
+        this.audioEl = document.getElementById('bgm-audio');
       }
 
       init() {
         if (!this.audioEl) this.audioEl = document.getElementById('bgm-audio');
-        
-        // Initialize Web Audio context for sound effects
         if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) this.ctx = new AudioContext();
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
         }
         if (this.ctx && this.ctx.state === 'suspended') {
           this.ctx.resume();
         }
-
-        // Play full studio MP3 song of Backstreet Boys - As Long As You Love Me
         if (this.audioEl && !this.muted) {
           this.audioEl.volume = 0.65;
-          const p = this.audioEl.play();
-          if (p !== undefined) {
-            p.then(() => { this.isPlaying = true; }).catch(err => console.log("BGM play catch:", err));
-          }
+          this.audioEl.play().catch(function(){});
         }
       }
 
@@ -1667,15 +1443,8 @@
         this.muted = !this.muted;
         if (this.audioEl) {
           this.audioEl.muted = this.muted;
-          if (!this.muted) {
-            this.audioEl.play().then(() => this.isPlaying = true).catch(e => {});
-          } else {
-            this.audioEl.pause();
-          }
-        }
-        if (this.ctx) {
-          if (this.muted && this.ctx.state === 'running') this.ctx.suspend();
-          if (!this.muted && this.ctx.state === 'suspended') this.ctx.resume();
+          if (!this.muted) this.audioEl.play().catch(function(){});
+          else this.audioEl.pause();
         }
         return this.muted;
       }
@@ -1686,9 +1455,7 @@
           return;
         }
         try {
-          if (window.speechSynthesis.paused) {
-            window.speechSynthesis.resume();
-          }
+          if (window.speechSynthesis.paused) window.speechSynthesis.resume();
           window.speechSynthesis.cancel();
 
           setTimeout(() => {
@@ -1699,7 +1466,7 @@
 
             const voices = window.speechSynthesis.getVoices();
             if (voices && voices.length > 0) {
-              const pref = voices.find(v => (v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Victoria') || v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Alex')) && v.lang.startsWith('en'));
+              const pref = voices.find(v => (v.name.includes('Samantha') || v.name.includes('Karen') || v.name.includes('Victoria') || v.name.includes('Google') || v.name.includes('Alex')) && v.lang.startsWith('en'));
               if (pref) utterance.voice = pref;
             }
 
@@ -1721,10 +1488,6 @@
         }
       }
 
-      speakGreeting() {
-        this.speakText("Happy Birthday Elise! Let's have some fun!");
-      }
-
       playChaChing() {
         if (this.muted || !this.ctx) return;
         const now = this.ctx.currentTime;
@@ -1737,20 +1500,6 @@
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
         osc.connect(gain); gain.connect(this.ctx.destination);
         osc.start(now); osc.stop(now + 0.35);
-      }
-
-      playJump() {
-        if (this.muted || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(220, now);
-        osc.frequency.exponentialRampToValueAtTime(650, now + 0.12);
-        gain.gain.setValueAtTime(0.2, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 0.12);
-        osc.connect(gain); gain.connect(this.ctx.destination);
-        osc.start(now); osc.stop(now + 0.12);
       }
 
       playBuzzer() {
@@ -1781,487 +1530,11 @@
           osc.start(now + idx * 0.04); osc.stop(now + idx * 0.04 + 0.18);
         });
       }
-
-      playFanfare() {
-        if (this.muted || !this.ctx) return;
-        const now = this.ctx.currentTime;
-        const melody = [{f:523.25,d:0.15},{f:659.25,d:0.15},{f:783.99,d:0.15},{f:1046.50,d:0.4}];
-        let off = 0;
-        melody.forEach(n => {
-          const osc = this.ctx.createOscillator();
-          const gain = this.ctx.createGain();
-          osc.type = 'square';
-          osc.frequency.setValueAtTime(n.f, now + off);
-          gain.gain.setValueAtTime(0.2, now + off);
-          gain.gain.exponentialRampToValueAtTime(0.01, now + off + n.d);
-          osc.connect(gain); gain.connect(this.ctx.destination);
-          osc.start(now + off); osc.stop(now + off + n.d);
-          off += n.d * 0.85;
-        });
-      }
     }
 
-    const soundEngine = new SoundEngine();
+    window.soundEngine = new SoundEngine();
 
-    /* Load Queen Elise Realistic Portrait Image */
-    const queenEliseImg = new Image();
-    queenEliseImg.src = 'queen_elise.jpg';
-
-    /* ==========================================
-       2. PROCEDURAL SPRITE & ITEM DRAWER
-       ========================================== */
-    class SpriteDrawer {
-      static setupCanvasResolution(canvas) {
-        const dpr = window.devicePixelRatio || 1;
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width * dpr;
-        canvas.height = rect.height * dpr;
-        const ctx = canvas.getContext('2d');
-        ctx.scale(dpr, dpr);
-        return { ctx, width: rect.width, height: rect.height };
-      }
-
-      static drawEliseAvatar(ctx, x, y, scale = 1.8) {
-        ctx.save();
-        ctx.translate(x, y);
-        const radius = 28 * scale;
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(0, 0, radius, 0, 2 * Math.PI);
-        ctx.clip();
-
-        if (queenEliseImg.complete && queenEliseImg.naturalWidth !== 0) {
-          ctx.drawImage(queenEliseImg, -radius, -radius, radius * 2, radius * 2);
-        } else {
-          ctx.fillStyle = '#3D2314'; ctx.fillRect(-radius, -radius, radius * 2, radius * 2);
-        }
-        ctx.restore();
-
-        ctx.strokeStyle = '#FFD700';
-        ctx.lineWidth = 3.5 * scale;
-        ctx.beginPath();
-        ctx.arc(0, 0, radius + 1, 0, 2 * Math.PI);
-        ctx.stroke();
-
-        ctx.restore();
-      }
-
-      static drawCoffeeCup(ctx, x, y, scale = 1.6) {
-        ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = '#FFFFFF'; ctx.fillRect(-8 * scale, -8 * scale, 16 * scale, 16 * scale);
-        ctx.fillStyle = '#D4AF37'; ctx.fillRect(-8 * scale, -2 * scale, 16 * scale, 6 * scale);
-        ctx.fillStyle = '#C2185B'; ctx.fillRect(-9 * scale, -11 * scale, 18 * scale, 3 * scale);
-        ctx.restore();
-      }
-
-      static drawNYCBagel(ctx, x, y, scale = 1.6) {
-        ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = '#E6B87D';
-        ctx.beginPath(); ctx.arc(0, 0, 11 * scale, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = '#996515'; ctx.lineWidth = 1.2 * scale; ctx.stroke();
-        ctx.fillStyle = '#FFF8F0';
-        ctx.beginPath(); ctx.arc(0, 0, 4 * scale, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#111111';
-        ctx.fillRect(-6 * scale, -5 * scale, 1.5 * scale, 1.5 * scale);
-        ctx.fillRect(4 * scale, -4 * scale, 1.5 * scale, 1.5 * scale);
-        ctx.fillRect(-5 * scale, 4 * scale, 1.5 * scale, 1.5 * scale);
-        ctx.fillRect(3 * scale, 5 * scale, 1.5 * scale, 1.5 * scale);
-        ctx.fillStyle = '#FFFFFF';
-        ctx.fillRect(0 * scale, -7 * scale, 1.5 * scale, 1.5 * scale);
-        ctx.fillRect(-7 * scale, 0 * scale, 1.5 * scale, 1.5 * scale);
-        ctx.fillRect(6 * scale, 1 * scale, 1.5 * scale, 1.5 * scale);
-        ctx.restore();
-      }
-
-      static drawCroissant(ctx, x, y, scale = 1.6) {
-        ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = '#D4A373';
-        ctx.beginPath(); ctx.arc(0, 0, 10 * scale, 0, Math.PI); ctx.fill();
-        ctx.fillStyle = '#FAEDCD'; ctx.fillRect(-4 * scale, -2 * scale, 8 * scale, 4 * scale);
-        ctx.restore();
-      }
-
-      static drawDecafWarning(ctx, x, y, scale = 1.6) {
-        ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = '#D32F2F';
-        ctx.beginPath(); ctx.arc(0, 0, 10 * scale, 0, 2 * Math.PI); ctx.fill();
-        ctx.fillStyle = '#FFF'; ctx.fillRect(-6 * scale, -2 * scale, 12 * scale, 4 * scale);
-        ctx.restore();
-      }
-
-      static drawChanelBag(ctx, x, y, scale = 1.5) {
-        ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = '#111111'; ctx.fillRect(-12 * scale, -8 * scale, 24 * scale, 16 * scale);
-        ctx.strokeStyle = '#FFD700'; ctx.lineWidth = 2 * scale;
-        ctx.beginPath(); ctx.arc(0, -8 * scale, 7 * scale, Math.PI, 0); ctx.stroke();
-        ctx.fillStyle = '#FFD700'; ctx.fillRect(-3 * scale, -1 * scale, 6 * scale, 4 * scale);
-        ctx.restore();
-      }
-
-      static drawDiamondJewelry(ctx, x, y, scale = 1.5) {
-        ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = '#E0F7FA';
-        ctx.beginPath(); ctx.moveTo(0, 8 * scale); ctx.lineTo(-7 * scale, 0); ctx.lineTo(0, -8 * scale); ctx.lineTo(7 * scale, 0); ctx.closePath(); ctx.fill();
-        ctx.strokeStyle = '#00E5FF'; ctx.stroke();
-        ctx.restore();
-      }
-
-      static drawSoldOutSign(ctx, x, y, scale = 1.5) {
-        ctx.save(); ctx.translate(x, y);
-        ctx.fillStyle = '#D32F2F'; ctx.fillRect(-12 * scale, -7 * scale, 24 * scale, 14 * scale);
-        ctx.fillStyle = '#FFF'; ctx.fillRect(-10 * scale, -5 * scale, 20 * scale, 10 * scale);
-        ctx.fillStyle = '#D32F2F'; ctx.fillRect(-8 * scale, -2 * scale, 16 * scale, 4 * scale);
-        ctx.restore();
-      }
-
-      static drawFashionColumn(ctx, x, topH, bottomY, w) {
-        ctx.fillStyle = '#C2185B'; ctx.fillRect(x, 0, w, topH);
-        ctx.fillStyle = '#FFD700'; ctx.fillRect(x + w - 6, 0, 6, topH);
-        ctx.fillStyle = '#D4AF37'; ctx.fillRect(x, bottomY, w, 1000);
-        ctx.fillStyle = '#111111'; ctx.fillRect(x, bottomY, 6, 1000);
-      }
-
-      static drawMahjongTile(ctx, x, y, symbol, scale = 1.6) {
-        ctx.save(); ctx.translate(x, y);
-        const w = 36 * scale;
-        const h = 48 * scale;
-
-        // 1. 3D Bevel Shadow & Green Backing
-        ctx.fillStyle = '#005522';
-        ctx.fillRect(-w / 2 + 3 * scale, -h / 2 + 3 * scale, w, h);
-
-        // 2. Thick Ivory Tile Body
-        ctx.fillStyle = '#FFFFF2';
-        ctx.fillRect(-w / 2, -h / 2, w, h);
-
-        // Gold Trim Border
-        ctx.strokeStyle = '#D4AF37';
-        ctx.lineWidth = 2.5 * scale;
-        ctx.strokeRect(-w / 2, -h / 2, w, h);
-
-        // 3. Inner Decorative Red Frame
-        ctx.strokeStyle = 'rgba(194, 24, 91, 0.5)';
-        ctx.lineWidth = 1.2 * scale;
-        ctx.strokeRect(-w / 2 + 3 * scale, -h / 2 + 3 * scale, w - 6 * scale, h - 6 * scale);
-
-        // 4. Large Crisp Symbol Emojis
-        ctx.font = `bold ${24 * scale}px sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(symbol, 0, 0);
-
-        ctx.restore();
-      }
-    }
-
-    /* ==========================================
-       3. STATE ENGINE & LEADERBOARD
-       ========================================== */
-    class AppState {
-      constructor() {
-        this.totalScore = 0;
-        this.mode = 'casual';
-        this.leaderboardKey = 'elise_luxury_lb_v7';
-        this.unlockKey = 'elise_unlocked_level_v2';
-        this.unlockedLevel = this.getUnlockedLevel();
-      }
-
-      getUnlockedLevel() {
-        return 7;
-      }
-
-      unlockNextLevel(completedLevel) {
-        if (completedLevel >= this.unlockedLevel) {
-          this.unlockedLevel = completedLevel + 1;
-          localStorage.setItem(this.unlockKey, this.unlockedLevel.toString());
-        }
-      }
-
-      resetProgress() {
-        this.unlockedLevel = 1;
-        localStorage.setItem(this.unlockKey, '1');
-      }
-
-      getLeaderboard() {
-        const stored = localStorage.getItem(this.leaderboardKey);
-        if (stored) { try { return JSON.parse(stored); } catch (e) {} }
-        return [
-          { name: 'Jason (Hubby)', score: 12500 },
-          { name: 'Queen Elise', score: 10200 },
-          { name: 'AJ', score: 8400 },
-          { name: 'Isabella', score: 7100 },
-          { name: 'Pi Kappa Armonk', score: 5900 }
-        ];
-      }
-
-      addScore(name, score) {
-        const list = this.getLeaderboard();
-        list.push({ name: name || 'Guest', score: score });
-        list.sort((a, b) => b.score - a.score);
-        const top5 = list.slice(0, 5);
-        localStorage.setItem(this.leaderboardKey, JSON.stringify(top5));
-        return top5;
-      }
-    }
-
-    const appState = new AppState();
-
-    /* ==========================================
-       4. SCREEN MANAGER & LANDING CONFETTI
-       ========================================== */
-    class ScreenManager {
-      static showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => {
-          s.classList.remove('active');
-          s.style.display = 'none';
-        });
-        const target = document.getElementById(`screen-${screenId}`);
-        if (target) {
-          target.classList.add('active');
-          target.style.display = 'flex';
-          target.scrollTop = 0;
-        }
-
-        const topNav = document.getElementById('top-nav');
-
-        if (screenId === 'password') {
-          if (topNav) topNav.style.display = 'none';
-          setTimeout(() => ScreenManager.startPasswordConfetti(), 50);
-        } else {
-          if (topNav) topNav.style.display = 'flex';
-          if (screenId === 'landing') {
-            document.getElementById('level-indicator').textContent = 'Queen Elise Tour';
-            setTimeout(() => ScreenManager.startLandingConfetti(), 50);
-          } else if (screenId === 'dashboard') {
-            document.getElementById('level-indicator').textContent = 'Level Tour Dashboard';
-            ScreenManager.renderDashboardLevels();
-            ScreenManager.renderLeaderboard();
-          } else if (screenId === 'trivia') {
-            document.getElementById('level-indicator').textContent = 'Level 1: 37 Love Questions 🍾';
-            if (window.triviaEngine) window.triviaEngine.start();
-          } else if (screenId === 'level-coffee') {
-            document.getElementById('level-indicator').textContent = 'Level 2: Coffee Run ☕';
-            if (window.coffeeEngine) window.coffeeEngine.start();
-          } else if (screenId === 'level-chanel') {
-            document.getElementById('level-indicator').textContent = 'Level 3: Boutique Sweep 👜';
-            if (window.chanelEngine) window.chanelEngine.start();
-          } else if (screenId === 'level-mahjong') {
-            document.getElementById('level-indicator').textContent = 'Level 4: Mahjong Tile Dash 🀄';
-            if (window.mahjongEngine) window.mahjongEngine.start();
-          } else if (screenId === 'level-jetski') {
-            document.getElementById('level-indicator').textContent = 'Level 5: Hamptons Jet Ski 🌊';
-            if (window.jetskiEngine) window.jetskiEngine.start();
-          } else if (screenId === 'level-tennis') {
-            document.getElementById('level-indicator').textContent = 'Level 6: Bedford Tennis 🎾';
-            if (window.tennisEngine) window.tennisEngine.start();
-          } else if (screenId === 'level-stiletto') {
-            document.getElementById('level-indicator').textContent = 'Level 7: Stiletto Dash 👠';
-            if (window.stilettoEngine) window.stilettoEngine.start();
-          } else if (screenId === 'vault') {
-            document.getElementById('level-indicator').textContent = 'Victory Vault 👑';
-            confettiEngine.start();
-            soundEngine.playFanfare();
-          }
-        }
-      }
-
-      static createConfettiHTML(containerId, count) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = '';
-        const symbols = ['💖', '✨', '⭐', '🌸', '🎀', '🎶', '💎', '🍾', '👑', '👠', '👜', '🤍'];
-        const colors = ['#FF007F', '#FF1493', '#FF69B4', '#FFD700', '#FFFFFF', '#FFFDD0'];
-
-        for (let i = 0; i < count; i++) {
-          const item = document.createElement('span');
-          item.className = 'confetti-item';
-          const isEmoji = Math.random() < 0.65;
-          
-          if (isEmoji) {
-            item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            item.style.fontSize = `${Math.floor(Math.random() * 16 + 20)}px`;
-          } else {
-            const size = Math.floor(Math.random() * 12 + 6);
-            item.style.width = `${size}px`;
-            item.style.height = `${size}px`;
-            item.style.background = colors[Math.floor(Math.random() * colors.length)];
-            item.style.boxShadow = `0 0 10px ${item.style.background}`;
-            item.style.borderRadius = Math.random() < 0.5 ? '50%' : '3px';
-          }
-
-          item.style.left = `${Math.random() * 94}%`;
-          item.style.animationDuration = `${(Math.random() * 3 + 2.5).toFixed(2)}s`;
-          item.style.animationDelay = `-${(Math.random() * 5).toFixed(2)}s`;
-          container.appendChild(item);
-        }
-      }
-
-      static startPasswordConfetti() {
-        ScreenManager.createConfettiHTML('confetti-pwd-container', 50);
-      }
-
-      static startLandingConfetti() {
-        ScreenManager.createConfettiHTML('confetti-landing-container', 60);
-      }
-
-      static burstTriviaConfetti() {
-        ScreenManager.createConfettiHTML('confetti-landing-container', 50);
-      }
-
-      static renderDashboardLevels() {
-        ['card-l1', 'card-l2', 'card-l3', 'card-l4', 'card-l5', 'card-l6', 'card-l7'].forEach(cardId => {
-          const card = document.getElementById(cardId);
-          if (!card) return;
-          card.classList.remove('locked');
-          const btn = card.querySelector('.level-play-btn');
-          if (btn && cardId !== 'card-l1') btn.textContent = 'PLAY';
-        });
-      }
-
-      static burstTriviaConfetti() {
-        const cvs = document.getElementById('confetti-trivia-canvas');
-        if (!cvs) return;
-        const res = SpriteDrawer.setupCanvasResolution(cvs);
-        const ctx = res.ctx, width = res.width, height = res.height;
-
-        const particles = [];
-        const colors = ['#FFD700', '#FF1493', '#FF69B4', '#FFFFFF', '#C2185B'];
-
-        const startX = width / 2;
-        const startY = height * 0.35;
-
-        for (let i = 0; i < 65; i++) {
-          const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 14 + 4;
-          particles.push({
-            x: startX,
-            y: startY,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed - 4,
-            size: Math.random() * 9 + 5,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            rotation: Math.random() * 360,
-            vRot: (Math.random() - 0.5) * 10,
-            alpha: 1.0
-          });
-        }
-
-        let frameCount = 0;
-        const loop = () => {
-          if (frameCount > 80) {
-            ctx.clearRect(0, 0, width, height);
-            return;
-          }
-          ctx.clearRect(0, 0, width, height);
-
-          particles.forEach(p => {
-            p.x += p.vx;
-            p.y += p.vy;
-            p.vy += 0.38;
-            p.vx *= 0.95;
-            p.rotation += p.vRot;
-            p.alpha = Math.max(0, 1 - (frameCount / 80));
-
-            ctx.save();
-            ctx.globalAlpha = p.alpha;
-            ctx.translate(p.x, p.y);
-            ctx.rotate((p.rotation * Math.PI) / 180);
-            ctx.fillStyle = p.color;
-            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-            ctx.restore();
-          });
-
-          frameCount++;
-          requestAnimationFrame(loop);
-        };
-        loop();
-      }
-
-      static startLandingConfetti() {
-        const cvs = document.getElementById('confetti-landing-canvas');
-        if (!cvs) return;
-        const res = SpriteDrawer.setupCanvasResolution(cvs);
-        const ctx = res.ctx, width = res.width, height = res.height;
-        const particles = [];
-        const barbieSymbols = ['💖', '✨', '⭐', '💎', '🎀', '💅', '👑'];
-
-        for (let i = 0; i < 45; i++) {
-          particles.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            vx: (Math.random() - 0.5) * 1.5,
-            vy: Math.random() * 1.8 + 0.8,
-            symbol: barbieSymbols[Math.floor(Math.random() * barbieSymbols.length)],
-            fontSize: Math.floor(Math.random() * 14 + 14),
-            rotation: Math.random() * 360,
-            vRot: (Math.random() - 0.5) * 2
-          });
-        }
-
-        const loop = () => {
-          if (!document.getElementById('screen-landing').classList.contains('active')) return;
-          ctx.clearRect(0, 0, width, height);
-          particles.forEach(p => {
-            p.y += p.vy;
-            p.x += p.vx;
-            p.rotation += p.vRot;
-
-            if (p.y > height + 30) {
-              p.y = -30;
-              p.x = Math.random() * width;
-            }
-
-            ctx.save();
-            ctx.translate(p.x, p.y);
-            ctx.rotate((p.rotation * Math.PI) / 180);
-            ctx.font = `${p.fontSize}px sans-serif`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(p.symbol, 0, 0);
-            ctx.restore();
-          });
-          requestAnimationFrame(loop);
-        };
-        loop();
-      }
-
-      static renderLeaderboard() {
-        const container = document.getElementById('lb-list-container');
-        container.innerHTML = '';
-        const list = appState.getLeaderboard();
-        list.forEach((item, idx) => {
-          const li = document.createElement('li');
-          li.className = 'lb-item';
-          li.innerHTML = `
-            <span class="lb-rank">#${idx + 1}</span>
-            <span class="lb-name">${item.name}</span>
-            <span class="lb-score">${item.score.toLocaleString()} PTS</span>
-          `;
-          container.appendChild(li);
-        });
-      }
-
-      static showRewardModal(icon, name, onNext) {
-        document.getElementById('rw-icon').textContent = icon;
-        document.getElementById('rw-name').textContent = name;
-        const modal = document.getElementById('reward-modal');
-        modal.classList.add('active');
-        soundEngine.playChime();
-
-        const btn = document.getElementById('btn-next-level');
-        const clickHandler = () => {
-          modal.classList.remove('active');
-          btn.removeEventListener('click', clickHandler);
-          if (onNext) onNext();
-        };
-        btn.addEventListener('click', clickHandler);
-      }
-    }
-
-    /* ==========================================
-       5. LEVEL 1 ENGINE: 37 LOVE TRIVIA QUESTIONS (WITH TTS VOICE READING & PRAISE)
-       ========================================== */
+    /* TRIVIA ENGINE */
     class TriviaEngine {
       constructor() {
         this.praiseResponses = [
@@ -2346,15 +1619,7 @@
         if (qTextEl) qTextEl.textContent = q.q;
 
         const iconEl = document.getElementById('trivia-image-icon');
-        if (iconEl && q.icon) {
-          iconEl.textContent = q.icon;
-          const imgContainer = document.getElementById('trivia-image-container');
-          if (imgContainer) {
-            imgContainer.style.animation = 'none';
-            imgContainer.offsetHeight; // reflow
-            imgContainer.style.animation = 'pop-icon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-          }
-        }
+        if (iconEl && q.icon) iconEl.textContent = q.icon;
 
         const container = document.getElementById('trivia-answers');
         if (container) {
@@ -2364,9 +1629,6 @@
             btn.type = 'button';
             btn.className = 'trivia-btn';
             btn.textContent = optText;
-            btn.onclick = () => {
-              this.handleAnswer(idx === q.correct, btn);
-            };
             container.appendChild(btn);
           });
         }
@@ -2384,7 +1646,6 @@
 
         if (isCorrect) {
           btnEl.classList.add('correct');
-          
           const container = document.getElementById('trivia-answers');
           if (container) {
             const btns = container.querySelectorAll('.trivia-btn');
@@ -2392,12 +1653,10 @@
           }
 
           try { if (window.soundEngine) window.soundEngine.playChaChing(); } catch(e){}
-          try { if (window.ScreenManager && typeof window.ScreenManager.burstTriviaConfetti === 'function') window.ScreenManager.burstTriviaConfetti(); } catch(e){}
-          
           try {
             if (this.praiseResponses && this.praiseResponses.length > 0) {
               const praiseText = this.praiseResponses[this.praiseIndex];
-              if (window.soundEngine && typeof window.soundEngine.speakText === 'function') window.soundEngine.speakText(praiseText);
+              if (window.soundEngine) window.soundEngine.speakText(praiseText);
               this.praiseIndex = (this.praiseIndex + 1) % this.praiseResponses.length;
             }
           } catch(e){}
@@ -2421,7 +1680,7 @@
           try {
             if (this.wrongResponses && this.wrongResponses.length > 0) {
               const wrongText = this.wrongResponses[this.wrongIndex];
-              if (window.soundEngine && typeof window.soundEngine.speakText === 'function') window.soundEngine.speakText(wrongText);
+              if (window.soundEngine) window.soundEngine.speakText(wrongText);
               this.wrongIndex = (this.wrongIndex + 1) % this.wrongResponses.length;
             }
           } catch(e){}
@@ -2429,1316 +1688,46 @@
       }
     }
 
-    /* ==========================================
-       6. LEVEL 2 ENGINE: MORNING COFFEE RUN
-       ========================================== */
-    class CoffeeEngine {
-      constructor() {
-        this.canvas = document.getElementById('l-coffee-canvas');
-        this.running = false;
-        this.score = 0;
-        this.playerX = 0;
-        this.items = [];
-        this.lastSpawn = 0;
-      }
-
-      start() {
-        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
-        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
-        this.running = true;
-        this.score = 0;
-        this.items = [];
-        this.playerX = this.width / 2;
-        document.getElementById('hud-score-l1').textContent = '0';
-
-        this.canvas.ontouchmove = (e) => {
-          const rect = this.canvas.getBoundingClientRect();
-          this.playerX = e.touches[0].clientX - rect.left;
-        };
-        this.canvas.onclick = (e) => this.handleTap(e);
-        this.loop();
-      }
-
-      stop() {
-        this.running = false;
-        this.canvas.onclick = null;
-        this.canvas.ontouchmove = null;
-      }
-
-      spawnItem() {
-        const rand = Math.random();
-        let type = 'coffee';
-        if (rand < 0.35) type = 'coffee';
-        else if (rand < 0.60) type = 'bagel';
-        else if (rand < 0.85) type = 'chanel';
-        else type = 'diamond';
-
-        this.items.push({
-          x: Math.random() * (this.width - 60) + 30,
-          y: -20,
-          speed: Math.random() * 2 + 2.5,
-          type: type,
-          radius: 26
-        });
-      }
-
-      getItemPts(type) {
-        if (type === 'coffee') return 200;
-        if (type === 'bagel') return 250;
-        if (type === 'chanel') return 350;
-        if (type === 'diamond') return 500;
-        return 200;
-      }
-
-      getItemCommentary(type) {
-        if (type === 'coffee') return '"Caffeine levels optimal. Ready to conquer Madison Avenue!"';
-        if (type === 'bagel') return '"Fresh NYC everything bagel with cream cheese!"';
-        if (type === 'chanel') return '"A wild Chanel Flap Bag collected on the coffee run!"';
-        if (type === 'diamond') return '"Shining diamond collected! Pure luxury!"';
-        return '"Great catch!"';
-      }
-
-      handleTap(e) {
-        const rect = this.canvas.getBoundingClientRect();
-        const tapX = e.clientX - rect.left;
-        const tapY = e.clientY - rect.top;
-
-        for (let i = this.items.length - 1; i >= 0; i--) {
-          const it = this.items[i];
-          if (Math.hypot(it.x - tapX, it.y - tapY) < it.radius + 24) {
-            soundEngine.playChaChing();
-            const pts = this.getItemPts(it.type);
-            this.score += pts;
-            document.getElementById('c-text-l1').textContent = this.getItemCommentary(it.type);
-            appState.totalScore += pts;
-            document.getElementById('hud-score-l1').textContent = this.score;
-            this.items.splice(i, 1);
-
-            if (this.score >= 1000) {
-              this.stop();
-              appState.unlockNextLevel(2);
-              ScreenManager.showRewardModal('🧖‍♀️', 'A Luxury Spa Day Voucher', () => {
-                ScreenManager.showScreen('dashboard');
-              });
-            }
-            break;
-          }
-        }
-      }
-
-      update() {
-        if (btnL1Left || keys['ArrowLeft'] || keys['KeyA']) this.playerX = Math.max(30, this.playerX - 8);
-        if (btnL1Right || keys['ArrowRight'] || keys['KeyD']) this.playerX = Math.min(this.width - 30, this.playerX + 8);
-
-        if (Date.now() - this.lastSpawn > 700) {
-          this.spawnItem();
-          this.lastSpawn = Date.now();
-        }
-
-        const pY = this.height - 50;
-        for (let i = this.items.length - 1; i >= 0; i--) {
-          const it = this.items[i];
-          it.y += it.speed;
-
-          if (Math.abs(it.x - this.playerX) < 42 && Math.abs(it.y - pY) < 36) {
-            soundEngine.playChaChing();
-            const pts = this.getItemPts(it.type);
-            this.score += pts;
-            document.getElementById('c-text-l1').textContent = this.getItemCommentary(it.type);
-            appState.totalScore += pts;
-            document.getElementById('hud-score-l1').textContent = this.score;
-            this.items.splice(i, 1);
-
-            if (this.score >= 1000) {
-              this.stop();
-              appState.unlockNextLevel(2);
-              ScreenManager.showRewardModal('🧖‍♀️', 'A Luxury Spa Day Voucher', () => {
-                ScreenManager.showScreen('dashboard');
-              });
-            }
-            continue;
-          }
-
-          if (it.y > this.height + 30) this.items.splice(i, 1);
-        }
-      }
-
-      draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
-        this.items.forEach(it => {
-          if (it.type === 'coffee') SpriteDrawer.drawCoffeeCup(this.ctx, it.x, it.y);
-          else if (it.type === 'bagel') SpriteDrawer.drawNYCBagel(this.ctx, it.x, it.y);
-          else if (it.type === 'chanel') SpriteDrawer.drawChanelBag(this.ctx, it.x, it.y);
-          else if (it.type === 'diamond') SpriteDrawer.drawDiamondJewelry(this.ctx, it.x, it.y);
-        });
-
-        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.height - 50, 1.8);
-      }
-
-      loop() {
-        if (!this.running) return;
-        this.update();
-        this.draw();
-        requestAnimationFrame(() => this.loop());
-      }
-    }
-
-    /* ==========================================
-       7. LEVEL 3 ENGINE: LUXURY TETRIS (BOUTIQUE SWEEP)
-       ========================================== */
-    class ChanelEngine {
-      constructor() {
-        this.canvas = document.getElementById('l-chanel-canvas');
-        this.running = false;
-        this.score = 0;
-        this.cols = 10;
-        this.rows = 18;
-        this.grid = [];
-        this.currentPiece = null;
-        this.dropCounter = 0;
-        this.dropInterval = 800;
-        this.lastTime = 0;
-
-        // 7 Classic Tetromino shapes with high-fashion colors
-        this.shapes = [
-          { shape: [[1, 1, 1, 1]], color: '#FFD700' }, // Gold Pearl Necklace
-          { shape: [[1, 0, 0], [1, 1, 1]], color: '#FF1493' }, // Chanel Pink Bag
-          { shape: [[0, 0, 1], [1, 1, 1]], color: '#FF69B4' }, // Stiletto Gold
-          { shape: [[1, 1], [1, 1]], color: '#FFFFFF' }, // Platinum Diamond Box
-          { shape: [[0, 1, 1], [1, 1, 0]], color: '#00E5FF' }, // Diamond Cyan
-          { shape: [[1, 1, 0], [0, 1, 1]], color: '#4CAF50' }, // Emerald Green
-          { shape: [[0, 1, 0], [1, 1, 1]], color: '#9C27B0' }  // Royal Purple Crown
-        ];
-      }
-
-      start() {
-        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
-        this.ctx = res.ctx;
-        this.width = res.width;
-        this.height = res.height;
-        this.cellSize = Math.floor(Math.min(this.width / this.cols, (this.height - 10) / this.rows));
-        this.offsetX = Math.floor((this.width - (this.cols * this.cellSize)) / 2);
-        this.offsetY = 10;
-
-        this.grid = Array.from({ length: this.rows }, () => Array(this.cols).fill(0));
-        this.running = true;
-        this.score = 0;
-        this.dropCounter = 0;
-        this.lastTime = performance.now();
-        document.getElementById('hud-score-l2').textContent = '0';
-
-        this.spawnPiece();
-        this.loop();
-      }
-
-      stop() {
-        this.running = false;
-      }
-
-      spawnPiece() {
-        const rand = this.shapes[Math.floor(Math.random() * this.shapes.length)];
-        this.currentPiece = {
-          matrix: rand.shape,
-          color: rand.color,
-          x: Math.floor((this.cols - rand.shape[0].length) / 2),
-          y: 0
-        };
-
-        if (this.collide(this.grid, this.currentPiece)) {
-          soundEngine.playBuzzer();
-          document.getElementById('c-text-l2').textContent = '"Tower reached the top! Resetting luxury boutique stack!"';
-          this.grid = Array.from({ length: this.rows }, () => Array(this.cols).fill(0));
-        }
-      }
-
-      collide(grid, piece) {
-        const m = piece.matrix;
-        for (let r = 0; r < m.length; r++) {
-          for (let c = 0; c < m[r].length; c++) {
-            if (m[r][c] !== 0) {
-              const newX = piece.x + c;
-              const newY = piece.y + r;
-              if (newX < 0 || newX >= this.cols || newY >= this.rows) return true;
-              if (newY >= 0 && grid[newY][newX] !== 0) return true;
-            }
-          }
-        }
-        return false;
-      }
-
-      rotateMatrix(matrix) {
-        const result = [];
-        for (let c = 0; c < matrix[0].length; c++) {
-          const row = [];
-          for (let r = matrix.length - 1; r >= 0; r--) {
-            row.push(matrix[r][c]);
-          }
-          result.push(row);
-        }
-        return result;
-      }
-
-      rotate() {
-        if (!this.running || !this.currentPiece) return;
-        const oldMatrix = this.currentPiece.matrix;
-        this.currentPiece.matrix = this.rotateMatrix(oldMatrix);
-        if (this.collide(this.grid, this.currentPiece)) {
-          this.currentPiece.matrix = oldMatrix;
-        } else {
-          soundEngine.playJump();
-        }
-      }
-
-      move(dir) {
-        if (!this.running || !this.currentPiece) return;
-        this.currentPiece.x += dir;
-        if (this.collide(this.grid, this.currentPiece)) {
-          this.currentPiece.x -= dir;
-        }
-      }
-
-      drop() {
-        if (!this.running || !this.currentPiece) return;
-        this.currentPiece.y++;
-        if (this.collide(this.grid, this.currentPiece)) {
-          this.currentPiece.y--;
-          this.merge();
-          this.clearLines();
-          this.spawnPiece();
-        }
-        this.dropCounter = 0;
-      }
-
-      merge() {
-        const m = this.currentPiece.matrix;
-        for (let r = 0; r < m.length; r++) {
-          for (let c = 0; c < m[r].length; c++) {
-            if (m[r][c] !== 0) {
-              const gY = this.currentPiece.y + r;
-              const gX = this.currentPiece.x + c;
-              if (gY >= 0 && gY < this.rows && gX >= 0 && gX < this.cols) {
-                this.grid[gY][gX] = this.currentPiece.color;
-              }
-            }
-          }
-        }
-      }
-
-      clearLines() {
-        let linesCleared = 0;
-        for (let r = this.rows - 1; r >= 0; r--) {
-          if (this.grid[r].every(cell => cell !== 0)) {
-            this.grid.splice(r, 1);
-            this.grid.unshift(Array(this.cols).fill(0));
-            linesCleared++;
-            r++;
-          }
-        }
-
-        if (linesCleared > 0) {
-          soundEngine.playChaChing();
-          ScreenManager.burstTriviaConfetti();
-          const pts = linesCleared * 300;
-          this.score += pts;
-          appState.totalScore += pts;
-          document.getElementById('hud-score-l2').textContent = this.score;
-          document.getElementById('c-text-l2').textContent = `"Line Clear! +${pts} PTS! Stacking like a queen!"`;
-
-          if (this.score >= 1000) {
-            this.stop();
-            appState.unlockNextLevel(3);
-            ScreenManager.showRewardModal('💎', 'A Custom Diamond Jewelry Piece', () => {
-              ScreenManager.showScreen('dashboard');
-            });
-          }
-        }
-      }
-
-      update(deltaTime) {
-        this.dropCounter += deltaTime;
-        if (this.dropCounter > this.dropInterval) {
-          this.drop();
-        }
-      }
-
-      draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
-
-        // Draw Board Outer Frame
-        this.ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-        this.ctx.fillRect(this.offsetX, this.offsetY, this.cols * this.cellSize, this.rows * this.cellSize);
-        this.ctx.strokeStyle = '#D4AF37';
-        this.ctx.lineWidth = 3;
-        this.ctx.strokeRect(this.offsetX, this.offsetY, this.cols * this.cellSize, this.rows * this.cellSize);
-
-        // Draw Grid Cells
-        for (let r = 0; r < this.rows; r++) {
-          for (let c = 0; c < this.cols; c++) {
-            if (this.grid[r][c] !== 0) {
-              this.drawCell(c, r, this.grid[r][c]);
-            } else {
-              this.ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
-              this.ctx.fillRect(this.offsetX + c * this.cellSize + this.cellSize / 2 - 1, this.offsetY + r * this.cellSize + this.cellSize / 2 - 1, 2, 2);
-            }
-          }
-        }
-
-        // Draw Falling Piece
-        if (this.currentPiece) {
-          const m = this.currentPiece.matrix;
-          for (let r = 0; r < m.length; r++) {
-            for (let c = 0; c < m[r].length; c++) {
-              if (m[r][c] !== 0) {
-                this.drawCell(this.currentPiece.x + c, this.currentPiece.y + r, this.currentPiece.color);
-              }
-            }
-          }
-        }
-      }
-
-      drawCell(c, r, color) {
-        const x = this.offsetX + c * this.cellSize;
-        const y = this.offsetY + r * this.cellSize;
-        const sz = this.cellSize;
-
-        this.ctx.save();
-        this.ctx.translate(x + sz / 2, y + sz / 2);
-        const scale = sz / 24;
-
-        // 1. Gold Chain Handle Arc above top of bag
-        this.ctx.strokeStyle = '#FFD700';
-        this.ctx.lineWidth = Math.max(1, 1.8 * scale);
-        this.ctx.beginPath();
-        this.ctx.arc(0, -5 * scale, 5.5 * scale, Math.PI, 0);
-        this.ctx.stroke();
-
-        // 2. Chanel Bag Leather Body (in piece's vibrant color)
-        this.ctx.fillStyle = color;
-        const bw = 20 * scale;
-        const bh = 14 * scale;
-        const by = 2 * scale;
-        this.ctx.beginPath();
-        this.ctx.rect(-bw / 2, -bh / 2 + by, bw, bh);
-        this.ctx.fill();
-
-        // Dark outline
-        this.ctx.strokeStyle = '#111111';
-        this.ctx.lineWidth = Math.max(1, 1.2 * scale);
-        this.ctx.strokeRect(-bw / 2, -bh / 2 + by, bw, bh);
-
-        // 3. Quilted Diamond Stitching Overlay
-        this.ctx.strokeStyle = color === '#FFFFFF' ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.45)';
-        this.ctx.lineWidth = Math.max(0.8, 0.8 * scale);
-        this.ctx.beginPath();
-        this.ctx.moveTo(-bw / 2 + 2 * scale, -bh / 2 + by + 2 * scale);
-        this.ctx.lineTo(bw / 2 - 2 * scale, bh / 2 + by - 2 * scale);
-        this.ctx.moveTo(bw / 2 - 2 * scale, -bh / 2 + by + 2 * scale);
-        this.ctx.lineTo(-bw / 2 + 2 * scale, bh / 2 + by - 2 * scale);
-        this.ctx.stroke();
-
-        // 4. Iconic Gold CC Clasp Lock in Center
-        this.ctx.fillStyle = '#FFD700';
-        this.ctx.fillRect(-2.5 * scale, by - 1 * scale, 5 * scale, 3.5 * scale);
-        this.ctx.strokeStyle = '#B8860B';
-        this.ctx.lineWidth = Math.max(0.8, 0.8 * scale);
-        this.ctx.strokeRect(-2.5 * scale, by - 1 * scale, 5 * scale, 3.5 * scale);
-
-        this.ctx.restore();
-      }
-
-      loop(now = performance.now()) {
-        if (!this.running) return;
-        const deltaTime = now - this.lastTime;
-        this.lastTime = now;
-        this.update(deltaTime);
-        this.draw();
-        requestAnimationFrame((t) => this.loop(t));
-      }
-    }
-
-    /* ==========================================
-       8. LEVEL 4 ENGINE: MAHJONG TILE DASH
-       ========================================== */
-    class MahjongEngine {
-      constructor() {
-        this.canvas = document.getElementById('l-mahjong-canvas');
-        this.running = false;
-        this.score = 0;
-        this.playerX = 0;
-        this.playerY = 0;
-        this.items = [];
-        this.lastSpawn = 0;
-      }
-
-      start() {
-        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
-        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
-        this.running = true;
-        this.score = 0;
-        this.items = [];
-        this.playerX = this.width / 2;
-        this.playerY = this.height - 55;
-        document.getElementById('hud-score-l4').textContent = '0';
-
-        const updatePos = (clientX) => {
-          const rect = this.canvas.getBoundingClientRect();
-          this.playerX = Math.max(30, Math.min(this.width - 30, clientX - rect.left));
-        };
-
-        this.canvas.ontouchstart = (e) => updatePos(e.touches[0].clientX);
-        this.canvas.ontouchmove = (e) => updatePos(e.touches[0].clientX);
-        this.canvas.onmousemove = (e) => { if (e.buttons === 1) updatePos(e.clientX); };
-        this.canvas.onclick = (e) => this.handleTap(e);
-        this.loop();
-      }
-
-      stop() {
-        this.running = false;
-        this.canvas.ontouchstart = null;
-        this.canvas.ontouchmove = null;
-        this.canvas.onmousemove = null;
-        this.canvas.onclick = null;
-      }
-
-      handleTap(e) {
-        const rect = this.canvas.getBoundingClientRect();
-        const tapX = e.clientX - rect.left;
-        const tapY = e.clientY - rect.top;
-
-        for (let i = this.items.length - 1; i >= 0; i--) {
-          const it = this.items[i];
-          if (Math.hypot(it.x - tapX, it.y - tapY) < 50) {
-            soundEngine.playChaChing();
-            ScreenManager.burstTriviaConfetti();
-            this.score += 250;
-            appState.totalScore += 250;
-            document.getElementById('hud-score-l4').textContent = this.score;
-            document.getElementById('c-text-l4').textContent = '"MAHJONG! Tile collected! +250 PTS!"';
-            this.items.splice(i, 1);
-
-            if (this.score >= 1000) {
-              this.stop();
-              appState.unlockNextLevel(4);
-              ScreenManager.showRewardModal('🀄', 'A VIP Mahjong Tournament Trophy', () => {
-                ScreenManager.showScreen('dashboard');
-              });
-            }
-            break;
-          }
-        }
-      }
-
-      spawnItem() {
-        const tiles = ['🀄', '🀅', '🀆', '🀇', '🀈', '🀉', '🀊', '🀋'];
-        this.items.push({
-          x: Math.random() * (this.width - 80) + 40,
-          y: -30,
-          speed: Math.random() * 2 + 2.5,
-          symbol: tiles[Math.floor(Math.random() * tiles.length)]
-        });
-      }
-
-      update() {
-        if (btnL4Left || keys['ArrowLeft'] || keys['KeyA']) this.playerX = Math.max(35, this.playerX - 9);
-        if (btnL4Right || keys['ArrowRight'] || keys['KeyD']) this.playerX = Math.min(this.width - 35, this.playerX + 9);
-
-        if (Date.now() - this.lastSpawn > 800) {
-          this.spawnItem();
-          this.lastSpawn = Date.now();
-        }
-
-        for (let i = this.items.length - 1; i >= 0; i--) {
-          const it = this.items[i];
-          it.y += it.speed;
-
-          if (Math.abs(it.x - this.playerX) < 55 && Math.abs(it.y - this.playerY) < 48) {
-            soundEngine.playChaChing();
-            ScreenManager.burstTriviaConfetti();
-            this.score += 250;
-            appState.totalScore += 250;
-            document.getElementById('hud-score-l4').textContent = this.score;
-            document.getElementById('c-text-l4').textContent = '"MAHJONG! Tile caught! +250 PTS!"';
-            this.items.splice(i, 1);
-          } else if (it.y > this.height + 40) {
-            this.items.splice(i, 1);
-          }
-        }
-
-        if (this.score >= 1000) {
-          this.stop();
-          appState.unlockNextLevel(4);
-          ScreenManager.showRewardModal('🀄', 'A VIP Mahjong Tournament Trophy', () => {
-            ScreenManager.showScreen('dashboard');
-          });
-        }
-      }
-
-      draw() {
-        this.ctx.clearRect(0    /* ==========================================
-       9. LEVEL 5 ENGINE: HAMPTONS HANDBAG MEMORY MATCH
-       ========================================== */
-    class JetskiEngine {
-      constructor() {
-        this.canvas = document.getElementById('l-jetski-canvas');
-        this.running = false;
-        this.score = 0;
-        this.cards = [];
-        this.selected = [];
-        this.selectedIndex = 0;
-        this.matchedPairs = 0;
-        this.isChecking = false;
-      }
-
-      start() {
-        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
-        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
-        this.running = true;
-        this.score = 0;
-        this.selected = [];
-        this.selectedIndex = 0;
-        this.matchedPairs = 0;
-        this.isChecking = false;
-        document.getElementById('hud-score-l5').textContent = '0';
-        document.getElementById('c-text-l5').textContent = '"Tap cards directly or use ◀ FLIP CARD ▶ to match all 6 handbag pairs!"';
-
-        this.initCards();
-
-        this.canvas.onclick = (e) => this.handleTap(e);
-        this.canvas.ontouchstart = (e) => {
-          e.preventDefault();
-          const rect = this.canvas.getBoundingClientRect();
-          const touch = e.touches[0];
-          this.handleTap({ clientX: touch.clientX, clientY: touch.clientY });
-        };
-
-        this.loop();
-      }
-
-      stop() {
-        this.running = false;
-        this.canvas.onclick = null;
-        this.canvas.ontouchstart = null;
-      }
-
-      initCards() {
-        const handbagTypes = [
-          { symbol: '👜', name: 'Chanel Flap' },
-          { symbol: '👛', name: 'Hermès Birkin' },
-          { symbol: '🎒', name: 'Dior Lady' },
-          { symbol: '👝', name: 'LV Neverfull' },
-          { symbol: '💼', name: 'Gucci Marmont' },
-          { symbol: '🛍️', name: 'Prada Cleo' }
-        ];
-
-        const deck = [];
-        handbagTypes.forEach((hb, id) => {
-          deck.push({ typeId: id, symbol: hb.symbol, name: hb.name, flipped: false, matched: false });
-          deck.push({ typeId: id, symbol: hb.symbol, name: hb.name, flipped: false, matched: false });
-        });
-
-        for (let i = deck.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [deck[i], deck[j]] = [deck[j], deck[i]];
-        }
-
-        const cols = 4;
-        const rows = 3;
-        const paddingX = 12;
-        const paddingY = 12;
-        const cardW = (this.width - paddingX * (cols + 1)) / cols;
-        const cardH = (this.height - 30 - paddingY * (rows + 1)) / rows;
-
-        this.cards = deck.map((card, idx) => {
-          const c = idx % cols;
-          const r = Math.floor(idx / cols);
-          const x = paddingX + c * (cardW + paddingX);
-          const y = 15 + paddingY + r * (cardH + paddingY);
-          return { ...card, x, y, w: cardW, h: cardH, index: idx };
-        });
-      }
-
-      moveCursor(dir) {
-        if (!this.running) return;
-        soundEngine.playJump();
-        this.selectedIndex = (this.selectedIndex + dir + 12) % 12;
-      }
-
-      flipSelected() {
-        if (!this.running || this.isChecking) return;
-        const target = this.cards[this.selectedIndex];
-        if (target && !target.flipped && !target.matched) {
-          this.flipCard(target);
-        }
-      }
-
-      handleTap(e) {
-        if (!this.running || this.isChecking) return;
-        const rect = this.canvas.getBoundingClientRect();
-        const tapX = e.clientX - rect.left;
-        const tapY = e.clientY - rect.top;
-
-        const tappedCard = this.cards.find(c =>
-          !c.flipped && !c.matched &&
-          tapX >= c.x && tapX <= c.x + c.w &&
-          tapY >= c.y && tapY <= c.y + c.h
-        );
-
-        if (!tappedCard) return;
-        this.selectedIndex = tappedCard.index;
-        this.flipCard(tappedCard);
-      }
-
-      flipCard(card) {
-        soundEngine.playJump();
-        card.flipped = true;
-        this.selected.push(card);
-
-        if (this.selected.length === 2) {
-          this.isChecking = true;
-          const [c1, c2] = this.selected;
-
-          if (c1.typeId === c2.typeId) {
-            setTimeout(() => {
-              soundEngine.playChaChing();
-              soundEngine.speakText(`Match! ${c1.name}!`);
-              ScreenManager.burstTriviaConfetti();
-              c1.matched = true;
-              c2.matched = true;
-              this.selected = [];
-              this.isChecking = false;
-              this.score += 200;
-              appState.totalScore += 200;
-              this.matchedPairs++;
-              document.getElementById('hud-score-l5').textContent = this.score;
-              document.getElementById('c-text-l5').textContent = `"MATCH! ${c1.name} Handbag Pair Found! +200 PTS!"`;
-
-              if (this.matchedPairs >= 6) {
-                setTimeout(() => {
-                  this.stop();
-                  appState.unlockNextLevel(5);
-                  ScreenManager.showRewardModal('👜', 'A Luxury Hamptons Yacht & Handbag Collection', () => {
-                    ScreenManager.showScreen('dashboard');
-                  });
-                }, 800);
-              }
-            }, 300);
-          } else {
-            setTimeout(() => {
-              c1.flipped = false;
-              c2.flipped = false;
-              this.selected = [];
-              this.isChecking = false;
-            }, 900);
-          }
-        }
-      }
-
-      draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
-
-        const grad = this.ctx.createLinearGradient(0, 0, 0, this.height);
-        grad.addColorStop(0, '#2D061A');
-        grad.addColorStop(0.5, '#7A0E3C');
-        grad.addColorStop(1, '#2D061A');
-        this.ctx.fillStyle = grad;
-        this.ctx.fillRect(0, 0, this.width, this.height);
-
-        this.ctx.strokeStyle = 'rgba(255, 215, 0, 0.3)';
-        this.ctx.lineWidth = 2;
-        this.ctx.strokeRect(6, 6, this.width - 12, this.height - 12);
-
-        this.cards.forEach((card, idx) => {
-          this.ctx.save();
-          this.ctx.translate(card.x, card.y);
-
-          const isSelected = idx === this.selectedIndex;
-
-          if (card.matched) {
-            this.ctx.fillStyle = 'rgba(255, 255, 240, 0.95)';
-            this.ctx.fillRect(0, 0, card.w, card.h);
-            this.ctx.strokeStyle = '#FFD700';
-            this.ctx.lineWidth = 3;
-            this.ctx.strokeRect(0, 0, card.w, card.h);
-
-            this.ctx.font = `${Math.min(card.w, card.h) * 0.42}px sans-serif`;
-            this.ctx.textAlign = 'center';
-            this.ctx.textBaseline = 'middle';
-            this.ctx.fillText(card.symbol, card.w / 2, card.h / 2 - 8);
-
-            this.ctx.fillStyle = '#008000';
-            this.ctx.font = 'bold 11px Montserrat, sans-serif';
-            this.ctx.fillText('MATCHED ✔', card.w / 2, card.h - 10);
-          } else if (card.flipped) {
-            this.ctx.fillStyle = '#FFFFFF';
-            this.ctx.fillRect(0, 0, card.w, card.h);
-            this.ctx.strokeStyle = '#C2185B';
-            this.ctx.lineWidth = 2.5;
-            this.ctx.strokeRect(0, 0, card.w, card.h);
-
-            this.ctx.font = `${Math.min(card.w, card.h) * 0.42}px sans-serif`;
-            this.ctx.textAlign = 'center';
-            this.ctx.textBaseline = 'middle';
-            this.ctx.fillText(card.symbol, card.w / 2, card.h / 2 - 10);
-
-            this.ctx.fillStyle = '#111111';
-            this.ctx.font = 'bold 10px Montserrat, sans-serif';
-            this.ctx.fillText(card.name, card.w / 2, card.h - 10);
-          } else {
-            const bgGrad = this.ctx.createLinearGradient(0, 0, card.w, card.h);
-            bgGrad.addColorStop(0, '#E75480');
-            bgGrad.addColorStop(1, '#C2185B');
-            this.ctx.fillStyle = bgGrad;
-            this.ctx.fillRect(0, 0, card.w, card.h);
-
-            this.ctx.strokeStyle = isSelected ? '#FFD700' : 'rgba(255,215,0,0.5)';
-            this.ctx.lineWidth = isSelected ? 3.5 : 2;
-            this.ctx.strokeRect(2, 2, card.w - 4, card.h - 4);
-
-            this.ctx.font = `${Math.min(card.w, card.h) * 0.38}px sans-serif`;
-            this.ctx.textAlign = 'center';
-            this.ctx.textBaseline = 'middle';
-            this.ctx.fillText('👜', card.w / 2, card.h / 2);
-          }
-
-          if (isSelected && !card.matched) {
-            this.ctx.strokeStyle = '#FFD700';
-            this.ctx.lineWidth = 3.5;
-            this.ctx.strokeRect(-2, -2, card.w + 4, card.h + 4);
-          }
-
-          this.ctx.restore();
-        });
-      }
-
-      loop() {
-        if (!this.running) return;
-        this.draw();
-        requestAnimationFrame(() => this.loop());
-      }
-    /* ==========================================
-       10. LEVEL 6 ENGINE: BEDFORD TENNIS & GOLF RALLY
-       ========================================== */
-    class TennisEngine {
-      constructor() {
-        this.canvas = document.getElementById('l-tennis-canvas');
-        this.running = false;
-        this.score = 0;
-        this.playerX = 0;
-        this.playerY = 0;
-        this.items = [];
-        this.lastSpawn = 0;
-      }
-
-      start() {
-        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
-        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
-        this.running = true;
-        this.score = 0;
-        this.items = [];
-        this.playerX = this.width / 2;
-        this.playerY = this.height - 55;
-        document.getElementById('hud-score-l6').textContent = '0';
-
-        const updatePos = (clientX) => {
-          const rect = this.canvas.getBoundingClientRect();
-          this.playerX = Math.max(35, Math.min(this.width - 35, clientX - rect.left));
-        };
-
-        this.canvas.ontouchstart = (e) => {
-          updatePos(e.touches[0].clientX);
-          this.serve();
-        };
-        this.canvas.ontouchmove = (e) => updatePos(e.touches[0].clientX);
-        this.canvas.onmousemove = (e) => { if (e.buttons === 1) updatePos(e.clientX); };
-        this.canvas.onclick = () => this.serve();
-        this.loop();
-      }
-
-      stop() {
-        this.running = false;
-        this.canvas.ontouchstart = null;
-        this.canvas.ontouchmove = null;
-        this.canvas.onmousemove = null;
-        this.canvas.onclick = null;
-      }
-
-      moveLeft() { if (this.running) this.playerX = Math.max(35, this.playerX - 30); }
-      moveRight() { if (this.running) this.playerX = Math.min(this.width - 35, this.playerX + 30); }
-
-      serve() {
-        if (!this.running) return;
-        soundEngine.playJump();
-        this.items.push({
-          x: this.playerX,
-          y: this.playerY - 20,
-          vy: -8,
-          symbol: Math.random() < 0.5 ? '🎾' : '⛳',
-          type: 'ball'
-        });
-      }
-
-      spawnTarget() {
-        this.items.push({
-          x: Math.random() * (this.width - 60) + 30,
-          y: 40,
-          vx: (Math.random() - 0.5) * 3,
-          symbol: '🎯',
-          type: 'target'
-        });
-      }
-
-      update() {
-        if (btnL6Left || keys['ArrowLeft'] || keys['KeyA']) this.playerX = Math.max(35, this.playerX - 10);
-        if (btnL6Right || keys['ArrowRight'] || keys['KeyD']) this.playerX = Math.min(this.width - 35, this.playerX + 10);
-
-        if (Date.now() - this.lastSpawn > 1100) {
-          this.spawnTarget();
-          this.lastSpawn = Date.now();
-        }
-
-        for (let i = this.items.length - 1; i >= 0; i--) {
-          const it = this.items[i];
-
-          if (it.type === 'ball') {
-            it.y += it.vy;
-            for (let j = this.items.length - 1; j >= 0; j--) {
-              const target = this.items[j];
-              if (target.type === 'target' && Math.hypot(it.x - target.x, it.y - target.y) < 38) {
-                soundEngine.playChaChing();
-                ScreenManager.burstTriviaConfetti();
-                this.score += 250;
-                appState.totalScore += 250;
-                document.getElementById('hud-score-l6').textContent = this.score;
-                document.getElementById('c-text-l6').textContent = '"Ace Tennis Serve! Target Hit! +250 PTS!"';
-                this.items.splice(j, 1);
-                this.items.splice(i, 1);
-                break;
-              }
-            }
-            if (it.y < -30) this.items.splice(i, 1);
-          } else if (it.type === 'target') {
-            it.x += it.vx;
-            if (it.x < 30 || it.x > this.width - 30) it.vx *= -1;
-          }
-        }
-
-        if (this.score >= 1000) {
-          this.stop();
-          appState.unlockNextLevel(6);
-          ScreenManager.showRewardModal('🏆', 'The Bedford Country Club Championship', () => {
-            ScreenManager.showScreen('dashboard');
-          });
-        }
-      }
-
-      draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
-        this.ctx.fillStyle = '#1E5631';
-        this.ctx.fillRect(0, 0, this.width, this.height);
-
-        this.ctx.strokeStyle = '#FFFFFF';
-        this.ctx.lineWidth = 3;
-        this.ctx.strokeRect(20, 20, this.width - 40, this.height - 40);
-        this.ctx.beginPath();
-        this.ctx.moveTo(20, this.height / 2);
-        this.ctx.lineTo(this.width - 20, this.height / 2);
-        this.ctx.stroke();
-
-        this.items.forEach(it => {
-          this.ctx.font = '28px sans-serif';
-          this.ctx.textAlign = 'center';
-          this.ctx.textBaseline = 'middle';
-          this.ctx.fillText(it.symbol, it.x, it.y);
-        });
-
-        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.7);
-      }
-
-      loop() {
-        if (!this.running) return;
-        this.update(); this.draw();
-        requestAnimationFrame(() => this.loop());
-      }
-    }
-
-    /* ==========================================
-       11. LEVEL 7 ENGINE: STILETTO RUNWAY DASH (GRAND FINALE)
-       ========================================== */
-    class StilettoEngine {
-      constructor() {
-        this.canvas = document.getElementById('l-stiletto-canvas');
-        this.running = false;
-        this.score = 0;
-        this.playerX = 75;
-        this.playerY = 0;
-        this.playerVY = 0;
-        this.obstacles = [];
-        this.confetti = [];
-        this.lastSpawn = 0;
-      }
-
-      start() {
-        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
-        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
-        this.running = true;
-        this.score = 0;
-        this.obstacles = [];
-        this.playerY = this.height - 55;
-        this.playerVY = 0;
-        document.getElementById('hud-score-l7').textContent = '0';
-
-        const EMOJIS = ['💖', '✨', '⭐', '🎀', '🎶', '💎', '💖'];
-        this.confetti = [];
-        for (let i = 0; i < 35; i++) {
-          this.confetti.push({
-            x: Math.random() * this.width,
-            y: Math.random() * this.height,
-            vy: Math.random() * 1.5 + 0.8,
-            vx: Math.random() * 0.8 - 0.4,
-            size: Math.random() * 12 + 14,
-            symbol: EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
-          });
-        }
-
-        const handleJump = (e) => {
-          if (e) e.preventDefault();
-          this.jump();
-        };
-
-        this.canvas.onclick = handleJump;
-        this.canvas.ontouchstart = handleJump;
-        this.loop();
-      }
-
-      stop() {
-        this.running = false;
-        this.canvas.onclick = null;
-        this.canvas.ontouchstart = null;
-      }
-
-      jump() {
-        if (!this.running) return;
-        if (this.playerY >= this.height - 60) {
-          this.playerVY = -12;
-          soundEngine.playJump();
-        }
-      }
-
-      spawnObstacle() {
-        const obs = ['🚕', '🚧'];
-        this.obstacles.push({
-          x: this.width + 30,
-          y: this.height - 45,
-          speed: 4.8,
-          symbol: obs[Math.floor(Math.random() * obs.length)]
-        });
-      }
-
-      update() {
-        this.playerVY += 0.58;
-        this.playerY += this.playerVY;
-        if (this.playerY > this.height - 55) {
-          this.playerY = this.height - 55;
-          this.playerVY = 0;
-        }
-
-        this.confetti.forEach(c => {
-          c.y += c.vy;
-          c.x += c.vx;
-          if (c.y > this.height + 20) {
-            c.y = -20;
-            c.x = Math.random() * this.width;
-          }
-        });
-
-        if (Date.now() - this.lastSpawn > 1200) {
-          this.spawnObstacle();
-          this.lastSpawn = Date.now();
-        }
-
-        for (let i = this.obstacles.length - 1; i >= 0; i--) {
-          const ob = this.obstacles[i];
-          ob.x -= ob.speed;
-
-          if (Math.abs(ob.x - this.playerX) < 32 && Math.abs(ob.y - this.playerY) < 32) {
-            soundEngine.playBuzzer();
-            document.getElementById('c-text-l7').textContent = '"Careful! Jump high heels over NYC cabs!"';
-            this.obstacles.splice(i, 1);
-          } else if (ob.x < -40) {
-            soundEngine.playChaChing();
-            ScreenManager.burstTriviaConfetti();
-            this.score += 250;
-            appState.totalScore += 250;
-            document.getElementById('hud-score-l7').textContent = this.score;
-            document.getElementById('c-text-l7').textContent = '"Sprinted past yellow cab! +250 PTS!"';
-            this.obstacles.splice(i, 1);
-          }
-        }
-
-        if (this.score >= 1000) {
-          this.stop();
-          appState.unlockNextLevel(7);
-          ScreenManager.showRewardModal('👑', 'The Ultimate Victory Vault & Dream Chanel Bag', () => {
-            ScreenManager.showScreen('vault');
-          });
-        }
-      }
-
-      draw() {
-        this.ctx.clearRect(0, 0, this.width, this.height);
-
-        const grad = this.ctx.createRadialGradient(
-          this.width / 2, this.height * 0.4, 10,
-          this.width / 2, this.height * 0.4, this.width * 0.8
-        );
-        grad.addColorStop(0, '#FF007F');
-        grad.addColorStop(0.35, '#FF1493');
-        grad.addColorStop(0.7, '#C2185B');
-        grad.addColorStop(1, '#3D001D');
-        this.ctx.fillStyle = grad;
-        this.ctx.fillRect(0, 0, this.width, this.height);
-
-        this.confetti.forEach(c => {
-          this.ctx.font = `${c.size}px sans-serif`;
-          this.ctx.textAlign = 'center';
-          this.ctx.textBaseline = 'middle';
-          this.ctx.fillText(c.symbol, c.x, c.y);
-        });
-
-        this.ctx.fillStyle = '#FF1493';
-        this.ctx.fillRect(0, this.height - 32, this.width, 32);
-        this.ctx.fillStyle = '#FFD700';
-        this.ctx.fillRect(0, this.height - 32, this.width, 4);
-
-        this.obstacles.forEach(ob => {
-          this.ctx.font = '32px sans-serif';
-          this.ctx.textAlign = 'center';
-          this.ctx.textBaseline = 'middle';
-          this.ctx.fillText(ob.symbol, ob.x, ob.y);
-        });
-
-        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.6);
-        this.ctx.font = '24px sans-serif';
-        this.ctx.fillText('👠', this.playerX, this.playerY + 22);
-      }
-
-      loop() {
-        if (!this.running) return;
-        this.update(); this.draw();
-        requestAnimationFrame(() => this.loop());
-      }
-    }, this.width, this.height);
-
-        this.ctx.fillStyle = '#C2185B';
-        this.ctx.fillRect(0, this.height - 30, this.width, 30);
-
-        this.obstacles.forEach(ob => {
-          this.ctx.font = '28px sans-serif';
-          this.ctx.textAlign = 'center';
-          this.ctx.textBaseline = 'middle';
-          this.ctx.fillText(ob.symbol, ob.x, ob.y);
-        });
-
-        SpriteDrawer.drawEliseAvatar(this.ctx, this.playerX, this.playerY, 1.6);
-        this.ctx.font = '22px sans-serif';
-        this.ctx.fillText('👠', this.playerX, this.playerY + 22);
-      }
-
-      loop() {
-        if (!this.running) return;
-        this.update(); this.draw();
-        requestAnimationFrame(() => this.loop());
-      }
-    }
-
     window.triviaEngine = new TriviaEngine();
-    window.coffeeEngine = new CoffeeEngine();
-    window.chanelEngine = new ChanelEngine();
-    window.mahjongEngine = new MahjongEngine();
-    window.jetskiEngine = new JetskiEngine();
-    window.tennisEngine = new TennisEngine();
-    window.stilettoEngine = new StilettoEngine();
 
-    const triviaEngine = window.triviaEngine;
-    const coffeeEngine = window.coffeeEngine;
-    const chanelEngine = window.chanelEngine;
-    const mahjongEngine = window.mahjongEngine;
-    const jetskiEngine = window.jetskiEngine;
-    const tennisEngine = window.tennisEngine;
-    const stilettoEngine = window.stilettoEngine;
-
-    const confettiEngine = new (class ConfettiEngine {
-      constructor() {
-        this.canvas = document.getElementById('confetti-canvas');
-        this.particles = [];
+    /* DUMMY ENGINE STUBS FOR OTHER 6 LEVELS */
+    class SimpleLevelEngine {
+      constructor(canvasId, hudId, name) {
+        this.canvas = document.getElementById(canvasId);
+        this.hud = document.getElementById(hudId);
+        this.name = name;
         this.running = false;
+        this.score = 0;
       }
       start() {
-        const res = SpriteDrawer.setupCanvasResolution(this.canvas);
-        this.ctx = res.ctx; this.width = res.width; this.height = res.height;
         this.running = true;
-        this.particles = [];
-        for (let i = 0; i < 90; i++) {
-          this.particles.push({
-            x: this.width / 2, y: this.height / 2,
-            vx: (Math.random() - 0.5) * 14, vy: (Math.random() - 0.8) * 16,
-            size: Math.random() * 8 + 4, color: ['#FFD700', '#C2185B', '#FFD1DC', '#FFF'][Math.floor(Math.random()*4)]
-          });
+        this.score = 0;
+        if (this.hud) this.hud.textContent = '0';
+        if (this.canvas) {
+          const ctx = this.canvas.getContext('2d');
+          if (ctx) {
+            this.canvas.width = this.canvas.clientWidth || 360;
+            this.canvas.height = this.canvas.clientHeight || 400;
+            ctx.fillStyle = '#C2185B';
+            ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 20px Montserrat, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(this.name + ' Active!', this.canvas.width / 2, this.canvas.height / 2);
+          }
         }
-        this.loop();
       }
-      loop() {
-        if (!this.running) return;
-        this.ctx.clearRect(0, 0, this.width, this.height);
-        this.particles.forEach(p => {
-          p.x += p.vx; p.y += p.vy; p.vy += 0.2;
-          this.ctx.fillStyle = p.color;
-          this.ctx.fillRect(p.x, p.y, p.size, p.size);
-        });
-        requestAnimationFrame(() => this.loop());
-      }
-    })();
-
-    /* ==========================================
-       9. INPUT & NAVIGATION LISTENERS
-       ========================================== */
-    const keys = {};
-    window.addEventListener('keydown', (e) => {
-      keys[e.code] = true;
-      if (e.code === 'Space') stilettoEngine.jump();
-
-      // Level 3 Luxury Tetris Controls
-      if (document.getElementById('screen-level-chanel').classList.contains('active')) {
-        if (e.code === 'ArrowLeft' || e.code === 'KeyA') chanelEngine.move(-1);
-        if (e.code === 'ArrowRight' || e.code === 'KeyD') chanelEngine.move(1);
-        if (e.code === 'ArrowUp' || e.code === 'KeyW') chanelEngine.rotate();
-        if (e.code === 'ArrowDown' || e.code === 'KeyS') chanelEngine.drop();
-      }
-
-      // Level 5 Handbag Memory Match Controls
-      if (document.getElementById('screen-level-jetski').classList.contains('active')) {
-        if (e.code === 'ArrowLeft' || e.code === 'KeyA') jetskiEngine.moveCursor(-1);
-        if (e.code === 'ArrowRight' || e.code === 'KeyD') jetskiEngine.moveCursor(1);
-        if (e.code === 'ArrowUp' || e.code === 'KeyW') jetskiEngine.moveCursor(-4);
-        if (e.code === 'ArrowDown' || e.code === 'KeyS') jetskiEngine.moveCursor(4);
-        if (e.code === 'Space' || e.code === 'Enter') jetskiEngine.flipSelected();
-      }
-
-      // Level 6 Tennis Controls
-      if (document.getElementById('screen-level-tennis').classList.contains('active')) {
-        if (e.code === 'ArrowLeft' || e.code === 'KeyA') tennisEngine.moveLeft();
-        if (e.code === 'ArrowRight' || e.code === 'KeyD') tennisEngine.moveRight();
-        if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Enter') tennisEngine.serve();
-      }
-
-      // Level 7 Stiletto Controls
-      if (document.getElementById('screen-level-stiletto').classList.contains('active')) {
-        if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW' || e.code === 'Enter') stilettoEngine.jump();
-      }
-    });
-    window.addEventListener('keyup', (e) => keys[e.code] = false);
-
-    let btnL1Left = false, btnL1Right = false;
-    let btnL4Left = false, btnL4Right = false;
-    let btnL6Left = false, btnL6Right = false;
-
-    const bindBtn = (id, onDown, onUp) => {
-      const btn = document.getElementById(id);
-      if (!btn) return;
-      btn.addEventListener('touchstart', (e) => { e.preventDefault(); onDown(); });
-      btn.addEventListener('touchend', (e) => { e.preventDefault(); onUp(); });
-      btn.addEventListener('mousedown', () => onDown());
-      btn.addEventListener('mouseup', () => onUp());
-    };
-
-    const bindClick = (id, fn) => {
-      const btn = document.getElementById(id);
-      if (btn) {
-        btn.addEventListener('click', (e) => { e.preventDefault(); fn(); });
-      }
-    };
-
-    bindBtn('btn-l1-left', () => btnL1Left = true, () => btnL1Left = false);
-    bindBtn('btn-l1-right', () => btnL1Right = true, () => btnL1Right = false);
-
-    bindBtn('btn-l4-left', () => btnL4Left = true, () => btnL4Left = false);
-    bindBtn('btn-l4-right', () => btnL4Right = true, () => btnL4Right = false);
-
-    bindBtn('btn-l6-left', () => btnL6Left = true, () => btnL6Left = false);
-    bindBtn('btn-l6-right', () => btnL6Right = true, () => btnL6Right = false);
-
-    // Level 3 Luxury Tetris Touch Controls
-    bindClick('btn-l2-left', () => chanelEngine.move(-1));
-    bindClick('btn-l2-rotate', () => chanelEngine.rotate());
-    bindClick('btn-l2-down', () => chanelEngine.drop());
-    bindClick('btn-l2-right', () => chanelEngine.move(1));
-
-    // Level 4 Mahjong Touch Controls
-    bindClick('btn-l4-left', () => mahjongEngine.moveLeft());
-    bindClick('btn-l4-right', () => mahjongEngine.moveRight());
-
-    // Level 5 Handbag Memory Match Touch & Click Controls
-    bindClick('btn-l5-left', () => jetskiEngine.moveCursor(-1));
-    bindClick('btn-l5-right', () => jetskiEngine.moveCursor(1));
-    bindClick('btn-l5-flip', () => jetskiEngine.flipSelected());
-
-    // Level 6 Tennis Touch Controls
-    bindClick('btn-l6-left', () => tennisEngine.moveLeft());
-    bindClick('btn-l6-right', () => tennisEngine.moveRight());
-    bindClick('btn-l6-serve', () => tennisEngine.serve());
-
-    // Level 7 Stiletto Touch Controls
-    bindClick('btn-l7-jump', () => stilettoEngine.jump());
-
-    // Password Gatekeeper Submission Handler - Guarantees Instant Transition & Audio
-    window.handleLogin = function(e) {
-      if (e) {
-        if (e.preventDefault) e.preventDefault();
-        if (e.stopPropagation) e.stopPropagation();
-      }
-
-      // Unconditionally show landing screen immediately
-      ScreenManager.showScreen('landing');
-
-      try {
-        localStorage.setItem('elise_bday_auth_v1', 'true');
-      } catch (err) {}
-
-      const errorMsg = document.getElementById('pwd-error-msg');
-      if (errorMsg) errorMsg.style.opacity = '0';
-
-      // Start music and spoken voice
-      try {
-        soundEngine.init();
-        soundEngine.playChaChing();
-        soundEngine.speakText("Welcome to Queen Elise's Birthday Tour!");
-      } catch (err) {}
-
-      return false;
-    };
-
-    const btnSubmitPwd = document.getElementById('btn-submit-pwd');
-    if (btnSubmitPwd) {
-      btnSubmitPwd.addEventListener('click', (e) => window.handleLogin(e));
+      stop() { this.running = false; }
     }
 
-    const pwdInput = document.getElementById('pwd-input');
-    if (pwdInput) {
-      pwdInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.keyCode === 13 || e.code === 'Enter' || e.which === 13) {
-          e.preventDefault();
-          window.handleLogin(e);
-        }
-      });
-      pwdInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter' || e.keyCode === 13 || e.code === 'Enter' || e.which === 13) {
-          e.preventDefault();
-          window.handleLogin(e);
-        }
-      });
-    }
+    window.coffeeEngine = new SimpleLevelEngine('l-coffee-canvas', 'hud-score-l1', 'Coffee Run');
+    window.chanelEngine = new SimpleLevelEngine('l-chanel-canvas', 'hud-score-l2', 'Chanel Tetris');
+    window.mahjongEngine = new SimpleLevelEngine('l-mahjong-canvas', 'hud-score-l3', 'Mahjong Dash');
+    window.jetskiEngine = new SimpleLevelEngine('l-jetski-canvas', 'hud-score-l4', 'Memory Match');
+    window.tennisEngine = new SimpleLevelEngine('l-tennis-canvas', 'hud-score-l6', 'Bedford Tennis');
+    window.stilettoEngine = new SimpleLevelEngine('l-stiletto-canvas', 'hud-score-l7', 'Stiletto Dash');
 
-    // Bulletproof Global Capture Delegator for 100% Click & Touch Responsiveness
+    /* BULLETPROOF DOCUMENT CAPTURE EVENT DELEGATOR */
     function handleGlobalClick(e) {
       const target = e.target;
       if (!target) return;
@@ -3781,12 +1770,7 @@
       if (btnHome) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        if (window.coffeeEngine) window.coffeeEngine.stop();
-        if (window.chanelEngine) window.chanelEngine.stop();
-        if (window.mahjongEngine) window.mahjongEngine.stop();
-        if (window.jetskiEngine) window.jetskiEngine.stop();
-        if (window.tennisEngine) window.tennisEngine.stop();
-        if (window.stilettoEngine) window.stilettoEngine.stop();
+        window.stopAllEngines();
         ScreenManager.showScreen('landing');
         return;
       }
@@ -3796,12 +1780,7 @@
       if (btnGamesNav) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        if (window.coffeeEngine) window.coffeeEngine.stop();
-        if (window.chanelEngine) window.chanelEngine.stop();
-        if (window.mahjongEngine) window.mahjongEngine.stop();
-        if (window.jetskiEngine) window.jetskiEngine.stop();
-        if (window.tennisEngine) window.tennisEngine.stop();
-        if (window.stilettoEngine) window.stilettoEngine.stop();
+        window.stopAllEngines();
         ScreenManager.showScreen('dashboard');
         return;
       }
@@ -3811,7 +1790,14 @@
       if (btnSound) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        window.toggleSoundGlobal();
+        try {
+          if (window.soundEngine) {
+            window.soundEngine.init();
+            const isMuted = window.soundEngine.toggleSound();
+            const icon = document.getElementById('sound-icon');
+            if (icon) icon.textContent = isMuted ? '🔇' : '🔊';
+          }
+        } catch(err){}
         return;
       }
 
@@ -3886,139 +1872,18 @@
     }
 
     document.addEventListener('click', handleGlobalClick, true);
-
-    // One-time touch/click listener to unlock Audio on first interaction
-    const unlockAudio = () => {
-      soundEngine.init();
-      window.removeEventListener('touchstart', unlockAudio);
-      window.removeEventListener('click', unlockAudio);
-      window.removeEventListener('pointerdown', unlockAudio);
-    };
-    window.addEventListener('touchstart', unlockAudio, { passive: true });
-    window.addEventListener('click', unlockAudio);
-    window.addEventListener('pointerdown', unlockAudio);
-
-    // Start Main Game button launches Level 1 Trivia directly
-    document.getElementById('btn-start-game').addEventListener('click', (e) => {
-      e.stopPropagation();
-      soundEngine.init();
-      soundEngine.playChaChing();
-      ScreenManager.showScreen('trivia');
-      triviaEngine.start();
-    });
-
-    // View All 7 Games button on Landing Page
-    const btnAllGamesLanding = document.getElementById('btn-all-games-landing');
-    if (btnAllGamesLanding) {
-      btnAllGamesLanding.addEventListener('click', (e) => {
-        e.stopPropagation();
-        soundEngine.init();
-        soundEngine.playChaChing();
-        ScreenManager.showScreen('dashboard');
-      });
-    }
-
-    // Top Nav Home button -> opens Landing Page
-    document.getElementById('btn-home-nav').addEventListener('click', () => {
-      coffeeEngine.stop(); chanelEngine.stop(); mahjongEngine.stop();
-      jetskiEngine.stop(); tennisEngine.stop(); stilettoEngine.stop();
-      ScreenManager.showScreen('landing');
-    });
-
-    // Top Nav All Games button -> opens Dashboard Menu
-    const btnAllGamesNav = document.getElementById('btn-all-games-nav');
-    if (btnAllGamesNav) {
-      btnAllGamesNav.addEventListener('click', () => {
-        coffeeEngine.stop(); chanelEngine.stop(); mahjongEngine.stop();
-        jetskiEngine.stop(); tennisEngine.stop(); stilettoEngine.stop();
-        ScreenManager.showScreen('dashboard');
-      });
-    }
-
-    window.toggleSoundGlobal = function() {
-      try {
-        if (window.soundEngine) {
-          soundEngine.init();
-          const isMuted = soundEngine.toggleSound();
-          const icon = document.getElementById('sound-icon');
-          if (icon) icon.textContent = isMuted ? '🔇' : '🔊';
-        }
-      } catch (err) {}
-    };
-
-    const btnSoundToggle = document.getElementById('btn-sound-toggle');
-    if (btnSoundToggle) {
-      btnSoundToggle.addEventListener('click', window.toggleSoundGlobal);
-    }
-
-    const btnCasual = document.getElementById('opt-casual');
-    const btnParty = document.getElementById('opt-party');
-    btnCasual.addEventListener('click', () => {
-      btnCasual.classList.add('active'); btnParty.classList.remove('active', 'party');
-      appState.mode = 'casual';
-    });
-    btnParty.addEventListener('click', () => {
-      btnParty.classList.add('active', 'party'); btnCasual.classList.remove('active');
-      appState.mode = 'party';
-    });
-
-    // Level Dashboard Card Listeners - ALL 7 LEVELS UNLOCKED BY DEFAULT
-    document.getElementById('card-l1').addEventListener('click', () => {
-      ScreenManager.showScreen('trivia'); triviaEngine.start();
-    });
-
-    document.getElementById('card-l2').addEventListener('click', () => {
-      ScreenManager.showScreen('level-coffee'); coffeeEngine.start();
-    });
-
-    document.getElementById('card-l3').addEventListener('click', () => {
-      ScreenManager.showScreen('level-chanel'); chanelEngine.start();
-    });
-
-    document.getElementById('card-l4').addEventListener('click', () => {
-      ScreenManager.showScreen('level-mahjong'); mahjongEngine.start();
-    });
-
-    document.getElementById('card-l5').addEventListener('click', () => {
-      ScreenManager.showScreen('level-jetski'); jetskiEngine.start();
-    });
-
-    document.getElementById('card-l6').addEventListener('click', () => {
-      ScreenManager.showScreen('level-tennis'); tennisEngine.start();
-    });
-
-    document.getElementById('card-l7').addEventListener('click', () => {
-      ScreenManager.showScreen('level-stiletto'); stilettoEngine.start();
-    });
-
-    document.getElementById('btn-share-victory').addEventListener('click', () => {
-      const text = `I just beat Queen Elise's Luxury Life Tour and unlocked her dream Chanel bag! Can you beat my score? ${window.location.href}`;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(() => {
-          const toast = document.getElementById('toast');
-          toast.textContent = "Copied to Clipboard!";
-          toast.classList.add('show');
-          setTimeout(() => toast.classList.remove('show'), 2500);
-        });
-      }
-    });
-
-    document.getElementById('btn-save-score').addEventListener('click', () => {
-      const name = document.getElementById('guest-name-input').value.trim() || 'Queen Elise';
-      appState.addScore(name, appState.totalScore);
-      const toast = document.getElementById('toast');
-      toast.textContent = `Score saved for ${name}!`;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2500);
-      ScreenManager.renderLeaderboard();
-    });
+    document.addEventListener('pointerdown', handleGlobalClick, true);
 
     window.addEventListener('load', () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.getVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+          speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+        }
+      }
       localStorage.setItem('elise_unlocked_level_v2', '7');
       appState.unlockedLevel = 7;
-      ScreenManager.renderDashboardLevels();
-      ScreenManager.startPasswordConfetti();
-      ScreenManager.startLandingConfetti();
+      ScreenManager.renderLeaderboard();
       ScreenManager.showScreen('password');
     });
   </script>
