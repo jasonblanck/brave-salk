@@ -1680,17 +1680,21 @@
           }
 
           try { if (window.soundEngine) window.soundEngine.playChaChing(); } catch(e){}
+          
+          let praiseText = "You're so smart and hot.";
           try {
             if (this.praiseResponses && this.praiseResponses.length > 0) {
-              const praiseText = this.praiseResponses[this.praiseIndex];
-              if (window.soundEngine) window.soundEngine.speakText(praiseText);
+              praiseText = this.praiseResponses[this.praiseIndex];
               this.praiseIndex = (this.praiseIndex + 1) % this.praiseResponses.length;
             }
           } catch(e){}
 
+          const commTextEl = document.getElementById('c-text-l3');
+          if (commTextEl) commTextEl.textContent = praiseText;
+
           appState.totalScore += 200;
 
-          setTimeout(() => {
+          const advanceNext = () => {
             this.currentIndex++;
             if (this.currentIndex >= this.questions.length) {
               appState.unlockNextLevel(1);
@@ -1700,13 +1704,35 @@
             } else {
               this.renderQuestion();
             }
-          }, 800);
+          };
+
+          let hasAdvanced = false;
+          const safeAdvance = () => {
+            if (hasAdvanced) return;
+            hasAdvanced = true;
+            advanceNext();
+          };
+
+          try {
+            if (window.soundEngine && !window.soundEngine.muted) {
+              window.soundEngine.speakText(praiseText, () => {
+                setTimeout(safeAdvance, 350);
+              });
+              setTimeout(safeAdvance, 2400);
+            } else {
+              setTimeout(safeAdvance, 1400);
+            }
+          } catch(err) {
+            setTimeout(safeAdvance, 1400);
+          }
         } else {
           btnEl.classList.add('wrong');
           try { if (window.soundEngine) window.soundEngine.playBuzzer(); } catch(e){}
           try {
             if (this.wrongResponses && this.wrongResponses.length > 0) {
               const wrongText = this.wrongResponses[this.wrongIndex];
+              const commTextEl = document.getElementById('c-text-l3');
+              if (commTextEl) commTextEl.textContent = wrongText;
               if (window.soundEngine) window.soundEngine.speakText(wrongText);
               this.wrongIndex = (this.wrongIndex + 1) % this.wrongResponses.length;
             }
