@@ -21,19 +21,17 @@
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
       }
-      var pwdScreen = document.getElementById('screen-password');
-      var landing = document.getElementById('screen-landing');
-      var topNav = document.getElementById('top-nav');
-
-      if (pwdScreen) pwdScreen.classList.remove('active');
-      if (landing) landing.classList.add('active');
-      if (topNav) topNav.style.display = 'flex';
-
-      try {
-        if (window.ScreenManager && window.ScreenManager.startLandingConfetti) {
-          window.ScreenManager.startLandingConfetti();
-        }
-      } catch(err){}
+      
+      if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
+        window.ScreenManager.showScreen('landing');
+      } else {
+        var pwdScreen = document.getElementById('screen-password');
+        var landing = document.getElementById('screen-landing');
+        var topNav = document.getElementById('top-nav');
+        if (pwdScreen) { pwdScreen.classList.remove('active'); pwdScreen.style.display = 'none'; }
+        if (landing) { landing.classList.add('active'); landing.style.display = 'flex'; }
+        if (topNav) topNav.style.display = 'flex';
+      }
 
       try {
         if (window.soundEngine) {
@@ -62,16 +60,17 @@
         }
       } catch(err){}
 
-      document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-      var triviaScreen = document.getElementById('screen-trivia');
-      if (triviaScreen) triviaScreen.classList.add('active');
-      var topNav = document.getElementById('top-nav');
-      if (topNav) topNav.style.display = 'flex';
-      var indicator = document.getElementById('level-indicator');
-      if (indicator) indicator.textContent = 'Level 1: 37 Love Questions 🍾';
-
-      if (window.triviaEngine) {
-        window.triviaEngine.start();
+      if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
+        window.ScreenManager.showScreen('trivia');
+      } else {
+        document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); s.style.display = 'none'; });
+        var triviaScreen = document.getElementById('screen-trivia');
+        if (triviaScreen) { triviaScreen.classList.add('active'); triviaScreen.style.display = 'flex'; }
+        var topNav = document.getElementById('top-nav');
+        if (topNav) topNav.style.display = 'flex';
+        var indicator = document.getElementById('level-indicator');
+        if (indicator) indicator.textContent = 'Level 1: 37 Love Questions 🍾';
+        if (window.triviaEngine) window.triviaEngine.start();
       }
       return false;
     };
@@ -88,17 +87,20 @@
         }
       } catch(err){}
 
-      document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
-      var dashScreen = document.getElementById('screen-dashboard');
-      if (dashScreen) dashScreen.classList.add('active');
-      var topNav = document.getElementById('top-nav');
-      if (topNav) topNav.style.display = 'flex';
-      var indicator = document.getElementById('level-indicator');
-      if (indicator) indicator.textContent = 'Level Tour Dashboard';
-
-      if (window.ScreenManager) {
-        window.ScreenManager.renderDashboardLevels();
-        window.ScreenManager.renderLeaderboard();
+      if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
+        window.ScreenManager.showScreen('dashboard');
+      } else {
+        document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); s.style.display = 'none'; });
+        var dashScreen = document.getElementById('screen-dashboard');
+        if (dashScreen) { dashScreen.classList.add('active'); dashScreen.style.display = 'flex'; }
+        var topNav = document.getElementById('top-nav');
+        if (topNav) topNav.style.display = 'flex';
+        var indicator = document.getElementById('level-indicator');
+        if (indicator) indicator.textContent = 'Level Tour Dashboard';
+        if (window.ScreenManager) {
+          window.ScreenManager.renderDashboardLevels();
+          window.ScreenManager.renderLeaderboard();
+        }
       }
       return false;
     };
@@ -3556,13 +3558,21 @@
       }
     }
 
-    const triviaEngine = new TriviaEngine();
-    const coffeeEngine = new CoffeeEngine();
-    const chanelEngine = new ChanelEngine();
-    const mahjongEngine = new MahjongEngine();
-    const jetskiEngine = new JetskiEngine();
-    const tennisEngine = new TennisEngine();
-    const stilettoEngine = new StilettoEngine();
+    window.triviaEngine = new TriviaEngine();
+    window.coffeeEngine = new CoffeeEngine();
+    window.chanelEngine = new ChanelEngine();
+    window.mahjongEngine = new MahjongEngine();
+    window.jetskiEngine = new JetskiEngine();
+    window.tennisEngine = new TennisEngine();
+    window.stilettoEngine = new StilettoEngine();
+
+    const triviaEngine = window.triviaEngine;
+    const coffeeEngine = window.coffeeEngine;
+    const chanelEngine = window.chanelEngine;
+    const mahjongEngine = window.mahjongEngine;
+    const jetskiEngine = window.jetskiEngine;
+    const tennisEngine = window.tennisEngine;
+    const stilettoEngine = window.stilettoEngine;
 
     const confettiEngine = new (class ConfettiEngine {
       constructor() {
