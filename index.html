@@ -9,6 +9,17 @@
   <meta http-equiv="Expires" content="0">
   <title>Queen Elise's Luxury Life - 37th Birthday Tour</title>
 
+  <!-- Clean URL History State: Silently removes any query parameters from address bar without reloading -->
+  <script>
+    (function() {
+      try {
+        if (window.location.search && window.history && window.history.replaceState) {
+          window.history.replaceState(null, document.title, window.location.pathname + window.location.hash);
+        }
+      } catch(e) {}
+    })();
+  </script>
+
 
 
   <!-- Google Fonts: Barbie Fonts & Luxury Display -->
