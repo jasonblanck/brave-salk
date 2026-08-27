@@ -117,6 +117,40 @@
       }
       return false;
     };
+
+    window.launchLevel = function(levelId, e) {
+      if (e) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+      }
+      try {
+        if (window.soundEngine) {
+          window.soundEngine.init();
+          window.soundEngine.playChaChing();
+        }
+      } catch(err){}
+
+      if (window.stopAllEngines) window.stopAllEngines();
+
+      if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
+        window.ScreenManager.showScreen(levelId);
+      } else {
+        document.querySelectorAll('.screen').forEach(s => {
+          s.style.setProperty('display', 'none', 'important');
+          s.classList.remove('active');
+        });
+        const target = document.getElementById(`screen-${levelId}`);
+        if (target) {
+          target.classList.add('active');
+          target.style.setProperty('display', 'flex', 'important');
+          target.style.opacity = '1';
+          target.style.zIndex = '1000';
+        }
+        if (levelId === 'trivia' && window.triviaEngine) window.triviaEngine.start();
+        if (levelId === 'level-coffee' && window.coffeeEngine) window.coffeeEngine.start();
+      }
+      return false;
+    };
   </script>
 
   <style>
@@ -1157,7 +1191,7 @@
       <!-- 7 Levels List Cards -->
       <div class="levels-list">
         <!-- Level 1 -->
-        <div class="level-card featured" id="card-l1">
+        <div class="level-card featured" id="card-l1" onclick="window.launchLevel('trivia', event);">
           <div class="featured-badge-tag">★ MAIN GAME • START HERE 🍾</div>
           <div class="level-card-left">
             <div class="level-card-icon" style="background: linear-gradient(135deg, #FFD700, #FFA500); border-color: #111;">🍾</div>
@@ -1167,11 +1201,11 @@
               <span class="level-card-reward">🎁 Unlocks: Epic Anniversary Dinner</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn featured-play-btn">★ PLAY TRIVIA</button>
+          <button type="button" onclick="window.launchLevel('trivia', event);" class="level-play-btn featured-play-btn">★ PLAY TRIVIA</button>
         </div>
 
         <!-- Level 2 -->
-        <div class="level-card" id="card-l2">
+        <div class="level-card" id="card-l2" onclick="window.launchLevel('level-coffee', event);">
           <div class="level-card-left">
             <div class="level-card-icon">☕</div>
             <div class="level-card-info">
@@ -1180,11 +1214,11 @@
               <span class="level-card-reward">🎁 Unlocks: Luxury Spa Day Voucher</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn">PLAY</button>
+          <button type="button" onclick="window.launchLevel('level-coffee', event);" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 3 -->
-        <div class="level-card" id="card-l3">
+        <div class="level-card" id="card-l3" onclick="window.launchLevel('level-chanel', event);">
           <div class="level-card-left">
             <div class="level-card-icon">👜</div>
             <div class="level-card-info">
@@ -1193,11 +1227,11 @@
               <span class="level-card-reward">🎁 Unlocks: Custom Diamond Piece</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn">PLAY</button>
+          <button type="button" onclick="window.launchLevel('level-chanel', event);" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 4 -->
-        <div class="level-card" id="card-l4">
+        <div class="level-card" id="card-l4" onclick="window.launchLevel('level-mahjong', event);">
           <div class="level-card-left">
             <div class="level-card-icon">🀄</div>
             <div class="level-card-info">
@@ -1206,11 +1240,11 @@
               <span class="level-card-reward">🎁 Unlocks: VIP Mahjong Trophy</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn">PLAY</button>
+          <button type="button" onclick="window.launchLevel('level-mahjong', event);" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 5 -->
-        <div class="level-card" id="card-l5">
+        <div class="level-card" id="card-l5" onclick="window.launchLevel('level-jetski', event);">
           <div class="level-card-left">
             <div class="level-card-icon">👜</div>
             <div class="level-card-info">
@@ -1219,11 +1253,11 @@
               <span class="level-card-reward">🎁 Unlocks: Luxury Yacht Charter</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn">PLAY</button>
+          <button type="button" onclick="window.launchLevel('level-jetski', event);" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 6 -->
-        <div class="level-card" id="card-l6">
+        <div class="level-card" id="card-l6" onclick="window.launchLevel('level-tennis', event);">
           <div class="level-card-left">
             <div class="level-card-icon">🎾</div>
             <div class="level-card-info">
@@ -1232,11 +1266,11 @@
               <span class="level-card-reward">🎁 Unlocks: Bedford Club Championship</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn">PLAY</button>
+          <button type="button" onclick="window.launchLevel('level-tennis', event);" class="level-play-btn">PLAY</button>
         </div>
 
         <!-- Level 7 -->
-        <div class="level-card" id="card-l7">
+        <div class="level-card" id="card-l7" onclick="window.launchLevel('level-stiletto', event);">
           <div class="level-card-left">
             <div class="level-card-icon">👠</div>
             <div class="level-card-info">
@@ -1245,7 +1279,7 @@
               <span class="level-card-reward">👑 Unlocks: Ultimate Victory Vault</span>
             </div>
           </div>
-          <button type="button" class="level-play-btn">PLAY</button>
+          <button type="button" onclick="window.launchLevel('level-stiletto', event);" class="level-play-btn">PLAY</button>
         </div>
       </div>
 
@@ -2107,8 +2141,7 @@
       if (btnHome) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        window.stopAllEngines();
-        ScreenManager.showScreen('landing');
+        window.launchLevel('landing', e);
         return;
       }
 
@@ -2117,8 +2150,7 @@
       if (btnGamesNav) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        window.stopAllEngines();
-        ScreenManager.showScreen('dashboard');
+        window.launchLevel('dashboard', e);
         return;
       }
 
@@ -2145,49 +2177,49 @@
       if (cardL1) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        ScreenManager.showScreen('trivia');
+        window.launchLevel('trivia', e);
         return;
       }
       const cardL2 = target.closest('#card-l2');
       if (cardL2) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        ScreenManager.showScreen('level-coffee');
+        window.launchLevel('level-coffee', e);
         return;
       }
       const cardL3 = target.closest('#card-l3');
       if (cardL3) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        ScreenManager.showScreen('level-chanel');
+        window.launchLevel('level-chanel', e);
         return;
       }
       const cardL4 = target.closest('#card-l4');
       if (cardL4) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        ScreenManager.showScreen('level-mahjong');
+        window.launchLevel('level-mahjong', e);
         return;
       }
       const cardL5 = target.closest('#card-l5');
       if (cardL5) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        ScreenManager.showScreen('level-jetski');
+        window.launchLevel('level-jetski', e);
         return;
       }
       const cardL6 = target.closest('#card-l6');
       if (cardL6) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        ScreenManager.showScreen('level-tennis');
+        window.launchLevel('level-tennis', e);
         return;
       }
       const cardL7 = target.closest('#card-l7');
       if (cardL7) {
         if (e.preventDefault) e.preventDefault();
         if (e.stopPropagation) e.stopPropagation();
-        ScreenManager.showScreen('level-stiletto');
+        window.launchLevel('level-stiletto', e);
         return;
       }
 
