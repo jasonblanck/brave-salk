@@ -114,10 +114,6 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      user-select: none;
-      -webkit-user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
     }
 
     :root {
@@ -175,7 +171,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 5px;
-      z-index: 100;
+      z-index: 1000;
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(12px);
       border-bottom: 3px solid var(--black-chic);
@@ -233,10 +229,8 @@
       display: none;
       flex-direction: column;
       opacity: 0;
-      pointer-events: none;
       z-index: 1;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-      transform: scale(0.98);
+      transition: opacity 0.25s ease;
       overflow-y: auto;
       background: linear-gradient(180deg, #2B0017 0%, #80003A 40%, #C2185B 75%, #2B0017 100%);
     }
@@ -244,9 +238,7 @@
     .screen.active {
       display: flex !important;
       opacity: 1 !important;
-      pointer-events: auto !important;
       z-index: 10 !important;
-      transform: scale(1) !important;
     }
 
     /* Game Screens Strict Full-Height Layout */
