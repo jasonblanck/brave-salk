@@ -287,6 +287,73 @@
     }
 
     /* ==========================================
+       GAME SCREENS HUD & TOUCH CONTROLS
+       ========================================== */
+    .game-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(17, 17, 17, 0.95);
+      border-bottom: 3px solid var(--gold-primary);
+      z-index: 50;
+    }
+
+    .hud-box {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      background: linear-gradient(135deg, #FF007F, #FF1493);
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .hud-box-gold {
+      background: linear-gradient(135deg, #FFD700, #FFA500) !important;
+      color: #111111 !important;
+      border-color: #111111 !important;
+    }
+
+    .touch-controls {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(17, 17, 17, 0.95);
+      border-top: 3px solid var(--gold-primary);
+      z-index: 50;
+      gap: 12px;
+    }
+
+    .touch-btn {
+      flex: 1;
+      max-width: 180px;
+      padding: 14px 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #FFD700, #FFA500);
+      border: 3.5px solid #FFFFFF;
+      color: #111111;
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .touch-btn:active {
+      transform: scale(0.95);
+      background: linear-gradient(135deg, #FF007F, #FF1493);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================
        SCREEN 0: VIP PASSWORD GATEKEEPER (90s NEON PINK)
        ========================================== */
     #screen-password {
@@ -1224,8 +1291,9 @@
     <!-- LEVEL 2: MORNING COFFEE RUN -->
     <section id="screen-level-coffee" class="screen">
       <div class="game-hud">
-        <div class="hud-box">SCORE: <span id="hud-score-l1">0</span></div>
+        <div class="hud-box hud-box-gold">SCORE: <span id="hud-score-l1">0</span></div>
         <div class="hud-box">LEVEL 2: COFFEE RUN ☕</div>
+        <div class="hud-box hud-box-gold">TIME: <span id="hud-timer-l1">30s</span></div>
       </div>
       <canvas id="l-coffee-canvas"></canvas>
       <div class="touch-controls">
@@ -1743,37 +1811,253 @@
 
     window.triviaEngine = new TriviaEngine();
 
-    /* DUMMY ENGINE STUBS FOR OTHER 6 LEVELS */
-    class SimpleLevelEngine {
-      constructor(canvasId, hudId, name) {
-        this.canvas = document.getElementById(canvasId);
-        this.hud = document.getElementById(hudId);
-        this.name = name;
+    /* LEVEL 2: COFFEE RUN FULL ARCADE ENGINE */
+    class CoffeeRunEngine {
+      constructor() {
+        this.canvas = document.getElementById('l-coffee-canvas');
+        this.hudScore = document.getElementById('hud-score-l1');
+        this.hudTimer = document.getElementById('hud-timer-l1');
+        this.ctx = null;
         this.running = false;
         this.score = 0;
+        this.timeLeft = 30;
+        this.player = { x: 180, width: 84, height: 26, speed: 8 };
+        this.items = [];
+        this.particles = [];
+        this.animId = null;
+        this.timerId = null;
+        this.moveLeft = false;
+        this.moveRight = false;
+
+        this.itemTypes = [
+          { symbol: '☕', pts: 100, color: '#FFD700' },
+          { symbol: '🥤', pts: 150, color: '#FF69B4' },
+          { symbol: '🥐', pts: 200, color: '#FFA500' },
+          { symbol: '🧁', pts: 250, color: '#FF007F' },
+          { symbol: '⏰', pts: -50, color: '#FF4444' }
+        ];
+
+        this.bindControls();
       }
-      start() {
-        this.running = true;
-        this.score = 0;
-        if (this.hud) this.hud.textContent = '0';
+
+      bindControls() {
+        window.addEventListener('keydown', (e) => {
+          if (!this.running) return;
+          if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') this.moveLeft = true;
+          if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') this.moveRight = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+          if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') this.moveLeft = false;
+          if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') this.moveRight = false;
+        });
+
+        const btnLeft = document.getElementById('btn-l1-left');
+        const btnRight = document.getElementById('btn-l1-right');
+
+        if (btnLeft) {
+          const startL = (e) => { if(e.preventDefault)e.preventDefault(); this.moveLeft = true; };
+          const endL = (e) => { if(e.preventDefault)e.preventDefault(); this.moveLeft = false; };
+          btnLeft.addEventListener('pointerdown', startL);
+          btnLeft.addEventListener('pointerup', endL);
+          btnLeft.addEventListener('pointerleave', endL);
+        }
+
+        if (btnRight) {
+          const startR = (e) => { if(e.preventDefault)e.preventDefault(); this.moveRight = true; };
+          const endR = (e) => { if(e.preventDefault)e.preventDefault(); this.moveRight = false; };
+          btnRight.addEventListener('pointerdown', startR);
+          btnRight.addEventListener('pointerup', endR);
+          btnRight.addEventListener('pointerleave', endR);
+        }
+
         if (this.canvas) {
-          const ctx = this.canvas.getContext('2d');
-          if (ctx) {
-            this.canvas.width = this.canvas.clientWidth || 360;
-            this.canvas.height = this.canvas.clientHeight || 400;
-            ctx.fillStyle = '#C2185B';
-            ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-            ctx.fillStyle = '#FFFFFF';
-            ctx.font = 'bold 20px Montserrat, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(this.name + ' Active!', this.canvas.width / 2, this.canvas.height / 2);
-          }
+          const handleMove = (clientX) => {
+            if (!this.running) return;
+            const rect = this.canvas.getBoundingClientRect();
+            const relX = clientX - rect.left;
+            this.player.x = Math.max(this.player.width / 2, Math.min(this.canvas.width - this.player.width / 2, relX));
+          };
+
+          this.canvas.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches[0]) handleMove(e.touches[0].clientX);
+          }, { passive: true });
+
+          this.canvas.addEventListener('mousemove', (e) => {
+            if (e.buttons === 1) handleMove(e.clientX);
+          });
         }
       }
-      stop() { this.running = false; }
+
+      start() {
+        this.stop();
+        this.score = 0;
+        this.timeLeft = 30;
+        this.items = [];
+        this.particles = [];
+        this.running = true;
+
+        if (!this.hudScore) this.hudScore = document.getElementById('hud-score-l1');
+        if (!this.hudTimer) this.hudTimer = document.getElementById('hud-timer-l1');
+
+        if (this.hudScore) this.hudScore.textContent = '0';
+        if (this.hudTimer) this.hudTimer.textContent = '30s';
+
+        if (this.canvas) {
+          this.ctx = this.canvas.getContext('2d');
+          const rect = this.canvas.getBoundingClientRect();
+          this.canvas.width = rect.width || 360;
+          this.canvas.height = rect.height || 420;
+          this.player.x = this.canvas.width / 2;
+        }
+
+        this.timerId = setInterval(() => {
+          if (!this.running) return;
+          this.timeLeft--;
+          if (this.hudTimer) this.hudTimer.textContent = `${this.timeLeft}s`;
+          if (this.timeLeft <= 0) {
+            this.completeLevel();
+          }
+        }, 1000);
+
+        this.loop();
+      }
+
+      stop() {
+        this.running = false;
+        if (this.animId) cancelAnimationFrame(this.animId);
+        if (this.timerId) clearInterval(this.timerId);
+      }
+
+      completeLevel() {
+        this.stop();
+        appState.totalScore += this.score;
+        appState.unlockNextLevel(2);
+        try { if (window.soundEngine) window.soundEngine.playChime(); } catch(e){}
+        ScreenManager.showRewardModal('☕', 'Luxury Spa & Pampering Day Voucher!', () => {
+          ScreenManager.showScreen('dashboard');
+        });
+      }
+
+      loop() {
+        if (!this.running || !this.ctx) return;
+        this.update();
+        this.draw();
+        this.animId = requestAnimationFrame(() => this.loop());
+      }
+
+      update() {
+        const W = this.canvas.width;
+        const H = this.canvas.height;
+
+        if (this.moveLeft) this.player.x -= this.player.speed;
+        if (this.moveRight) this.player.x += this.player.speed;
+        this.player.x = Math.max(this.player.width / 2, Math.min(W - this.player.width / 2, this.player.x));
+
+        if (Math.random() < 0.05) {
+          const type = this.itemTypes[Math.floor(Math.random() * this.itemTypes.length)];
+          this.items.push({
+            x: Math.random() * (W - 50) + 25,
+            y: -20,
+            speed: Math.random() * 2 + 2.5,
+            symbol: type.symbol,
+            pts: type.pts,
+            color: type.color
+          });
+        }
+
+        const playerY = H - 45;
+        const playerLeft = this.player.x - this.player.width / 2;
+        const playerRight = this.player.x + this.player.width / 2;
+
+        for (let i = this.items.length - 1; i >= 0; i--) {
+          const it = this.items[i];
+          it.y += it.speed;
+
+          if (it.y >= playerY - 15 && it.y <= playerY + 20 && it.x >= playerLeft - 10 && it.x <= playerRight + 10) {
+            this.score = Math.max(0, this.score + it.pts);
+            if (this.hudScore) this.hudScore.textContent = this.score.toLocaleString();
+
+            if (it.pts > 0) {
+              try { if (window.soundEngine) window.soundEngine.playChaChing(); } catch(e){}
+            } else {
+              try { if (window.soundEngine) window.soundEngine.playBuzzer(); } catch(e){}
+            }
+
+            this.particles.push({
+              x: it.x,
+              y: it.y,
+              text: `${it.pts > 0 ? '+' : ''}${it.pts}`,
+              color: it.color,
+              alpha: 1.0,
+              life: 30
+            });
+
+            this.items.splice(i, 1);
+            continue;
+          }
+
+          if (it.y > H + 30) {
+            this.items.splice(i, 1);
+          }
+        }
+
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.y -= 1.5;
+          p.alpha -= 0.03;
+          p.life--;
+          if (p.life <= 0) this.particles.splice(i, 1);
+        }
+      }
+
+      draw() {
+        const W = this.canvas.width;
+        const H = this.canvas.height;
+
+        const grad = this.ctx.createLinearGradient(0, 0, 0, H);
+        grad.addColorStop(0, '#2B0017');
+        grad.addColorStop(0.5, '#80003A');
+        grad.addColorStop(1, '#FF007F');
+        this.ctx.fillStyle = grad;
+        this.ctx.fillRect(0, 0, W, H);
+
+        const pY = H - 45;
+        const pX = this.player.x - this.player.width / 2;
+
+        this.ctx.fillStyle = '#FFD700';
+        this.ctx.shadowColor = '#FF007F';
+        this.ctx.shadowBlur = 14;
+        this.ctx.beginPath();
+        this.ctx.roundRect(pX, pY, this.player.width, this.player.height, 12);
+        this.ctx.fill();
+        this.ctx.strokeStyle = '#FFFFFF';
+        this.ctx.lineWidth = 3;
+        this.ctx.stroke();
+        this.ctx.shadowBlur = 0;
+
+        this.ctx.font = '20px Montserrat, sans-serif';
+        this.ctx.textAlign = 'center';
+        this.ctx.textBaseline = 'middle';
+        this.ctx.fillText('👑 ☕', this.player.x, pY + this.player.height / 2);
+
+        this.items.forEach(it => {
+          this.ctx.font = '28px sans-serif';
+          this.ctx.fillText(it.symbol, it.x, it.y);
+        });
+
+        this.particles.forEach(p => {
+          this.ctx.save();
+          this.ctx.globalAlpha = Math.max(0, p.alpha);
+          this.ctx.font = 'bold 18px Montserrat, sans-serif';
+          this.ctx.fillStyle = p.color;
+          this.ctx.fillText(p.text, p.x, p.y);
+          this.ctx.restore();
+        });
+      }
     }
 
-    window.coffeeEngine = new SimpleLevelEngine('l-coffee-canvas', 'hud-score-l1', 'Coffee Run');
+    window.coffeeEngine = new CoffeeRunEngine();
     window.chanelEngine = new SimpleLevelEngine('l-chanel-canvas', 'hud-score-l2', 'Chanel Tetris');
     window.mahjongEngine = new SimpleLevelEngine('l-mahjong-canvas', 'hud-score-l3', 'Mahjong Dash');
     window.jetskiEngine = new SimpleLevelEngine('l-jetski-canvas', 'hud-score-l4', 'Memory Match');
