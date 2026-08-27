@@ -85,6 +85,12 @@
 
       if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
         window.ScreenManager.showScreen('trivia');
+      } else {
+        var landing = document.getElementById('screen-landing');
+        var trivia = document.getElementById('screen-trivia');
+        if (landing) { landing.style.setProperty('display', 'none', 'important'); landing.classList.remove('active'); }
+        if (trivia) { trivia.style.setProperty('display', 'flex', 'important'); trivia.classList.add('active'); trivia.style.zIndex = '1000'; }
+        if (window.triviaEngine) window.triviaEngine.start();
       }
       return false;
     };
@@ -103,6 +109,11 @@
 
       if (window.ScreenManager && typeof window.ScreenManager.showScreen === 'function') {
         window.ScreenManager.showScreen('dashboard');
+      } else {
+        var landing = document.getElementById('screen-landing');
+        var dash = document.getElementById('screen-dashboard');
+        if (landing) { landing.style.setProperty('display', 'none', 'important'); landing.classList.remove('active'); }
+        if (dash) { dash.style.setProperty('display', 'flex', 'important'); dash.classList.add('active'); dash.style.zIndex = '1000'; }
       }
       return false;
     };
@@ -1428,6 +1439,9 @@
         btn.addEventListener('click', clickHandler);
       }
     }
+
+    window.ScreenManager = ScreenManager;
+    window.appState = appState;
 
     class SoundEngine {
       constructor() {
