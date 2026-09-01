@@ -1309,10 +1309,10 @@
         </div>
 
         <div id="trivia-answers" class="trivia-answers">
-          <button type="button" class="trivia-btn">Cornell University</button>
-          <button type="button" class="trivia-btn">Harvard</button>
-          <button type="button" class="trivia-btn">Columbia</button>
-          <button type="button" class="trivia-btn">NYU</button>
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine) window.triviaEngine.selectAnswer(0, this);">Cornell University</button>
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine) window.triviaEngine.selectAnswer(1, this);">Harvard</button>
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine) window.triviaEngine.selectAnswer(2, this);">Columbia</button>
+          <button type="button" class="trivia-btn" onclick="if(window.triviaEngine) window.triviaEngine.selectAnswer(3, this);">NYU</button>
         </div>
       </div>
 
@@ -1732,6 +1732,15 @@
         this.renderQuestion();
       }
 
+      selectAnswer(optIndex, btnEl) {
+        if (!btnEl || btnEl.disabled) return;
+        const q = this.questions[this.currentIndex];
+        if (!q) return;
+
+        const isCorrect = (optIndex === q.correct) || (btnEl.textContent.trim().toLowerCase() === q.options[q.correct].trim().toLowerCase());
+        this.handleAnswer(isCorrect, btnEl);
+      }
+
       renderQuestion() {
         const q = this.questions[this.currentIndex];
         if (!q) return;
@@ -1758,6 +1767,14 @@
             btn.type = 'button';
             btn.className = 'trivia-btn';
             btn.textContent = optText;
+            btn.setAttribute('onclick', `if(window.triviaEngine) window.triviaEngine.selectAnswer(${idx}, this);`);
+            btn.onclick = (e) => {
+              if (e) {
+                if (e.preventDefault) e.preventDefault();
+                if (e.stopPropagation) e.stopPropagation();
+              }
+              this.selectAnswer(idx, btn);
+            };
             container.appendChild(btn);
           });
         }
@@ -1829,6 +1846,7 @@
           }
         } else {
           btnEl.classList.add('wrong');
+          btnEl.disabled = true;
           try { if (window.soundEngine) window.soundEngine.playBuzzer(); } catch(e){}
           try {
             if (this.wrongResponses && this.wrongResponses.length > 0) {
@@ -2232,10 +2250,8 @@
         if (container) {
           const btns = Array.from(container.querySelectorAll('.trivia-btn'));
           const idx = btns.indexOf(triviaBtn);
-          const q = window.triviaEngine.questions[window.triviaEngine.currentIndex];
-          if (q) {
-            const isCorrect = (idx === q.correct) || (triviaBtn.textContent.trim().toLowerCase() === q.options[q.correct].trim().toLowerCase());
-            window.triviaEngine.handleAnswer(isCorrect, triviaBtn);
+          if (idx !== -1) {
+            window.triviaEngine.selectAnswer(idx, triviaBtn);
           }
         }
         return;
