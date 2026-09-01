@@ -936,6 +936,8 @@
       transition: transform 0.1s ease, background 0.2s ease;
       position: relative;
       z-index: 200 !important;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .trivia-btn:active { transform: scale(0.97); }
@@ -1788,7 +1790,7 @@
       }
 
       handleAnswer(isCorrect, btnEl) {
-        if (!btnEl) return;
+        if (!btnEl || btnEl.disabled) return;
 
         if (isCorrect) {
           btnEl.classList.add('correct');
@@ -1811,9 +1813,15 @@
           const commTextEl = document.getElementById('c-text-l3');
           if (commTextEl) commTextEl.textContent = praiseText;
 
+          try {
+            if (window.soundEngine && typeof window.soundEngine.speakText === 'function') {
+              window.soundEngine.speakText(praiseText);
+            }
+          } catch(e){}
+
           appState.totalScore += 200;
 
-          const advanceNext = () => {
+          setTimeout(() => {
             this.currentIndex++;
             if (this.currentIndex >= this.questions.length) {
               appState.unlockNextLevel(1);
@@ -1823,27 +1831,8 @@
             } else {
               this.renderQuestion();
             }
-          };
+          }, 650);
 
-          let hasAdvanced = false;
-          const safeAdvance = () => {
-            if (hasAdvanced) return;
-            hasAdvanced = true;
-            advanceNext();
-          };
-
-          try {
-            if (window.soundEngine && !window.soundEngine.muted) {
-              window.soundEngine.speakText(praiseText, () => {
-                setTimeout(safeAdvance, 350);
-              });
-              setTimeout(safeAdvance, 2400);
-            } else {
-              setTimeout(safeAdvance, 1400);
-            }
-          } catch(err) {
-            setTimeout(safeAdvance, 1400);
-          }
         } else {
           btnEl.classList.add('wrong');
           btnEl.disabled = true;
@@ -1853,7 +1842,9 @@
               const wrongText = this.wrongResponses[this.wrongIndex];
               const commTextEl = document.getElementById('c-text-l3');
               if (commTextEl) commTextEl.textContent = wrongText;
-              if (window.soundEngine) window.soundEngine.speakText(wrongText);
+              if (window.soundEngine && typeof window.soundEngine.speakText === 'function') {
+                window.soundEngine.speakText(wrongText);
+              }
               this.wrongIndex = (this.wrongIndex + 1) % this.wrongResponses.length;
             }
           } catch(e){}
